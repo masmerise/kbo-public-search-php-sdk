@@ -1,0 +1,21 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<ns2:ContactInformation>
+ <ns2:ContactType>001</ns2:ContactType>
+ <ns2:Description>
+ <ns2:Value>Téléphone</ns2:Value>
+ <ns2:Language>fr</ns2:Language>
+ </ns2:Description>
+ <ns2:Value>0476/000000</ns2:Value>
+ <ns2:ForeignBranchOfficeFlag>false</ns2:ForeignBranchOfficeFlag>
+ <ns2:Begin>2017-12-24</ns2:Begin>
+</ns2:ContactInformation>
+<!-- The XSD makes ContactType, Description, the flag and Begin optional. -->
+<ns2:ContactInformation>
+ <ns2:Value>https://economie.fgov.be</ns2:Value>
+</ns2:ContactInformation>
+<ns2:ContactInformation>
+ <ns2:ContactType>009</ns2:ContactType>
+ <ns2:Value>something new</ns2:Value>
+ <ns2:ForeignBranchOfficeFlag>true</ns2:ForeignBranchOfficeFlag>
+</ns2:ContactInformation>
+</ns2:Snippet>

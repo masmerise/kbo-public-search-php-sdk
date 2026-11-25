@@ -1,0 +1,10 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<!-- Cookbook chapter 3 denominations of FOD Economie. -->
+<ns2:Denomination><ns2:Code>001</ns2:Code><ns2:Description><ns2:Value>Service public fédéral Economie, P.M.E., Classes moyennes et Energie</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+<ns2:Denomination><ns2:Code>001</ns2:Code><ns2:Description><ns2:Value>Federale Overheidsdienst Economie, KMO, Middenstand en
+Energie</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+<ns2:Denomination><ns2:Code>001</ns2:Code><ns2:Description><ns2:Value>Föderaler Öffentlicher Dienst Wirtschaft, K.M.B., Mittelstand und Energie</ns2:Value><ns2:Language>de</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+<ns2:Denomination><ns2:Code>002</ns2:Code><ns2:Description><ns2:Value>SPF Economie</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+<ns2:Denomination><ns2:Code>002</ns2:Code><ns2:Description><ns2:Value>FOD Economie</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+<ns2:Denomination><ns2:Code>002</ns2:Code><ns2:Description><ns2:Value>FÖD Wirtschaft</ns2:Value><ns2:Language>de</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-05+01:00</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+</ns2:Snippet>
