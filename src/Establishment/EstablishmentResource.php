@@ -145,7 +145,7 @@ final readonly class EstablishmentResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEstablishments(Request $request, string $onFailure): EstablishmentSearchReply
     {
-        $result = $this->search($request, $onFailure);
+        $result = $this->searchFor($request, $onFailure);
 
         return $this->reply(fn () => new EstablishmentSearchReply($result->context, $this->toEstablishments($result->body)));
     }

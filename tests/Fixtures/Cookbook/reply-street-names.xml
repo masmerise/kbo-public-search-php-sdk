@@ -1,0 +1,9 @@
+<!-- Cookbook §2.10.2 -->
+<ReadStreetNameReply xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages">
+  <StreetName>BASSEVELDESTRAAT</StreetName>
+  <StreetName>BIJSTERVELDWEG</StreetName>
+  <StreetName>ELYZEESE VELDEN</StreetName>
+  <StreetName>FILIPS VAN ARTEVELDESTRAAT</StreetName>
+  <StreetName>GEBROEDERS VANDEVELDESTRAAT</StreetName>
+  <StreetName>VELDSTRAAT</StreetName>
+</ReadStreetNameReply>

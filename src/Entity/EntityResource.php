@@ -41,7 +41,7 @@ final readonly class EntityResource extends KboResource
      */
     public function searchByActivity(ActivityCodes $activities, LocationFilter $location, ?EntityKinds $kinds = null, bool $onlyActive = true): EntitySearchReply
     {
-        $result = $this->search(
+        $result = $this->searchFor(
             new ReadEnterpriseOrEstablishmentByActivityRequest($activities, $location, $kinds ?? EntityKinds::all(), $onlyActive),
             CouldNotSearchEntitiesByActivity::class,
         );
@@ -65,7 +65,7 @@ final readonly class EntityResource extends KboResource
      */
     public function searchByAddress(Zipcode $zipcode, StreetName $street, HouseNumber $houseNumber, bool $onlyActive = true): EntitySearchReply
     {
-        $result = $this->search(
+        $result = $this->searchFor(
             new ReadEnterpriseOrEstablishmentByAddressRequest($zipcode, $street, $houseNumber, $onlyActive),
             CouldNotSearchEntitiesByAddress::class,
         );

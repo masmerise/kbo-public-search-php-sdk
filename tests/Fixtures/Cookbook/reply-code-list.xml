@@ -1,0 +1,25 @@
+<!-- Cookbook §2.14.2 -->
+<ReadCodeListReply xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages">
+<CodeListItem>
+  <Code>T005</Code>
+  <Description>
+    <ns2:Value>Aannemer ( Beroepsbekwaamheid algemeen aannemer in de bouwsector )</ns2:Value>
+    <ns2:Language>nl</ns2:Language>
+  </Description>
+  <KeyValuePair>
+    <Key>EntityKind</Key>
+    <Value>enterprise</Value>
+  </KeyValuePair>
+</CodeListItem>
+<CodeListItem>
+   <Code>T038</Code>
+   <Description>
+      <ns2:Value>Accountant ( Erkend door het Instituut van de Accountants en Belastingconsulenten )</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+   </Description>
+   <KeyValuePair>
+      <Key>EntityKind</Key>
+      <Value>enterprise</Value>
+   </KeyValuePair>
+</CodeListItem>
+</ReadCodeListReply>

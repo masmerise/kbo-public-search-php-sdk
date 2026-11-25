@@ -169,7 +169,7 @@ final readonly class EnterpriseResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEnterprises(Request $request, string $onFailure): EnterpriseSearchReply
     {
-        $result = $this->search($request, $onFailure);
+        $result = $this->searchFor($request, $onFailure);
 
         return $this->reply(fn () => new EnterpriseSearchReply($result->context, $this->toEnterpriseSummaries($result->body)));
     }

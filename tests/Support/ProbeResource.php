@@ -20,6 +20,6 @@ final readonly class ProbeResource extends KboResource
 
     public function probeSearch(Request $request): Result
     {
-        return $this->search($request, CouldNotProbe::class);
+        return $this->searchFor($request, CouldNotProbe::class);
     }
 }

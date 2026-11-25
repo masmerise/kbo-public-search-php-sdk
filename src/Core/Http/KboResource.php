@@ -66,7 +66,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function search(Request $request, string $onFailure): Result
+    protected function searchFor(Request $request, string $onFailure): Result
     {
         return $this->send(
             $request,

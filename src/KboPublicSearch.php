@@ -3,12 +3,14 @@
 namespace KboPublicSearch;
 
 use KboPublicSearch\Authentication\Credentials;
+use KboPublicSearch\CodeList\CodeListResource;
 use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Enterprise\EnterpriseResource;
 use KboPublicSearch\Entity\EntityResource;
 use KboPublicSearch\Environments\Environment;
 use KboPublicSearch\Establishment\EstablishmentResource;
 use KboPublicSearch\Localization\Languages;
+use KboPublicSearch\Street\StreetResource;
 use SensitiveParameter;
 
 final readonly class KboPublicSearch
@@ -16,11 +18,15 @@ final readonly class KboPublicSearch
     /** The KBO Public Search cookbook release this SDK implements. */
     public const string VERSION = 'R018.08';
 
+    public CodeListResource $codeLists;
+
     public EnterpriseResource $enterprises;
 
     public EntityResource $entities;
 
     public EstablishmentResource $establishments;
+
+    public StreetResource $streets;
 
     private KboConnector $client;
 
@@ -30,6 +36,8 @@ final readonly class KboPublicSearch
         $this->enterprises = new EnterpriseResource($this->client);
         $this->establishments = new EstablishmentResource($this->client);
         $this->entities = new EntityResource($this->client);
+        $this->streets = new StreetResource($this->client);
+        $this->codeLists = new CodeListResource($this->client);
     }
 
     public static function authenticate(#[SensitiveParameter] Credentials $credentials): self

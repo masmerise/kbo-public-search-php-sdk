@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:14:52 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>a19850e8-5dcd-4388-a32c-d582f67757bc<\/RequestId><ReplyId>9c310b97-0200-45be-899a-76efab1ecd50<\/ReplyId><ReplyStatus><Code>00001<\/Code><Description>The operation completed successfully<\/Description><\/ReplyStatus><AccountBalance>2978<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadStreetNameReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><StreetName>BASSEVELDESTRAAT<\/StreetName><StreetName>BIJSTERVELDWEG<\/StreetName><StreetName>ELYZEESE VELDEN<\/StreetName><StreetName>FILIPS VAN ARTEVELDESTRAAT<\/StreetName><StreetName>GEBROEDERS VANDEVELDESTRAAT<\/StreetName><StreetName>SCHAAPSVELD<\/StreetName><StreetName>VELDSTRAAT<\/StreetName><\/ReadStreetNameReply><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}
