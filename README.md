@@ -298,6 +298,9 @@ The test environment allows far fewer requests (100 a week at the time of writin
 Every request carries a WS-Security timestamp, which KBO checks against its own clock.
 Keep the clock of the machine running the SDK synchronised with a time server.
 
+KBO answers a rejected timestamp with the same generic security fault as wrong credentials, so a skewed clock
+surfaces as `CouldNotAuthenticate`. When credentials that worked before start failing, check the clock first.
+
 ## Terms of service
 
 KBO may ask you to accept new terms of service before it answers again:
