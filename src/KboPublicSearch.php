@@ -6,6 +6,7 @@ use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Enterprise\EnterpriseResource;
 use KboPublicSearch\Environments\Environment;
+use KboPublicSearch\Establishment\EstablishmentResource;
 use KboPublicSearch\Localization\Languages;
 use SensitiveParameter;
 
@@ -16,12 +17,15 @@ final readonly class KboPublicSearch
 
     public EnterpriseResource $enterprises;
 
+    public EstablishmentResource $establishments;
+
     private KboConnector $client;
 
     private function __construct(#[SensitiveParameter] Credentials $credentials)
     {
         $this->client = new KboConnector($credentials);
         $this->enterprises = new EnterpriseResource($this->client);
+        $this->establishments = new EstablishmentResource($this->client);
     }
 
     public static function authenticate(#[SensitiveParameter] Credentials $credentials): self

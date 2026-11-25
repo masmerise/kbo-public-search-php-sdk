@@ -20,6 +20,9 @@ abstract class RecordedTestCase extends TestCase
     /** The enterprise the recorded tests revolve around (settled by the first live round-trip). */
     public const string ENTERPRISE = '1037799832';
 
+    /** The establishment unit of ENTERPRISE (from establishment/of-enterprise). */
+    public const string ESTABLISHMENT = '2389061005';
+
     protected KboPublicSearch $kbo;
 
     protected function setUp(): void

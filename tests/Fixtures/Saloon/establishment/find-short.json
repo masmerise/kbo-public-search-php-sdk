@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:10:02 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>44b0030e-cc8c-4936-a8f9-c12d05530809<\/RequestId><ReplyId>25fd41d4-c084-484c-8c1c-5e8b8c1067d7<\/ReplyId><ReplyStatus><Code>00001<\/Code><Description>The operation completed successfully<\/Description><\/ReplyStatus><AccountBalance>2987<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadEstablishmentByEstablishmentNumberReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><ns2:Establishment><ns2:EstablishmentNumber>2389061005<\/ns2:EstablishmentNumber><ns2:Status><ns2:Code>AC<\/ns2:Code><ns2:Description><ns2:Value>Actief<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/ns2:Description><\/ns2:Status><ns2:Period><ns2:Begin>2026-05-11<\/ns2:Begin><\/ns2:Period><ns2:EnterpriseNumber>1037799832<\/ns2:EnterpriseNumber><ns2:EnterpriseStatus><ns2:Code>AC<\/ns2:Code><ns2:Description><ns2:Value>Actief<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/ns2:Description><\/ns2:EnterpriseStatus><ns2:PrimaryDenomination><ns2:Value>Masmerise<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/ns2:PrimaryDenomination><ns2:Address><ns2:Street><ns2:Code>7562<\/ns2:Code><ns2:Description><ns2:Value>Engelbert van Arenbergstraat<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/ns2:Description><\/ns2:Street><ns2:HouseNumber>56<\/ns2:HouseNumber><ns2:Zipcode>9000<\/ns2:Zipcode><ns2:Municipality><ns2:Code>44021<\/ns2:Code><ns2:Description><ns2:Value>Gent<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/ns2:Description><\/ns2:Municipality><ns2:Begin>2026-05-11<\/ns2:Begin><\/ns2:Address><\/ns2:Establishment><\/ReadEstablishmentByEstablishmentNumberReply><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}
