@@ -2,6 +2,7 @@
 
 namespace KboPublicSearch\Street\Type;
 
+use KboPublicSearch\Core\Utility\XmlText;
 use Stringable;
 use Webmozart\Assert\Assert;
 
@@ -11,6 +12,7 @@ final readonly class PartOfStreetName implements Stringable
     private function __construct(private string $value)
     {
         Assert::lengthBetween($value, 2, 32, 'Part of a street name must be between 2 and 32 characters.');
+        XmlText::assert($value, 'Part of a street name');
     }
 
     public static function fromString(string $value): self

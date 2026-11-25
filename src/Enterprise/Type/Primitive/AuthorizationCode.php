@@ -2,6 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type\Primitive;
 
+use KboPublicSearch\Core\Utility\XmlText;
 use Stringable;
 use Webmozart\Assert\Assert;
 
@@ -11,6 +12,7 @@ final readonly class AuthorizationCode implements Stringable
     private function __construct(private string $value)
     {
         Assert::length($value, 4, 'An authorization search code must be exactly 4 characters, e.g. "T004".');
+        XmlText::assert($value, 'An authorization search code');
     }
 
     public static function fromString(string $value): self

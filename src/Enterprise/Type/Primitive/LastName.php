@@ -2,6 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type\Primitive;
 
+use KboPublicSearch\Core\Utility\XmlText;
 use Stringable;
 use Webmozart\Assert\Assert;
 
@@ -11,6 +12,7 @@ final readonly class LastName implements Stringable
     private function __construct(private string $value)
     {
         Assert::lengthBetween($value, 1, 160, 'A last name must be between 1 and 160 characters.');
+        XmlText::assert($value, 'A last name');
     }
 
     public static function fromString(string $value): self
