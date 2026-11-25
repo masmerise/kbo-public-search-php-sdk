@@ -36,6 +36,27 @@ final class KboFixtureTest extends TestCase
     }
 
     #[Test]
+    public function redacts_natural_persons_enterprise_names(): void
+    {
+        // Arrange
+        $body = '<ns2:Enterprise><ns2:Number>1</ns2:Number><ns2:TypeOfEnterprise>EPP</ns2:TypeOfEnterprise>'
+            . '<ns2:Denomination><ns2:Code>001</ns2:Code><ns2:Description><ns2:Value>Doe, John</ns2:Value><ns2:Language/></ns2:Description></ns2:Denomination>'
+            . '<ns2:PrimaryDenomination><ns2:Value>Doe, John</ns2:Value><ns2:Language>nl</ns2:Language></ns2:PrimaryDenomination>'
+            . '<ns2:Activity><ns2:Description><ns2:Value>Consultancy</ns2:Value></ns2:Description></ns2:Activity></ns2:Enterprise>'
+            . '<ns2:Enterprise><ns2:TypeOfEnterprise>ELP</ns2:TypeOfEnterprise>'
+            . '<ns2:PrimaryDenomination><ns2:Value>FOD Economie</ns2:Value></ns2:PrimaryDenomination></ns2:Enterprise>';
+
+        // Act
+        $redacted = KboFixture::redact($body);
+
+        // Assert
+        $this->assertStringNotContainsString('Doe', $redacted);
+        $this->assertSame(2, substr_count($redacted, '<ns2:Value>REDACTED</ns2:Value>'));
+        $this->assertStringContainsString('<ns2:Value>Consultancy</ns2:Value>', $redacted);
+        $this->assertStringContainsString('<ns2:Value>FOD Economie</ns2:Value>', $redacted);
+    }
+
+    #[Test]
     public function leaves_empty_names_alone(): void
     {
         $this->assertSame('<Surname/><GivenName></GivenName>', KboFixture::redact('<Surname/><GivenName></GivenName>'));

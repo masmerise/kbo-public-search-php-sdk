@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:06:47 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>f88f89fc-9ca5-4a4c-8020-341a67b8d119<\/RequestId><ReplyId>cf72c6ac-e90e-459c-a59c-f732661c1eca<\/ReplyId><ReplyStatus><Code>00003<\/Code><Description>No data found for the request<\/Description><\/ReplyStatus><AccountBalance>2992<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadEnterpriseByPhonemeReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"\/><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}

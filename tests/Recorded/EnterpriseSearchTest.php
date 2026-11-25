@@ -1,0 +1,117 @@
+<?php declare(strict_types=1);
+
+namespace KboPublicSearch\Tests\Recorded;
+
+use KboPublicSearch\Core\Type\Parameter\LocationFilter;
+use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Enterprise\Reply\EnterpriseSearchReply;
+use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
+use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
+use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
+use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
+use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
+use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
+use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
+use KboPublicSearch\Enterprise\Type\Primitive\LastName;
+use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
+use KboPublicSearch\Tests\RecordedTestCase;
+use PHPUnit\Framework\Attributes\Test;
+
+final class EnterpriseSearchTest extends RecordedTestCase
+{
+    #[Test]
+    public function search_by_phoneme(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseByPhonemeRequest::class, 'enterprise/search-by-phoneme');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), EnterpriseTypes::legalPersons());
+
+        // Assert
+        $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);
+        $this->assertFalse($reply->isTruncated());
+        $this->assertGreaterThan(0, $reply->enterprises->count());
+
+        foreach ($reply->enterprises as $enterprise) {
+            $this->assertInstanceOf(EnterpriseSummary::class, $enterprise);
+            $this->assertNotEmpty($enterprise->name->first());
+            $this->assertSame(TypeOfEnterprise::LegalPerson, $enterprise->type);
+            $this->assertNotNull($enterprise->status);
+        }
+    }
+
+    #[Test]
+    public function search_by_phoneme_truncated(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseByPhonemeRequest::class, 'enterprise/search-by-phoneme-truncated');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('bvba'), EnterpriseTypes::all(), onlyActive: false);
+
+        // Assert
+        $this->assertTrue($reply->isTruncated());
+        $this->assertSame(200, $reply->enterprises->count());
+    }
+
+    #[Test]
+    public function search_by_phoneme_empty(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseByPhonemeRequest::class, 'enterprise/search-by-phoneme-empty');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('qxzqxzqxz'));
+
+        // Assert
+        $this->assertSame(0, $reply->enterprises->count());
+        $this->assertTrue($reply->context->status->isNoData());
+        $this->assertFalse($reply->isTruncated());
+    }
+
+    #[Test]
+    public function search_by_company_name(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest::class, 'enterprise/search-by-company-name');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByCompanyName(CompanyName::fromString('Federale Overheidsdienst Economie, K.M.O., Middenstand en Energie'));
+
+        // Assert
+        $this->assertGreaterThanOrEqual(1, $reply->enterprises->count());
+        $this->assertSame('0314595348', $reply->enterprises->first()?->number->toString());
+    }
+
+    #[Test]
+    public function search_by_person_name(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseByPhysicalPersonNameExactMatchRequest::class, 'enterprise/search-by-person-name');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByPersonName(LastName::fromString('Peeters'));
+
+        // Assert
+        $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);
+
+        foreach ($reply->enterprises as $enterprise) {
+            $this->assertSame(TypeOfEnterprise::NaturalPerson, $enterprise->type);
+        }
+    }
+
+    #[Test]
+    public function search_by_authorization(): void
+    {
+        // Arrange
+        $this->record(ReadEnterpriseByAuthorizationRequest::class, 'enterprise/search-by-authorization');
+
+        // Act
+        $reply = $this->kbo->enterprises->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::zipcodes('9300'));
+
+        // Assert
+        $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);
+    }
+}

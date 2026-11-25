@@ -1,0 +1,36 @@
+<?php declare(strict_types=1);
+
+namespace KboPublicSearch\Enterprise\Type;
+
+/** Which types of enterprise a search returns. */
+final readonly class EnterpriseTypes
+{
+    /** @param list<TypeOfEnterprise> $types */
+    private function __construct(private array $types) {}
+
+    public static function all(): self
+    {
+        return new self([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::NaturalPerson]);
+    }
+
+    public static function legalPersons(): self
+    {
+        return new self([TypeOfEnterprise::LegalPerson]);
+    }
+
+    public static function naturalPersons(): self
+    {
+        return new self([TypeOfEnterprise::NaturalPerson]);
+    }
+
+    public function isLegalPersonsOnly(): bool
+    {
+        return $this->types === [TypeOfEnterprise::LegalPerson];
+    }
+
+    /** @return list<TypeOfEnterprise> */
+    public function toArray(): array
+    {
+        return $this->types;
+    }
+}
