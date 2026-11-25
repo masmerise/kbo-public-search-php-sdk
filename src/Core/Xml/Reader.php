@@ -29,6 +29,11 @@ final readonly class Reader
             throw new RuntimeException('Response is not valid XML.');
         }
 
+        // SOAP forbids DTDs; refusing them keeps entity tricks out of every reply.
+        if ($document->doctype !== null) {
+            throw new RuntimeException('Response must not contain a document type declaration.');
+        }
+
         return new Element($document->documentElement);
     }
 }

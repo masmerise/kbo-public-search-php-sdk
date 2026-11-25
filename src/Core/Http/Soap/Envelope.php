@@ -68,6 +68,11 @@ final readonly class Envelope
     {
         try {
             $envelope = Reader::fromString($xml);
+
+            if ($envelope->name() !== 'Envelope') {
+                throw new RuntimeException('Response is not a SOAP envelope.');
+            }
+
             $fault = $envelope->optional('Body')?->optional('Fault');
         } catch (RuntimeException $ex) {
             throw UnknownException::sorry($ex);

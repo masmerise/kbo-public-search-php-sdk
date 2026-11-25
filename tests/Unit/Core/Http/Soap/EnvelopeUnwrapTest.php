@@ -79,6 +79,17 @@ final class EnvelopeUnwrapTest extends TestCase
     }
 
     #[Test]
+    public function a_root_other_than_envelope_is_unknown(): void
+    {
+        // Assert
+        $this->expectException(UnknownException::class);
+        $this->expectExceptionMessage('Response is not a SOAP envelope.');
+
+        // Act
+        Envelope::unwrap('<html><head/><body><Fault><faultstring>Quota Exceeded!</faultstring></Fault></body></html>');
+    }
+
+    #[Test]
     #[DataProvider('unexpected')]
     public function unexpected_bodies_are_unknown(string $xml): void
     {

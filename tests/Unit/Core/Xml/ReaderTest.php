@@ -79,6 +79,25 @@ final class ReaderTest extends TestCase
     }
 
     #[Test]
+    #[DataProvider('doctypes')]
+    public function document_type_declarations_are_rejected(string $xml): void
+    {
+        // Assert: SOAP 1.1 forbids DTDs, so a reply carrying one is never a KBO reply.
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Response must not contain a document type declaration.');
+
+        // Act
+        Reader::fromString($xml);
+    }
+
+    public static function doctypes(): iterable
+    {
+        yield 'external entity' => ['<?xml version="1.0"?><!DOCTYPE a [<!ENTITY x SYSTEM "file:///etc/hosts">]><a>&x;</a>'];
+        yield 'internal entity' => ['<!DOCTYPE a [<!ENTITY x "y">]><a>&x;</a>'];
+        yield 'html doctype' => ['<!DOCTYPE html><html><body>502</body></html>'];
+    }
+
+    #[Test]
     #[DataProvider('invalid')]
     public function invalid_xml_throws(string $xml): void
     {
