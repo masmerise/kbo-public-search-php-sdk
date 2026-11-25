@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Core\Type\Parameter;
 
 /** The level of detail of establishment replies ("TypeOfResult"). */
-enum Detail: string
+enum TypeOfResult: string
 {
     case Short = 'short';
     case Long = 'long';

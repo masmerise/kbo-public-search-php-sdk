@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
 use KboPublicSearch\Core\Type\Activity\ActivityClassificationKind;
-use KboPublicSearch\Core\Type\Activity\NaceVersion;
+use KboPublicSearch\Core\Type\Activity\NacebelVersion;
 use KboPublicSearch\Core\Type\Mapping\MapsActivities;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
@@ -25,7 +25,7 @@ final class MapsActivitiesTest extends TestCase
         $this->assertSame('006', $activity->group?->code);
         $this->assertSame('Activités ONSS', $activity->group?->description->in(Language::French));
         $this->assertSame('2008', $activity->versionCode);
-        $this->assertSame(NaceVersion::Nace2008, $activity->version);
+        $this->assertSame(NacebelVersion::Nacebel2008, $activity->version);
         $this->assertSame('2008-01-01', $activity->period->begin?->toString());
         $this->assertNull($activity->period->end);
         $this->assertSame(ActivityClassificationKind::Main, $activity->classification?->kind);

@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Address;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 /** A street. */
 final readonly class Street
@@ -11,6 +11,6 @@ final readonly class Street
     public function __construct(
         /** Null when KBO has no street code, e.g. for foreign addresses. */
         public ?string $code,
-        public LocalizedText $name,
+        public Description $name,
     ) {}
 }

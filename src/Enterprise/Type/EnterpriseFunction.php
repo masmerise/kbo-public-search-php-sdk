@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\Date;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
@@ -13,7 +13,7 @@ final readonly class EnterpriseFunction
     /** @internal */
     public function __construct(
         public string $code,
-        public LocalizedText $description,
+        public Description $description,
         public Period $period,
         public ?Person $person,
         /** The enterprise exercising the function, if any. */

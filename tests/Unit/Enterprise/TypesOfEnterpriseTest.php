@@ -1,0 +1,27 @@
+<?php declare(strict_types=1);
+
+namespace KboPublicSearch\Tests\Unit\Enterprise;
+
+use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
+use KboPublicSearch\Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
+final class TypesOfEnterpriseTest extends TestCase
+{
+    #[Test]
+    public function named_constructors(): void
+    {
+        $this->assertSame([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::NaturalPerson], TypesOfEnterprise::all()->toArray());
+        $this->assertSame([TypeOfEnterprise::LegalPerson], TypesOfEnterprise::legalPersons()->toArray());
+        $this->assertSame([TypeOfEnterprise::NaturalPerson], TypesOfEnterprise::naturalPersons()->toArray());
+    }
+
+    #[Test]
+    public function legal_persons_only(): void
+    {
+        $this->assertTrue(TypesOfEnterprise::legalPersons()->isLegalPersonsOnly());
+        $this->assertFalse(TypesOfEnterprise::all()->isLegalPersonsOnly());
+        $this->assertFalse(TypesOfEnterprise::naturalPersons()->isLegalPersonsOnly());
+    }
+}

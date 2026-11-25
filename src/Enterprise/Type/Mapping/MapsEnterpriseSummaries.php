@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type\Mapping;
 
 use KboPublicSearch\Core\Type\Mapping\MapsAddresses;
-use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
+use KboPublicSearch\Core\Type\Mapping\MapsDescriptions;
 use KboPublicSearch\Core\Type\Mapping\MapsPeriods;
 use KboPublicSearch\Core\Type\Mapping\MapsStatuses;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
@@ -19,7 +19,7 @@ use function KboPublicSearch\Core\Utility\transform;
 trait MapsEnterpriseSummaries
 {
     use MapsAddresses;
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
     use MapsStatuses;
 
@@ -34,11 +34,11 @@ trait MapsEnterpriseSummaries
             type: TypeOfEnterprise::from($enterprise->textOf('TypeOfEnterprise')),
             juridicalForm: transform($enterprise->optional('JuridicalForm'), fn (Element $form) => new JuridicalForm(
                 $form->textOf('Code'),
-                $this->toLocalizedText($form),
+                $this->toDescription($form),
                 $this->toOptionalPeriod($form, 'ValidityPeriod')?->begin,
                 null,
             )),
-            name: $this->toLocalizedText($enterprise, 'PrimaryDenomination'),
+            name: $this->toDescription($enterprise, 'PrimaryDenomination'),
             address: transform($enterprise->optional('Address'), $this->toAddress(...)),
             businessUnits: (int) ($enterprise->optionalText('BusinessUnits') ?? 0),
         );

@@ -7,8 +7,8 @@ use KboPublicSearch\Core\Type\Mapping\MapsAddresses;
 use KboPublicSearch\Core\Type\Mapping\MapsAuthorizations;
 use KboPublicSearch\Core\Type\Mapping\MapsContactInformation;
 use KboPublicSearch\Core\Type\Mapping\MapsDenominations;
+use KboPublicSearch\Core\Type\Mapping\MapsDescriptions;
 use KboPublicSearch\Core\Type\Mapping\MapsExOfficioStrikingOffs;
-use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
 use KboPublicSearch\Core\Type\Mapping\MapsPeriods;
 use KboPublicSearch\Core\Type\Mapping\MapsStatuses;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
@@ -28,7 +28,7 @@ trait MapsEstablishments
     use MapsContactInformation;
     use MapsDenominations;
     use MapsExOfficioStrikingOffs;
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
     use MapsStatuses;
 
@@ -40,7 +40,7 @@ trait MapsEstablishments
             period: $this->toRequiredPeriod($establishment, 'Period'),
             enterpriseNumber: transform($establishment->optionalText('EnterpriseNumber'), EnterpriseNumber::fromString(...)),
             enterpriseStatus: transform($establishment->optional('EnterpriseStatus'), $this->toStatus(...)),
-            name: $this->toLocalizedText($establishment, 'PrimaryDenomination'),
+            name: $this->toDescription($establishment, 'PrimaryDenomination'),
             denominations: $this->toDenominations($establishment),
             contactInformation: $this->toContactInformations($establishment),
             address: transform($establishment->optional('Address'), $this->toAddress(...)),

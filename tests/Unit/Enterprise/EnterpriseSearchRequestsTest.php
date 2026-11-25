@@ -6,17 +6,17 @@ use InvalidArgumentException;
 use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
+use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use KboPublicSearch\KboPublicSearch;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\TestCase;
@@ -30,7 +30,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
     public function phoneme_request_follows_the_xsd_order(): void
     {
         // Arrange
-        $request = new ReadEnterpriseByPhonemeRequest(Phonemes::of('a', 'b'), EnterpriseTypes::legalPersons(), Zipcode::fromString('1210'), JuridicalFormFilter::Other, true);
+        $request = new ReadEnterpriseByPhonemeRequest(Phonemes::of('a', 'b'), TypesOfEnterprise::legalPersons(), Zipcode::fromString('1210'), EnterpriseJuridicalForm::Other, true);
 
         // Act
         $xml = Message::xml($request);
@@ -45,7 +45,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
     public function phoneme_request_omits_optional_elements(): void
     {
         // Arrange
-        $request = new ReadEnterpriseByPhonemeRequest(Phonemes::of('a'), EnterpriseTypes::all(), null, null, false);
+        $request = new ReadEnterpriseByPhonemeRequest(Phonemes::of('a'), TypesOfEnterprise::all(), null, null, false);
 
         // Act
         $xml = Message::xml($request);
@@ -71,7 +71,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
     public function company_name_request_follows_the_xsd_order(): void
     {
         // Arrange
-        $request = new ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest(CompanyName::fromString('Acme'), Zipcode::fromString('9000'), JuridicalFormFilter::PrivateCompany, true);
+        $request = new ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest(CompanyName::fromString('Acme'), Zipcode::fromString('9000'), EnterpriseJuridicalForm::PrivateCompany, true);
 
         // Assert
         $this->assertSame('ReadEnterpriseLegalPersonByCompanyNameExactMatch', $request->operation());
@@ -83,7 +83,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
     public function authorization_request_follows_the_xsd_order(): void
     {
         // Arrange
-        $request = new ReadEnterpriseByAuthorizationRequest(AuthorizationCode::fromString('T004'), LocationFilter::zipcodes('9300'), false);
+        $request = new ReadEnterpriseByAuthorizationRequest(AuthorizationSearchCode::fromString('T004'), LocationFilter::zipcodes('9300'), false);
 
         // Assert
         $this->assertSame('ReadEnterpriseByAuthorization', $request->operation());
@@ -100,7 +100,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
 
         // Act
         try {
-            $kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), EnterpriseTypes::all(), juridicalForm: JuridicalFormFilter::Other);
+            $kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), TypesOfEnterprise::all(), juridicalForm: EnterpriseJuridicalForm::Other);
             $this->fail('Expected InvalidArgumentException.');
         } catch (InvalidArgumentException) {
             // Assert
@@ -115,8 +115,8 @@ final class EnterpriseSearchRequestsTest extends TestCase
             fn () => LastName::fromString(''),
             fn () => FirstName::fromString(str_repeat('a', 161)),
             fn () => CompanyName::fromString(''),
-            fn () => AuthorizationCode::fromString('T04'),
-            fn () => AuthorizationCode::fromString('T0045'),
+            fn () => AuthorizationSearchCode::fromString('T04'),
+            fn () => AuthorizationSearchCode::fromString('T0045'),
         ] as $build) {
             try {
                 $build();

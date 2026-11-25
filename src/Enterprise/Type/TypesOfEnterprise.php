@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 /** Which types of enterprise a search returns. */
-final readonly class EnterpriseTypes
+final readonly class TypesOfEnterprise
 {
     /** @param list<TypeOfEnterprise> $types */
     private function __construct(private array $types) {}

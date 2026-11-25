@@ -5,13 +5,13 @@ namespace KboPublicSearch\CodeList\Type\Mapping;
 use KboPublicSearch\CodeList\Type\CodeList;
 use KboPublicSearch\CodeList\Type\CodeListItem;
 use KboPublicSearch\CodeList\Type\KeyValuePair;
-use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
+use KboPublicSearch\Core\Type\Mapping\MapsDescriptions;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */
 trait MapsCodeLists
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
 
     private function toCodeList(Element $parent): CodeList
     {
@@ -22,7 +22,7 @@ trait MapsCodeLists
     {
         return new CodeListItem(
             code: $item->textOf('Code'),
-            description: $this->toLocalizedText($item),
+            description: $this->toDescription($item),
             keyValuePairs: array_map(
                 static fn (Element $pair) => new KeyValuePair($pair->optionalText('Key') ?? '', $pair->optionalText('Value') ?? ''),
                 $item->children('KeyValuePair'),

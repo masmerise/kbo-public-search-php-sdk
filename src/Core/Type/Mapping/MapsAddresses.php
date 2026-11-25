@@ -17,7 +17,7 @@ use function KboPublicSearch\Core\Utility\transform;
 /** @internal */
 trait MapsAddresses
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
 
     private function toAddress(Element $address): Address
@@ -26,26 +26,26 @@ trait MapsAddresses
         $municipality = $address->child('Municipality');
 
         return new Address(
-            street: new Street($street->optionalText('Code'), $this->toLocalizedText($street)),
+            street: new Street($street->optionalText('Code'), $this->toDescription($street)),
             houseNumber: $address->optionalText('HouseNumber') ?? '',
             box: $address->optionalText('Box'),
             zipcode: $address->optionalText('Zipcode') ?? '',
-            municipality: new Municipality($municipality->optionalText('Code'), $this->toLocalizedText($municipality)),
+            municipality: new Municipality($municipality->optionalText('Code'), $this->toDescription($municipality)),
             extraAddressInfo: $address->optionalText('ExtraAddressInfo'),
             country: transform($address->optional('Country'), fn (Element $country) => new Country(
                 $country->textOf('Code'),
-                $this->toLocalizedText($country),
+                $this->toDescription($country),
             )),
             since: $this->toDate($address, 'Begin'),
             type: transform($address->optional('TypeOfAddress'), fn (Element $type) => new TypeOfAddress(
                 $code = $type->textOf('Code'),
                 AddressKind::tryFrom($code),
-                $this->toLocalizedText($type),
+                $this->toDescription($type),
             )),
             strikingOff: $this->toDate($address, 'StrikingOff'),
             technicalCreationReason: transform($address->optional('TechnicalCreationReason'), fn (Element $reason) => new TechnicalCreationReason(
                 $reason->textOf('Code'),
-                $this->toLocalizedText($reason),
+                $this->toDescription($reason),
             )),
         );
     }

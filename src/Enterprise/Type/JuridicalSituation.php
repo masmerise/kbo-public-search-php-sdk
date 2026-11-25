@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Type\Primitive\Date;
 use KboPublicSearch\Core\Type\Status\Status;
 
@@ -12,10 +12,10 @@ final readonly class JuridicalSituation
     /** @internal */
     public function __construct(
         public string $code,
-        public LocalizedText $description,
+        public Description $description,
         /** ValidityPeriod > Begin. */
         public ?Date $since,
         public Status $status,
-        public ?JuridicalEvent $event,
+        public ?Event $event,
     ) {}
 }

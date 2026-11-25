@@ -9,14 +9,14 @@ use KboPublicSearch\Core\Xml\Element;
 /** @internal */
 trait MapsAuthorizations
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
 
     private function toAuthorization(Element $authorization): Authorization
     {
         return new Authorization(
             code: $authorization->textOf('Code'),
-            description: $this->toLocalizedText($authorization),
+            description: $this->toDescription($authorization),
             period: $this->toRequiredPeriod($authorization, 'Period'),
         );
     }

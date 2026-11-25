@@ -5,16 +5,16 @@ namespace KboPublicSearch\Entity\SearchByActivity\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Entity\Type\ActivityCodes;
-use KboPublicSearch\Entity\Type\EntityKinds;
+use KboPublicSearch\Entity\Type\ActivityFilter;
+use KboPublicSearch\Entity\Type\EntityFilter;
 
 /** @internal */
 final class ReadEnterpriseOrEstablishmentByActivityRequest extends Request
 {
     public function __construct(
-        private readonly ActivityCodes $activities,
+        private readonly ActivityFilter $activities,
         private readonly LocationFilter $location,
-        private readonly EntityKinds $kinds,
+        private readonly EntityFilter $kinds,
         private readonly bool $onlyActive,
     ) {}
 

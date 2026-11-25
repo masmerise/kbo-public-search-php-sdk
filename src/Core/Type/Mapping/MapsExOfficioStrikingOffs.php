@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOff;
-use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOffs;
+use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOff;
+use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;
@@ -11,14 +11,14 @@ use function KboPublicSearch\Core\Utility\transform;
 /** @internal */
 trait MapsExOfficioStrikingOffs
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
 
     private function toExOfficioStrikingOff(Element $strikingOff): ExOfficioStrikingOff
     {
         return new ExOfficioStrikingOff(
             code: $strikingOff->textOf('Code'),
-            description: $this->toLocalizedText($strikingOff),
+            description: $this->toDescription($strikingOff),
             since: transform($strikingOff->optional('ValidityPeriod'), fn (Element $period) => $this->toDate($period, 'Begin')),
         );
     }

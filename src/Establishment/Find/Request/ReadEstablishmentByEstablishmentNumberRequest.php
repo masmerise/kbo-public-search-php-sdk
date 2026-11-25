@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Establishment\Find\Request;
 
 use KboPublicSearch\Core\Http\Request;
-use KboPublicSearch\Core\Type\Parameter\Detail;
+use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Xml\Node;
 
@@ -12,7 +12,7 @@ final class ReadEstablishmentByEstablishmentNumberRequest extends Request
 {
     public function __construct(
         private readonly EstablishmentNumber $number,
-        private readonly Detail $detail,
+        private readonly TypeOfResult $detail,
     ) {}
 
     public function operation(): string

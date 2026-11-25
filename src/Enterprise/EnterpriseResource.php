@@ -12,7 +12,7 @@ use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\Find\Failure\CouldNotFindEnterprise;
@@ -27,13 +27,13 @@ use KboPublicSearch\Enterprise\SearchByPersonName\Failure\CouldNotSearchEnterpri
 use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Failure\CouldNotSearchEnterprisesByPhoneme;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
+use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterprises;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterpriseSummaries;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use Webmozart\Assert\Assert;
 
 /** @internal */
@@ -92,7 +92,7 @@ final readonly class EnterpriseResource extends KboResource
      *
      * @param CompanyName $name The exact company name.
      * @param Zipcode|null $zipcode Only enterprises with this zipcode.
-     * @param JuridicalFormFilter|null $juridicalForm Only enterprises with this juridical form.
+     * @param EnterpriseJuridicalForm|null $juridicalForm Only enterprises with this juridical form.
      * @param bool $onlyActive Only active enterprises.
      *
      * @throws CouldNotAuthenticate
@@ -101,7 +101,7 @@ final readonly class EnterpriseResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByCompanyName(CompanyName $name, ?Zipcode $zipcode = null, ?JuridicalFormFilter $juridicalForm = null, bool $onlyActive = true): EnterpriseSearchReply
+    public function searchByCompanyName(CompanyName $name, ?Zipcode $zipcode = null, ?EnterpriseJuridicalForm $juridicalForm = null, bool $onlyActive = true): EnterpriseSearchReply
     {
         return $this->searchEnterprises(
             new ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest($name, $zipcode, $juridicalForm, $onlyActive),
@@ -112,7 +112,7 @@ final readonly class EnterpriseResource extends KboResource
     /**
      * Search enterprises holding an authorization in a location (SOAP operation ReadEnterpriseByAuthorization).
      *
-     * @param AuthorizationCode $code An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
+     * @param AuthorizationSearchCode $code An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
      * @param LocationFilter $location Municipalities, a municipality and its neighbours, or zipcodes.
      * @param bool $onlyActive Only active enterprises.
      *
@@ -122,7 +122,7 @@ final readonly class EnterpriseResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByAuthorization(AuthorizationCode $code, LocationFilter $location, bool $onlyActive = true): EnterpriseSearchReply
+    public function searchByAuthorization(AuthorizationSearchCode $code, LocationFilter $location, bool $onlyActive = true): EnterpriseSearchReply
     {
         return $this->searchEnterprises(
             new ReadEnterpriseByAuthorizationRequest($code, $location, $onlyActive),
@@ -134,9 +134,9 @@ final readonly class EnterpriseResource extends KboResource
      * Search enterprises phonetically by name (SOAP operation ReadEnterpriseByPhoneme).
      *
      * @param Phonemes $phonemes 1 to 10 words.
-     * @param EnterpriseTypes $types Legal persons, natural persons or both.
+     * @param TypesOfEnterprise $types Legal persons, natural persons or both.
      * @param Zipcode|null $zipcode Only enterprises with this zipcode.
-     * @param JuridicalFormFilter|null $juridicalForm Only with EnterpriseTypes::legalPersons().
+     * @param EnterpriseJuridicalForm|null $juridicalForm Only with TypesOfEnterprise::legalPersons().
      * @param bool $onlyActive Only active enterprises.
      *
      * @throws CouldNotAuthenticate
@@ -148,16 +148,16 @@ final readonly class EnterpriseResource extends KboResource
      */
     public function searchByPhoneme(
         Phonemes $phonemes,
-        ?EnterpriseTypes $types = null,
+        ?TypesOfEnterprise $types = null,
         ?Zipcode $zipcode = null,
-        ?JuridicalFormFilter $juridicalForm = null,
+        ?EnterpriseJuridicalForm $juridicalForm = null,
         bool $onlyActive = true,
     ): EnterpriseSearchReply {
-        $types ??= EnterpriseTypes::all();
+        $types ??= TypesOfEnterprise::all();
 
         Assert::true(
             $juridicalForm === null || $types->isLegalPersonsOnly(),
-            'A juridical form can only be searched for together with EnterpriseTypes::legalPersons().',
+            'A juridical form can only be searched for together with TypesOfEnterprise::legalPersons().',
         );
 
         return $this->searchEnterprises(

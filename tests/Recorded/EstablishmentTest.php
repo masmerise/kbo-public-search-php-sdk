@@ -3,10 +3,10 @@
 namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Reply\ReplyStatus;
-use KboPublicSearch\Core\Type\Parameter\Detail;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Establishment\Find\Failure\CouldNotFindEstablishment;
@@ -60,7 +60,7 @@ final class EstablishmentTest extends RecordedTestCase
         $this->record(ReadEstablishmentByEstablishmentNumberRequest::class, 'establishment/find-long');
 
         // Act
-        $reply = $this->kbo->establishments->find(EstablishmentNumber::fromString(self::ESTABLISHMENT), Detail::Long);
+        $reply = $this->kbo->establishments->find(EstablishmentNumber::fromString(self::ESTABLISHMENT), TypeOfResult::Long);
 
         // Assert
         $this->assertGreaterThan(0, $reply->establishment->activities->count());
@@ -120,7 +120,7 @@ final class EstablishmentTest extends RecordedTestCase
         $this->record(ReadEstablishmentByAuthorizationRequest::class, 'establishment/search-by-authorization');
 
         // Act
-        $reply = $this->kbo->establishments->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::municipalities('44021'));
+        $reply = $this->kbo->establishments->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::municipalities('44021'));
 
         // Assert
         $this->assertInstanceOf(EstablishmentSearchReply::class, $reply);

@@ -16,8 +16,8 @@ use KboPublicSearch\Entity\SearchByActivity\Failure\CouldNotSearchEntitiesByActi
 use KboPublicSearch\Entity\SearchByActivity\Request\ReadEnterpriseOrEstablishmentByActivityRequest;
 use KboPublicSearch\Entity\SearchByAddress\Failure\CouldNotSearchEntitiesByAddress;
 use KboPublicSearch\Entity\SearchByAddress\Request\ReadEnterpriseOrEstablishmentByAddressRequest;
-use KboPublicSearch\Entity\Type\ActivityCodes;
-use KboPublicSearch\Entity\Type\EntityKinds;
+use KboPublicSearch\Entity\Type\ActivityFilter;
+use KboPublicSearch\Entity\Type\EntityFilter;
 use KboPublicSearch\Entity\Type\Mapping\MapsEntities;
 
 /** @internal */
@@ -28,9 +28,9 @@ final readonly class EntityResource extends KboResource
     /**
      * Search enterprises and establishment units by NACEBEL activity in a location (SOAP operation ReadEnterpriseOrEstablishmentByActivity).
      *
-     * @param ActivityCodes $activities 1 to 10 NACEBEL 2025 codes or prefixes.
+     * @param ActivityFilter $activities 1 to 10 NACEBEL 2025 codes or prefixes.
      * @param LocationFilter $location Municipalities, a municipality and its neighbours, or zipcodes.
-     * @param EntityKinds|null $kinds Natural persons, legal persons and/or establishment units; all by default.
+     * @param EntityFilter|null $kinds Natural persons, legal persons and/or establishment units; all by default.
      * @param bool $onlyActive Only active entities.
      *
      * @throws CouldNotAuthenticate
@@ -39,10 +39,10 @@ final readonly class EntityResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByActivity(ActivityCodes $activities, LocationFilter $location, ?EntityKinds $kinds = null, bool $onlyActive = true): EntitySearchReply
+    public function searchByActivity(ActivityFilter $activities, LocationFilter $location, ?EntityFilter $kinds = null, bool $onlyActive = true): EntitySearchReply
     {
         $unwrapped = $this->searchFor(
-            new ReadEnterpriseOrEstablishmentByActivityRequest($activities, $location, $kinds ?? EntityKinds::all(), $onlyActive),
+            new ReadEnterpriseOrEstablishmentByActivityRequest($activities, $location, $kinds ?? EntityFilter::all(), $onlyActive),
             CouldNotSearchEntitiesByActivity::class,
         );
 

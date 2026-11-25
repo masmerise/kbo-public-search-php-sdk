@@ -6,7 +6,7 @@ use Closure;
 use InvalidArgumentException;
 use KboPublicSearch\Authentication\Username;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
@@ -44,7 +44,7 @@ final class XmlSafeTextTest extends TestCase
             'street name' => StreetName::fromString(...),
             'house number' => HouseNumber::fromString(...),
             'part of street name' => PartOfStreetName::fromString(...),
-            'authorization code' => AuthorizationCode::fromString(...),
+            'authorization code' => AuthorizationSearchCode::fromString(...),
             'phoneme' => static fn (string $value) => Phonemes::of($value),
         ];
 

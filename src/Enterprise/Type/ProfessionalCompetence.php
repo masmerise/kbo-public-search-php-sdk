@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\Date;
 
@@ -12,7 +12,7 @@ final readonly class ProfessionalCompetence
     /** @internal */
     public function __construct(
         public string $code,
-        public LocalizedText $description,
+        public Description $description,
         public Period $period,
         /** Exemption > Begin. */
         public ?Date $exemptionSince,

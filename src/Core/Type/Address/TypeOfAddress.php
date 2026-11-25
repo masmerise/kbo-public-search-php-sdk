@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Address;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 /** What kind of address an Address is. */
 final readonly class TypeOfAddress
@@ -12,6 +12,6 @@ final readonly class TypeOfAddress
         public string $code,
         /** Null for a code this SDK does not know yet. */
         public ?AddressKind $kind,
-        public LocalizedText $description,
+        public Description $description,
     ) {}
 }

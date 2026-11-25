@@ -7,8 +7,8 @@ use KboPublicSearch\Core\Type\Mapping\MapsAddresses;
 use KboPublicSearch\Core\Type\Mapping\MapsAuthorizations;
 use KboPublicSearch\Core\Type\Mapping\MapsContactInformation;
 use KboPublicSearch\Core\Type\Mapping\MapsDenominations;
+use KboPublicSearch\Core\Type\Mapping\MapsDescriptions;
 use KboPublicSearch\Core\Type\Mapping\MapsExOfficioStrikingOffs;
-use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
 use KboPublicSearch\Core\Type\Mapping\MapsPeriods;
 use KboPublicSearch\Core\Type\Mapping\MapsStatuses;
 use KboPublicSearch\Core\Type\Primitive\Date;
@@ -19,10 +19,10 @@ use KboPublicSearch\Enterprise\Type\Branches;
 use KboPublicSearch\Enterprise\Type\Capital;
 use KboPublicSearch\Enterprise\Type\Enterprise;
 use KboPublicSearch\Enterprise\Type\EnterpriseFunction;
+use KboPublicSearch\Enterprise\Type\Event;
 use KboPublicSearch\Enterprise\Type\FinancialData;
 use KboPublicSearch\Enterprise\Type\FunctionCac;
 use KboPublicSearch\Enterprise\Type\Functions;
-use KboPublicSearch\Enterprise\Type\JuridicalEvent;
 use KboPublicSearch\Enterprise\Type\JuridicalForm;
 use KboPublicSearch\Enterprise\Type\JuridicalFormCac;
 use KboPublicSearch\Enterprise\Type\JuridicalSituation;
@@ -48,7 +48,7 @@ trait MapsEnterprises
     use MapsContactInformation;
     use MapsDenominations;
     use MapsExOfficioStrikingOffs;
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
     use MapsPeriods;
     use MapsStatuses;
 
@@ -108,7 +108,7 @@ trait MapsEnterprises
     {
         return new EnterpriseFunction(
             code: $function->textOf('Code'),
-            description: $this->toLocalizedText($function),
+            description: $this->toDescription($function),
             period: $this->toRequiredPeriod($function, 'Period'),
             person: transform($function->optional('Person'), static fn (Element $person) => new Person(
                 $person->optionalText('Surname') ?? '',
@@ -118,7 +118,7 @@ trait MapsEnterprises
             professionalSyndic: transform($function->optional('ProfessionalSyndic')?->optionalText('EnterpriseNumber'), EnterpriseNumber::fromString(...)),
             cac: transform($function->optional('FunctionCAC'), fn (Element $cac) => new FunctionCac(
                 $cac->textOf('Code'),
-                $this->toLocalizedText($cac),
+                $this->toDescription($cac),
                 $this->toRequiredPeriod($cac, 'CACPeriod'),
             )),
             strikingOff: $this->toDate($function, 'StrikingOff'),
@@ -130,11 +130,11 @@ trait MapsEnterprises
     {
         return new JuridicalForm(
             code: $form->textOf('Code'),
-            description: $this->toLocalizedText($form),
+            description: $this->toDescription($form),
             since: $this->toOptionalPeriod($form, 'ValidityPeriod')?->begin,
             cac: transform($form->optional('JuridicalFormCAC'), fn (Element $cac) => new JuridicalFormCac(
                 $cac->textOf('Code'),
-                $this->toLocalizedText($cac),
+                $this->toDescription($cac),
                 Date::fromString($cac->textOf('CACDate')),
             )),
         );
@@ -144,12 +144,12 @@ trait MapsEnterprises
     {
         return new JuridicalSituation(
             code: $situation->optionalText('Code') ?? '',
-            description: $this->toLocalizedText($situation),
+            description: $this->toDescription($situation),
             since: $this->toOptionalPeriod($situation, 'ValidityPeriod')?->begin,
             status: $this->toStatus($situation->child('Status')),
-            event: transform($situation->optional('Event'), fn (Element $event) => new JuridicalEvent(
+            event: transform($situation->optional('Event'), fn (Element $event) => new Event(
                 $event->textOf('Code'),
-                $this->toLocalizedText($event),
+                $this->toDescription($event),
                 Date::fromString($event->textOf('EventDate')),
             )),
         );
@@ -159,7 +159,7 @@ trait MapsEnterprises
     {
         return new LinkedEnterprise(
             code: $link->textOf('Code'),
-            description: $this->toLocalizedText($link),
+            description: $this->toDescription($link),
             subject: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberSubject')),
             object: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberObject')),
             period: $this->toRequiredPeriod($link, 'Period'),
@@ -170,7 +170,7 @@ trait MapsEnterprises
     {
         return new ProfessionalCompetence(
             code: $competence->textOf('Code'),
-            description: $this->toLocalizedText($competence),
+            description: $this->toDescription($competence),
             period: $this->toRequiredPeriod($competence, 'Period'),
             exemptionSince: $this->toOptionalPeriod($competence, 'Exemption')?->begin,
             strikingOff: $this->toDate($competence, 'StrikingOff'),
@@ -181,7 +181,7 @@ trait MapsEnterprises
     {
         return new Qualification(
             code: $qualification->textOf('Code'),
-            description: $this->toLocalizedText($qualification),
+            description: $this->toDescription($qualification),
             period: $this->toRequiredPeriod($qualification, 'Period'),
         );
     }

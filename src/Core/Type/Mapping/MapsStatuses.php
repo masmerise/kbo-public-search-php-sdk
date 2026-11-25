@@ -9,7 +9,7 @@ use KboPublicSearch\Core\Xml\Element;
 /** @internal */
 trait MapsStatuses
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
 
     private function toStatus(Element $status): Status
     {
@@ -18,7 +18,7 @@ trait MapsStatuses
         return new Status(
             code: $code,
             kind: StatusKind::tryFrom($code),
-            description: $this->toLocalizedText($status),
+            description: $this->toDescription($status),
         );
     }
 }

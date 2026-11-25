@@ -2,15 +2,15 @@
 
 namespace KboPublicSearch\Core\Type\Activity;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 /** The administration that registered an activity (ActivityGroupAdministration). */
-final readonly class ActivityGroup
+final readonly class ActivityGroupAdministration
 {
     /** @internal */
     public function __construct(
-        /** The ActivityGroup code, e.g. "006" (RSZ-activiteiten). */
+        /** The ActivityGroupAdministration code, e.g. "006" (RSZ-activiteiten). */
         public string $code,
-        public LocalizedText $description,
+        public Description $description,
     ) {}
 }

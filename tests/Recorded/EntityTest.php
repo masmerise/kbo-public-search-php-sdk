@@ -10,7 +10,7 @@ use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
 use KboPublicSearch\Entity\Reply\EntitySearchReply;
 use KboPublicSearch\Entity\SearchByActivity\Request\ReadEnterpriseOrEstablishmentByActivityRequest;
 use KboPublicSearch\Entity\SearchByAddress\Request\ReadEnterpriseOrEstablishmentByAddressRequest;
-use KboPublicSearch\Entity\Type\ActivityCodes;
+use KboPublicSearch\Entity\Type\ActivityFilter;
 use KboPublicSearch\Establishment\Type\Establishment;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
@@ -39,7 +39,7 @@ final class EntityTest extends RecordedTestCase
         $this->record(ReadEnterpriseOrEstablishmentByActivityRequest::class, 'entity/search-by-activity');
 
         // Act
-        $reply = $this->kbo->entities->searchByActivity(ActivityCodes::of('10711'), LocationFilter::zipcodes('9300'));
+        $reply = $this->kbo->entities->searchByActivity(ActivityFilter::of('10711'), LocationFilter::zipcodes('9300'));
 
         // Assert
         $this->assertGreaterThan(0, $reply->entities->count());

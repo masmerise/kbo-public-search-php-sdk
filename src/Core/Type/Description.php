@@ -6,7 +6,7 @@ use KboPublicSearch\Localization\Language;
 use Stringable;
 
 /** A description in each language KBO returned it in. */
-final readonly class LocalizedText implements Stringable
+final readonly class Description implements Stringable
 {
     /** @param array<string, string> $byLanguage */
     private function __construct(private array $byLanguage) {}

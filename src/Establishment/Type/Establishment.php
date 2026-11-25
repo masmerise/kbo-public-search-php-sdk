@@ -5,19 +5,19 @@ namespace KboPublicSearch\Establishment\Type;
 use KboPublicSearch\Core\Type\Activity\Activities;
 use KboPublicSearch\Core\Type\Address\Address;
 use KboPublicSearch\Core\Type\Authorization\Authorizations;
-use KboPublicSearch\Core\Type\Contact\ContactInformations;
+use KboPublicSearch\Core\Type\ContactInformation\ContactInformations;
 use KboPublicSearch\Core\Type\Denomination\Denominations;
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
+use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Type\Status\Status;
-use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOffs;
 
 /**
  * An establishment unit ("vestigingseenheid").
  *
- * Detail::Short fills $name; Detail::Long fills $denominations, $activities, $authorizations and
+ * TypeOfResult::Short fills $name; TypeOfResult::Long fills $denominations, $activities, $authorizations and
  * $enterpriseExOfficioStrikingOffs instead. What a level does not return is empty.
  */
 final readonly class Establishment
@@ -31,7 +31,7 @@ final readonly class Establishment
         public ?EnterpriseNumber $enterpriseNumber,
         public ?Status $enterpriseStatus,
         /** PrimaryDenomination (short): the name in each requested language. */
-        public LocalizedText $name,
+        public Description $name,
         /** Every name (long). */
         public Denominations $denominations,
         public ContactInformations $contactInformation,

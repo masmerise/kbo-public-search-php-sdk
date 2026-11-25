@@ -4,14 +4,14 @@ namespace KboPublicSearch\Establishment\SearchByAuthorization\Request;
 
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Xml\Node;
 
 /** @internal */
 final class ReadEstablishmentByAuthorizationRequest extends Request
 {
     public function __construct(
-        private readonly AuthorizationCode $code,
+        private readonly AuthorizationSearchCode $code,
         private readonly LocationFilter $location,
         private readonly bool $onlyActive,
     ) {}

@@ -3,10 +3,10 @@
 namespace KboPublicSearch\Tests\Unit\Establishment;
 
 use InvalidArgumentException;
-use KboPublicSearch\Core\Type\Parameter\Detail;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
@@ -26,7 +26,7 @@ final class EstablishmentRequestsTest extends TestCase
     public function find_request(): void
     {
         // Arrange
-        $request = new ReadEstablishmentByEstablishmentNumberRequest(EstablishmentNumber::fromString('2147241191'), Detail::Long);
+        $request = new ReadEstablishmentByEstablishmentNumberRequest(EstablishmentNumber::fromString('2147241191'), TypeOfResult::Long);
 
         // Assert
         $this->assertSame('ReadEstablishmentByEstablishmentNumber', $request->operation());
@@ -37,7 +37,7 @@ final class EstablishmentRequestsTest extends TestCase
     public function of_enterprise_request(): void
     {
         // Arrange
-        $request = new ReadEstablishmentByEnterpriseNumberRequest(EnterpriseNumber::fromString('0314595348'), Detail::Short);
+        $request = new ReadEstablishmentByEnterpriseNumberRequest(EnterpriseNumber::fromString('0314595348'), TypeOfResult::Short);
 
         // Assert
         $this->assertSame('ReadEstablishmentByEnterpriseNumber', $request->operation());
@@ -71,7 +71,7 @@ final class EstablishmentRequestsTest extends TestCase
     public function authorization_request(): void
     {
         // Arrange
-        $request = new ReadEstablishmentByAuthorizationRequest(AuthorizationCode::fromString('T004'), LocationFilter::municipalities('44021'), true);
+        $request = new ReadEstablishmentByAuthorizationRequest(AuthorizationSearchCode::fromString('T004'), LocationFilter::municipalities('44021'), true);
 
         // Assert
         $this->assertSame('ReadEstablishmentByAuthorization', $request->operation());

@@ -6,18 +6,18 @@ use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
+use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 
 /** @internal */
 final class ReadEnterpriseByPhonemeRequest extends Request
 {
     public function __construct(
         private readonly Phonemes $phonemes,
-        private readonly EnterpriseTypes $types,
+        private readonly TypesOfEnterprise $types,
         private readonly ?Zipcode $zipcode,
-        private readonly ?JuridicalFormFilter $juridicalForm,
+        private readonly ?EnterpriseJuridicalForm $juridicalForm,
         private readonly bool $onlyActive,
     ) {}
 

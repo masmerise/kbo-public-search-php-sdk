@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Address;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 /** A municipality. */
 final readonly class Municipality
@@ -11,6 +11,6 @@ final readonly class Municipality
     public function __construct(
         /** The NIS code; null for foreign addresses. */
         public ?string $code,
-        public LocalizedText $name,
+        public Description $name,
     ) {}
 }

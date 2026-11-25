@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 /** The juridical forms a search can be restricted to (messages.xsd JuridicalFormType, cookbook §2.2.1). */
-enum JuridicalFormFilter: string
+enum EnterpriseJuridicalForm: string
 {
     case CooperativeUnlimited = '006';
     case CooperativeLimited = '008';

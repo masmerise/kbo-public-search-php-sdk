@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Activity;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 /** Whether an activity is a main, ancillary or secondary activity. */
 final readonly class ActivityClassification
@@ -12,6 +12,6 @@ final readonly class ActivityClassification
         public string $code,
         /** Null for a code this SDK does not know yet. */
         public ?ActivityClassificationKind $kind,
-        public LocalizedText $description,
+        public Description $description,
     ) {}
 }

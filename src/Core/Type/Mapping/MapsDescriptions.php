@@ -2,14 +2,14 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */
-trait MapsLocalizedTexts
+trait MapsDescriptions
 {
     /** Reads the repeated {Value, Language} elements named $element (Description, PrimaryDenomination, ...). */
-    private function toLocalizedText(Element $parent, string $element = 'Description'): LocalizedText
+    private function toDescription(Element $parent, string $element = 'Description'): Description
     {
         $texts = [];
 
@@ -17,6 +17,6 @@ trait MapsLocalizedTexts
             $texts[$description->optionalText('Language') ?? ''] ??= $description->optionalText('Value') ?? '';
         }
 
-        return LocalizedText::of($texts);
+        return Description::of($texts);
     }
 }

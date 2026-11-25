@@ -5,11 +5,11 @@ namespace KboPublicSearch\Enterprise\Type;
 use KboPublicSearch\Core\Type\Activity\Activities;
 use KboPublicSearch\Core\Type\Address\Addresses;
 use KboPublicSearch\Core\Type\Authorization\Authorizations;
-use KboPublicSearch\Core\Type\Contact\ContactInformations;
+use KboPublicSearch\Core\Type\ContactInformation\ContactInformations;
 use KboPublicSearch\Core\Type\Denomination\Denominations;
+use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOffs;
 
 /** An enterprise as ReadEnterprise returns it. */
 final readonly class Enterprise

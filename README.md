@@ -76,9 +76,9 @@ use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
+use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
@@ -97,15 +97,15 @@ $enterprise->activities->main();               // activities classified MAIN
 // At most 200 summaries; $reply->isTruncated() when KBO found more.
 $reply = $kbo->enterprises->searchByPhoneme(
     phonemes: Phonemes::of('economie', 'energie'),
-    types: EnterpriseTypes::legalPersons(),    // ::naturalPersons(), ::all() (default)
+    types: TypesOfEnterprise::legalPersons(),    // ::naturalPersons(), ::all() (default)
     zipcode: Zipcode::fromString('1210'),
-    juridicalForm: JuridicalFormFilter::Other, // only together with legalPersons()
+    juridicalForm: EnterpriseJuridicalForm::Other, // only together with legalPersons()
     onlyActive: true,
 );
 
 $reply = $kbo->enterprises->searchByPersonName(LastName::fromString('Doe'), firstName: FirstName::fromString('John'));
 $reply = $kbo->enterprises->searchByCompanyName(CompanyName::fromString('Federale Overheidsdienst Economie, K.M.O., Middenstand en Energie'));
-$reply = $kbo->enterprises->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::zipcodes('9300'));
+$reply = $kbo->enterprises->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::zipcodes('9300'));
 
 foreach ($reply->enterprises as $summary) {
     echo $summary->number, ' ', $summary->name, PHP_EOL;
@@ -125,26 +125,26 @@ LocationFilter::zipcodes('9000', '9050');
 ### Establishments
 
 ```php
-use KboPublicSearch\Core\Type\Parameter\Detail;
+use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 
-$establishment = $kbo->establishments->find(EstablishmentNumber::fromString('2.147.241.191'), Detail::Long)->establishment;
+$establishment = $kbo->establishments->find(EstablishmentNumber::fromString('2.147.241.191'), TypeOfResult::Long)->establishment;
 
-$kbo->establishments->ofEnterprise(EnterpriseNumber::fromString('0314595348'), Detail::Short);
+$kbo->establishments->ofEnterprise(EnterpriseNumber::fromString('0314595348'), TypeOfResult::Short);
 $kbo->establishments->searchByName(EstablishmentName::fromString('Zuiderpoort Office Park'));
 $kbo->establishments->searchByPhoneme(Phonemes::of('City', 'Atrium'));
-$kbo->establishments->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::municipalities('44021'));
+$kbo->establishments->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::municipalities('44021'));
 ```
 
-`Detail::Short` returns the name in the requested languages (`$establishment->name`). `Detail::Long` returns every
+`TypeOfResult::Short` returns the name in the requested languages (`$establishment->name`). `TypeOfResult::Long` returns every
 denomination, the activities, the authorizations and the enterprise's ex officio striking offs instead. Whatever a level
 does not return is an empty collection. Long replies are slow for enterprises with many establishments, so prefer
-`ofEnterprise(..., Detail::Short)` followed by `find(..., Detail::Long)` for the ones you need.
+`ofEnterprise(..., TypeOfResult::Short)` followed by `find(..., TypeOfResult::Long)` for the ones you need.
 
 ### Enterprises and establishments together
 
@@ -153,8 +153,8 @@ use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Entity\Type\ActivityCodes;
-use KboPublicSearch\Entity\Type\EntityKinds;
+use KboPublicSearch\Entity\Type\ActivityFilter;
+use KboPublicSearch\Entity\Type\EntityFilter;
 
 $entities = $kbo->entities->searchByAddress(
     zipcode: Zipcode::fromString('1210'),
@@ -166,9 +166,9 @@ $entities->enterprises();     // EnterpriseSummaries
 $entities->establishments();  // Establishments
 
 $kbo->entities->searchByActivity(
-    activities: ActivityCodes::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
+    activities: ActivityFilter::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
     location: LocationFilter::zipcodes('9300'),
-    kinds: EntityKinds::legalPersons()->with(EntityKinds::establishments()), // ::all() (default), ::naturalPersons()
+    kinds: EntityFilter::legalPersons()->with(EntityFilter::establishments()), // ::all() (default), ::naturalPersons()
 );
 ```
 

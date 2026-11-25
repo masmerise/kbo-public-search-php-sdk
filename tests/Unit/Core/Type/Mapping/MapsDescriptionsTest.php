@@ -2,22 +2,22 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\LocalizedText;
-use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
+use KboPublicSearch\Core\Type\Description;
+use KboPublicSearch\Core\Type\Mapping\MapsDescriptions;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-final class MapsLocalizedTextsTest extends TestCase
+final class MapsDescriptionsTest extends TestCase
 {
-    use MapsLocalizedTexts;
+    use MapsDescriptions;
 
     #[Test]
     public function keeps_every_language(): void
     {
         // Act
-        $text = $this->toLocalizedText(Snippet::load('shared/localized-texts')->child('Status'));
+        $text = $this->toDescription(Snippet::load('shared/localized-texts')->child('Status'));
 
         // Assert
         $this->assertSame('Actif', $text->in(Language::French));
@@ -31,7 +31,7 @@ final class MapsLocalizedTextsTest extends TestCase
     public function an_empty_text_is_empty(): void
     {
         // Act
-        $text = LocalizedText::of([]);
+        $text = Description::of([]);
 
         // Assert
         $this->assertNull($text->first());

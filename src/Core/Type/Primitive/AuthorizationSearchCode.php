@@ -7,7 +7,7 @@ use Stringable;
 use Webmozart\Assert\Assert;
 
 /** An authorization search code (code list AUTHORIZATION_SEARCH_CODE). */
-final readonly class AuthorizationCode implements Stringable
+final readonly class AuthorizationSearchCode implements Stringable
 {
     private function __construct(private string $value)
     {

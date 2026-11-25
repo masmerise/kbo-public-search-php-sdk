@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 use KboPublicSearch\Core\Type\Address\Address;
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Status\Status;
@@ -21,7 +21,7 @@ final readonly class EnterpriseSummary
         /** Only for legal persons. */
         public ?JuridicalForm $juridicalForm,
         /** PrimaryDenomination: the name in each requested language. */
-        public LocalizedText $name,
+        public Description $name,
         /** The registered office; absent for natural persons. */
         public ?Address $address,
         public int $businessUnits,

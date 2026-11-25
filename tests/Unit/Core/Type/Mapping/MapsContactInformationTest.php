@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Contact\ContactKind;
+use KboPublicSearch\Core\Type\ContactInformation\ContactKind;
 use KboPublicSearch\Core\Type\Mapping\MapsContactInformation;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;

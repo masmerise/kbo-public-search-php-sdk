@@ -9,10 +9,10 @@ use KboPublicSearch\Core\Failure\UnknownException;
 use KboPublicSearch\Core\Failure\ValidationException;
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
-use KboPublicSearch\Core\Type\Parameter\Detail;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
@@ -40,7 +40,7 @@ final readonly class EstablishmentResource extends KboResource
      * Read an establishment unit by its number (SOAP operation ReadEstablishmentByEstablishmentNumber).
      *
      * @param EstablishmentNumber $number The establishment unit number.
-     * @param Detail $detail Short or long information.
+     * @param TypeOfResult $detail Short or long information.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -48,7 +48,7 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function find(EstablishmentNumber $number, Detail $detail = Detail::Short): EstablishmentReply
+    public function find(EstablishmentNumber $number, TypeOfResult $detail = TypeOfResult::Short): EstablishmentReply
     {
         $unwrapped = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($number, $detail), CouldNotFindEstablishment::class);
 
@@ -61,10 +61,10 @@ final readonly class EstablishmentResource extends KboResource
     /**
      * Read every active establishment unit of an enterprise (SOAP operation ReadEstablishmentByEnterpriseNumber).
      *
-     * The list is not limited; prefer Detail::Short for enterprises with many establishments.
+     * The list is not limited; prefer TypeOfResult::Short for enterprises with many establishments.
      *
      * @param EnterpriseNumber $number The enterprise number.
-     * @param Detail $detail Short or long information.
+     * @param TypeOfResult $detail Short or long information.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -72,7 +72,7 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function ofEnterprise(EnterpriseNumber $number, Detail $detail = Detail::Short): EstablishmentSearchReply
+    public function ofEnterprise(EnterpriseNumber $number, TypeOfResult $detail = TypeOfResult::Short): EstablishmentSearchReply
     {
         $unwrapped = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($number, $detail), CouldNotGetEstablishmentsOfEnterprise::class);
 
@@ -82,7 +82,7 @@ final readonly class EstablishmentResource extends KboResource
     /**
      * Search establishment units holding an authorization in a location (SOAP operation ReadEstablishmentByAuthorization).
      *
-     * @param AuthorizationCode $code An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
+     * @param AuthorizationSearchCode $code An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
      * @param LocationFilter $location Municipalities, a municipality and its neighbours, or zipcodes.
      * @param bool $onlyActive Only active establishment units.
      *
@@ -92,7 +92,7 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByAuthorization(AuthorizationCode $code, LocationFilter $location, bool $onlyActive = true): EstablishmentSearchReply
+    public function searchByAuthorization(AuthorizationSearchCode $code, LocationFilter $location, bool $onlyActive = true): EstablishmentSearchReply
     {
         return $this->searchEstablishments(
             new ReadEstablishmentByAuthorizationRequest($code, $location, $onlyActive),

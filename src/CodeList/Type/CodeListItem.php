@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\CodeList\Type;
 
-use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Description;
 
 final readonly class CodeListItem
 {
@@ -13,7 +13,7 @@ final readonly class CodeListItem
      */
     public function __construct(
         public string $code,
-        public LocalizedText $description,
+        public Description $description,
         public array $keyValuePairs,
     ) {}
 

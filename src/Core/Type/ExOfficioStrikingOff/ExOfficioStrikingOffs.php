@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KboPublicSearch\Core\Type\StrikingOff;
+namespace KboPublicSearch\Core\Type\ExOfficioStrikingOff;
 
 use KboPublicSearch\Core\Type\Collection;
 

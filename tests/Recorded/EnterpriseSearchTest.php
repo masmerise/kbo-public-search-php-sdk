@@ -4,17 +4,17 @@ namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Enterprise\Reply\EnterpriseSearchReply;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
 use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
+use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -27,7 +27,7 @@ final class EnterpriseSearchTest extends RecordedTestCase
         $this->record(ReadEnterpriseByPhonemeRequest::class, 'enterprise/search-by-phoneme');
 
         // Act
-        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), EnterpriseTypes::legalPersons());
+        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), TypesOfEnterprise::legalPersons());
 
         // Assert
         $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);
@@ -49,7 +49,7 @@ final class EnterpriseSearchTest extends RecordedTestCase
         $this->record(ReadEnterpriseByPhonemeRequest::class, 'enterprise/search-by-phoneme-truncated');
 
         // Act
-        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('bvba'), EnterpriseTypes::all(), onlyActive: false);
+        $reply = $this->kbo->enterprises->searchByPhoneme(Phonemes::of('bvba'), TypesOfEnterprise::all(), onlyActive: false);
 
         // Assert
         $this->assertTrue($reply->isTruncated());
@@ -109,7 +109,7 @@ final class EnterpriseSearchTest extends RecordedTestCase
         $this->record(ReadEnterpriseByAuthorizationRequest::class, 'enterprise/search-by-authorization');
 
         // Act
-        $reply = $this->kbo->enterprises->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::zipcodes('9300'));
+        $reply = $this->kbo->enterprises->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::zipcodes('9300'));
 
         // Assert
         $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);

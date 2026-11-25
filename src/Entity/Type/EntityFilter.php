@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Entity\Type;
 
 /** Which kinds of entity an activity search returns; at least one by construction. */
-final readonly class EntityKinds
+final readonly class EntityFilter
 {
     private function __construct(
         public bool $naturalPersons,
@@ -31,7 +31,7 @@ final readonly class EntityKinds
         return new self(true, false, false);
     }
 
-    public function with(EntityKinds $other): self
+    public function with(EntityFilter $other): self
     {
         return new self(
             $this->naturalPersons || $other->naturalPersons,

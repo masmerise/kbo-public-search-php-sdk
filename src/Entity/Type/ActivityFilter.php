@@ -6,7 +6,7 @@ use KboPublicSearch\Entity\Type\Primitive\ActivityCode;
 use Webmozart\Assert\Assert;
 
 /** 1 to 10 NACEBEL codes or prefixes. */
-final readonly class ActivityCodes
+final readonly class ActivityFilter
 {
     /** @param list<ActivityCode> $codes */
     private function __construct(private array $codes)
