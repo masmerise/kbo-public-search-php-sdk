@@ -8,6 +8,7 @@ use KboPublicSearch\Environments\Environment;
 use KboPublicSearch\KboPublicSearch;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Request;
+use Saloon\MockConfig;
 
 /**
  * Runs the full SDK against recorded KBO replies.
@@ -46,9 +47,24 @@ abstract class RecordedTestCase extends TestCase
         return ($_ENV['KBO_ENVIRONMENT'] ?? 'test') === 'production' ? Environment::Production : Environment::Test;
     }
 
-    /** @param class-string<Request> $requestClass */
+    /**
+     * Replays the fixture, or records it when it is missing.
+     *
+     * Recording needs real credentials and an explicit environment; without them Saloon would send a request with
+     * the placeholder credentials and store the authentication fault it gets back.
+     *
+     * @param class-string<Request> $requestClass
+     */
     protected function record(string $requestClass, string $fixture): void
     {
+        if (! is_file(MockConfig::getFixturePath() . "/{$fixture}.json")) {
+            foreach (['KBO_USERNAME', 'KBO_PASSWORD', 'KBO_ENVIRONMENT'] as $variable) {
+                if (($_ENV[$variable] ?? '') === '') {
+                    $this->fail("Fixture {$fixture} is missing. Set {$variable} in tests/.env to record it (see tests/.env.example).");
+                }
+            }
+        }
+
         MockClient::global([$requestClass => new KboFixture($fixture)]);
     }
 }
