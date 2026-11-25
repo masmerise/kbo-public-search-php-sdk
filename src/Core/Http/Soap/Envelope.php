@@ -3,17 +3,27 @@
 namespace KboPublicSearch\Core\Http\Soap;
 
 use DateTimeImmutable;
+use InvalidArgumentException;
 use KboPublicSearch\Authentication\Credentials;
+use KboPublicSearch\Core\Failure\KboPublicSearchException;
+use KboPublicSearch\Core\Failure\Mapping\MapsSoapFaults;
+use KboPublicSearch\Core\Failure\UnknownException;
+use KboPublicSearch\Core\Http\Mapping\ResultMapper;
+use KboPublicSearch\Core\Http\Result;
 use KboPublicSearch\Core\Http\Soap\Security\Timestamp;
 use KboPublicSearch\Core\Http\Soap\Security\UsernameToken;
 use KboPublicSearch\Core\Xml\Node;
+use KboPublicSearch\Core\Xml\Reader;
 use KboPublicSearch\Core\Xml\Writer;
 use KboPublicSearch\Localization\Languages;
+use RuntimeException;
 use SensitiveParameter;
 
 /** @internal */
 final readonly class Envelope
 {
+    use MapsSoapFaults;
+
     public const array NAMESPACES = [
         'soapenv' => 'http://schemas.xmlsoap.org/soap/envelope/',
         'mes' => 'http://economie.fgov.be/kbopub/webservices/v1/messages',
@@ -49,5 +59,31 @@ final readonly class Envelope
         ]);
 
         return Writer::write($envelope, self::NAMESPACES);
+    }
+
+    /**
+     * @throws KboPublicSearchException a typed failure for a SOAP fault, UnknownException for anything that is not a KBO reply
+     */
+    public static function unwrap(string $xml): Result
+    {
+        try {
+            $envelope = Reader::fromString($xml);
+            $fault = $envelope->optional('Body')?->optional('Fault');
+        } catch (RuntimeException $ex) {
+            throw UnknownException::sorry($ex);
+        }
+
+        if ($fault !== null) {
+            throw self::toException(new Fault(
+                code: $fault->optionalText('faultcode') ?? '',
+                string: preg_replace('/\s+/', ' ', $fault->optionalText('faultstring') ?? '') ?? '',
+            ));
+        }
+
+        try {
+            return new ResultMapper()($envelope);
+        } catch (InvalidArgumentException|RuntimeException $ex) {
+            throw UnknownException::sorry($ex);
+        }
     }
 }
