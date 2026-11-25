@@ -17,9 +17,8 @@ final readonly class Address
         public Municipality $municipality,
         public ?string $extraAddressInfo,
         public ?Country $country,
-        /** The date the address applies from (Begin). */
-        public ?Date $since,
-        public ?TypeOfAddress $type,
+        public ?Date $begin,
+        public ?TypeOfAddress $typeOfAddress,
         public ?Date $strikingOff,
         public ?TechnicalCreationReason $technicalCreationReason,
     ) {}

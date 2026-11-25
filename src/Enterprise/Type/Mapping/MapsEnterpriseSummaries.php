@@ -31,14 +31,14 @@ trait MapsEnterpriseSummaries
             number: EnterpriseNumber::fromString($enterprise->textOf('Number')),
             status: transform($status, $this->toStatus(...)),
             period: $this->toRequiredPeriod($enterprise, 'Period'),
-            type: TypeOfEnterprise::from($enterprise->textOf('TypeOfEnterprise')),
+            typeOfEnterprise: TypeOfEnterprise::from($enterprise->textOf('TypeOfEnterprise')),
             juridicalForm: transform($enterprise->optional('JuridicalForm'), fn (Element $form) => new JuridicalForm(
                 $form->textOf('Code'),
                 $this->toDescription($form),
-                $this->toOptionalPeriod($form, 'ValidityPeriod')?->begin,
+                $this->toOptionalPeriod($form, 'ValidityPeriod'),
                 null,
             )),
-            name: $this->toDescription($enterprise, 'PrimaryDenomination'),
+            primaryDenomination: $this->toDescription($enterprise, 'PrimaryDenomination'),
             address: transform($enterprise->optional('Address'), $this->toAddress(...)),
             businessUnits: (int) ($enterprise->optionalText('BusinessUnits') ?? 0),
         );

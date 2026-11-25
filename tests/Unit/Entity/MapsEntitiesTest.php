@@ -40,6 +40,6 @@ final class MapsEntitiesTest extends TestCase
         $this->assertCount(2, $entities->enterprises());
         $this->assertSame('1037799832', $entities->enterprises()[1]->number->toString());
         $this->assertCount(1, $entities->establishments());
-        $this->assertSame('2147241191', $entities->establishments()->first()?->number->toString());
+        $this->assertSame('2147241191', $entities->establishments()->first()?->establishmentNumber->toString());
     }
 }

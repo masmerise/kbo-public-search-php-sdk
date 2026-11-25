@@ -90,25 +90,25 @@ $enterprise = $kbo->enterprises->find(
 $enterprise->number->toString();               // "0314595348"
 $enterprise->denominations->primary()?->name;  // the first name, in any language
 $enterprise->juridicalSituation->status->kind; // StatusKind::Active
-$enterprise->addresses->first()?->street->name->first();
+$enterprise->addresses->first()?->street->description->first();
 $enterprise->functions;                        // Functions
 $enterprise->activities->main();               // activities classified MAIN
 
 // At most 200 summaries; $reply->isTruncated() when KBO found more.
 $reply = $kbo->enterprises->searchByPhoneme(
     phonemes: Phonemes::of('economie', 'energie'),
-    types: TypesOfEnterprise::legalPersons(),    // ::naturalPersons(), ::all() (default)
+    typesOfEnterprise: TypesOfEnterprise::legalPersons(), // ::physicalPersons(), ::all() (default)
     zipcode: Zipcode::fromString('1210'),
-    juridicalForm: EnterpriseJuridicalForm::Other, // only together with legalPersons()
+    enterpriseJuridicalForm: EnterpriseJuridicalForm::Other, // only together with legalPersons()
     onlyActive: true,
 );
 
-$reply = $kbo->enterprises->searchByPersonName(LastName::fromString('Doe'), firstName: FirstName::fromString('John'));
+$reply = $kbo->enterprises->searchByPhysicalPersonName(LastName::fromString('Doe'), firstName: FirstName::fromString('John'));
 $reply = $kbo->enterprises->searchByCompanyName(CompanyName::fromString('Federale Overheidsdienst Economie, K.M.O., Middenstand en Energie'));
 $reply = $kbo->enterprises->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::zipcodes('9300'));
 
 foreach ($reply->enterprises as $summary) {
-    echo $summary->number, ' ', $summary->name, PHP_EOL;
+    echo $summary->number, ' ', $summary->primaryDenomination, PHP_EOL;
 }
 ```
 
@@ -141,7 +141,7 @@ $kbo->establishments->searchByPhoneme(Phonemes::of('City', 'Atrium'));
 $kbo->establishments->searchByAuthorization(AuthorizationSearchCode::fromString('T004'), LocationFilter::municipalities('44021'));
 ```
 
-`TypeOfResult::Short` returns the name in the requested languages (`$establishment->name`). `TypeOfResult::Long` returns every
+`TypeOfResult::Short` returns the name in the requested languages (`$establishment->primaryDenomination`). `TypeOfResult::Long` returns every
 denomination, the activities, the authorizations and the enterprise's ex officio striking offs instead. Whatever a level
 does not return is an empty collection. Long replies are slow for enterprises with many establishments, so prefer
 `ofEnterprise(..., TypeOfResult::Short)` followed by `find(..., TypeOfResult::Long)` for the ones you need.
@@ -158,7 +158,7 @@ use KboPublicSearch\Entity\Type\EntityFilter;
 
 $entities = $kbo->entities->searchByAddress(
     zipcode: Zipcode::fromString('1210'),
-    street: StreetName::fromString('Vooruitgangstraat'),
+    streetName: StreetName::fromString('Vooruitgangstraat'),
     houseNumber: HouseNumber::fromString('50'),
 )->entities;
 
@@ -166,9 +166,9 @@ $entities->enterprises();     // EnterpriseSummaries
 $entities->establishments();  // Establishments
 
 $kbo->entities->searchByActivity(
-    activities: ActivityFilter::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
-    location: LocationFilter::zipcodes('9300'),
-    kinds: EntityFilter::legalPersons()->with(EntityFilter::establishments()), // ::all() (default), ::naturalPersons()
+    activityFilter: ActivityFilter::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
+    locationFilter: LocationFilter::zipcodes('9300'),
+    entityFilter: EntityFilter::legalPersons()->with(EntityFilter::establishments()), // ::all() (default), ::physicalPersons()
 );
 ```
 
@@ -236,7 +236,7 @@ KboPublicSearchException
 └── ValidationException (KBO answered with a status this operation does not accept)
     ├── CouldNotFindEnterprise
     ├── CouldNotSearchEnterprisesByPhoneme
-    ├── CouldNotSearchEnterprisesByPersonName
+    ├── CouldNotSearchEnterprisesByPhysicalPersonName
     ├── CouldNotSearchEnterprisesByCompanyName
     ├── CouldNotSearchEnterprisesByAuthorization
     ├── CouldNotFindEstablishment
@@ -336,7 +336,7 @@ KboPublicSearch::VERSION; // "R018.08"
 |--------------------------------------------------|------------------------------------------|---|
 | ReadEnterprise                                   | `enterprises->find()`                    | ✓ |
 | ReadEnterpriseByPhoneme                          | `enterprises->searchByPhoneme()`         | ✓ |
-| ReadEnterpriseByPhysicalPersonNameExactMatch     | `enterprises->searchByPersonName()`      | ✓ |
+| ReadEnterpriseByPhysicalPersonNameExactMatch     | `enterprises->searchByPhysicalPersonName()`      | ✓ |
 | ReadEnterpriseLegalPersonByCompanyNameExactMatch | `enterprises->searchByCompanyName()`     | ✓ |
 | ReadEnterpriseByAuthorization                    | `enterprises->searchByAuthorization()`   | ✓ |
 | ReadEstablishmentByEstablishmentNumber           | `establishments->find()`                 | ✓ |

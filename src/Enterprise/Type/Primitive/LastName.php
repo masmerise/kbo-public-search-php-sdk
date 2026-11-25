@@ -6,7 +6,7 @@ use KboPublicSearch\Core\Utility\XmlText;
 use Stringable;
 use Webmozart\Assert\Assert;
 
-/** The last name of a natural person, matched exactly. */
+/** The last name of a physical person, matched exactly. */
 final readonly class LastName implements Stringable
 {
     private function __construct(private string $value)

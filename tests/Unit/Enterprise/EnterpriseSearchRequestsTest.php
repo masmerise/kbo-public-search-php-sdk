@@ -10,8 +10,8 @@ use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
-use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
+use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
@@ -100,7 +100,7 @@ final class EnterpriseSearchRequestsTest extends TestCase
 
         // Act
         try {
-            $kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), TypesOfEnterprise::all(), juridicalForm: EnterpriseJuridicalForm::Other);
+            $kbo->enterprises->searchByPhoneme(Phonemes::of('economie'), TypesOfEnterprise::all(), enterpriseJuridicalForm: EnterpriseJuridicalForm::Other);
             $this->fail('Expected InvalidArgumentException.');
         } catch (InvalidArgumentException) {
             // Assert

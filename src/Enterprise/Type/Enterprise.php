@@ -21,7 +21,7 @@ final readonly class Enterprise
         public Period $period,
         /** In years, when the enterprise has a limited duration. */
         public ?int $duration,
-        public TypeOfEnterprise $type,
+        public TypeOfEnterprise $typeOfEnterprise,
         /** Only for legal persons. */
         public ?JuridicalForm $juridicalForm,
         public ?Capital $capital,

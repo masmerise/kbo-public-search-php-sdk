@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 use KboPublicSearch\Core\Type\Description;
-use KboPublicSearch\Core\Type\Primitive\Date;
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Status\Status;
 
 /** The juridical situation ("rechtstoestand") and status of an enterprise. */
@@ -13,8 +13,7 @@ final readonly class JuridicalSituation
     public function __construct(
         public string $code,
         public Description $description,
-        /** ValidityPeriod > Begin. */
-        public ?Date $since,
+        public ?Period $validityPeriod,
         public Status $status,
         public ?Event $event,
     ) {}

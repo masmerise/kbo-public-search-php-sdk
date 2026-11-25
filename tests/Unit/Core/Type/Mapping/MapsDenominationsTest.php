@@ -27,7 +27,7 @@ final class MapsDenominationsTest extends TestCase
         $this->assertSame(DenominationKind::Abbreviation, $denominations[4]->kind);
         $this->assertSame('002', $denominations[4]->code);
         $this->assertSame('FOD Economie', $denominations[4]->name);
-        $this->assertSame('2002-03-05', $denominations[4]->since?->toString());
+        $this->assertSame('2002-03-05', $denominations[4]->validityPeriod?->begin?->toString());
     }
 
     #[Test]

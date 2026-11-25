@@ -6,9 +6,9 @@ namespace KboPublicSearch\Entity\Type;
 final readonly class EntityFilter
 {
     private function __construct(
-        public bool $naturalPersons,
-        public bool $legalPersons,
-        public bool $establishments,
+        public bool $enterprisePhysicalPerson,
+        public bool $enterpriseLegalPerson,
+        public bool $establishment,
     ) {}
 
     public static function all(): self
@@ -26,7 +26,7 @@ final readonly class EntityFilter
         return new self(false, true, false);
     }
 
-    public static function naturalPersons(): self
+    public static function physicalPersons(): self
     {
         return new self(true, false, false);
     }
@@ -34,9 +34,9 @@ final readonly class EntityFilter
     public function with(EntityFilter $other): self
     {
         return new self(
-            $this->naturalPersons || $other->naturalPersons,
-            $this->legalPersons || $other->legalPersons,
-            $this->establishments || $other->establishments,
+            $this->enterprisePhysicalPerson || $other->enterprisePhysicalPerson,
+            $this->enterpriseLegalPerson || $other->enterpriseLegalPerson,
+            $this->establishment || $other->establishment,
         );
     }
 }

@@ -18,11 +18,11 @@ final readonly class EnterpriseFunction
         public ?Person $person,
         /** The enterprise exercising the function, if any. */
         public ?EnterpriseNumber $enterpriseNumber,
-        /** The enterprise number of a natural person who is a professional syndic. */
+        /** The enterprise number of a physical person who is a professional syndic. */
         public ?EnterpriseNumber $professionalSyndic,
-        public ?FunctionCac $cac,
+        public ?FunctionCac $functionCac,
         public ?Date $strikingOff,
         /** ActiveFlag; not used by KBO yet. */
-        public ?bool $active,
+        public ?bool $activeFlag,
     ) {}
 }

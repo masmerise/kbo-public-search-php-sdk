@@ -23,7 +23,7 @@ final readonly class StreetResource extends KboResource
      * Search the street names in a zipcode that contain a text (SOAP operation ReadStreetName).
      *
      * @param Zipcode $zipcode The zipcode.
-     * @param PartOfStreetName $part The text the street names must contain.
+     * @param PartOfStreetName $partOfStreetName The text the street names must contain.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -31,9 +31,9 @@ final readonly class StreetResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function search(Zipcode $zipcode, PartOfStreetName $part): StreetNameReply
+    public function search(Zipcode $zipcode, PartOfStreetName $partOfStreetName): StreetNameReply
     {
-        $unwrapped = $this->searchFor(new ReadStreetNameRequest($zipcode, $part), CouldNotSearchStreets::class);
+        $unwrapped = $this->searchFor(new ReadStreetNameRequest($zipcode, $partOfStreetName), CouldNotSearchStreets::class);
 
         return $this->reply(fn () => new StreetNameReply($unwrapped->context, $this->toStreetNames($unwrapped->body)));
     }

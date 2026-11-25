@@ -7,8 +7,6 @@ use KboPublicSearch\Core\Type\Denomination\DenominationKind;
 use KboPublicSearch\Core\Type\Denomination\Denominations;
 use KboPublicSearch\Core\Xml\Element;
 
-use function KboPublicSearch\Core\Utility\transform;
-
 /** @internal */
 trait MapsDenominations
 {
@@ -24,7 +22,7 @@ trait MapsDenominations
             kind: DenominationKind::tryFrom($code),
             name: preg_replace('/\s+/', ' ', $description->optionalText('Value') ?? '') ?? '',
             language: $description->optionalText('Language') ?? '',
-            since: transform($denomination->optional('ValidityPeriod'), fn (Element $period) => $this->toDate($period, 'Begin')),
+            validityPeriod: $this->toOptionalPeriod($denomination, 'ValidityPeriod'),
         );
     }
 

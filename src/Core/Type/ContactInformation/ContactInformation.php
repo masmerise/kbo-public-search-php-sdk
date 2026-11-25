@@ -11,12 +11,12 @@ final readonly class ContactInformation
     /** @internal */
     public function __construct(
         /** The raw ContactType, if any. */
-        public ?string $type,
+        public ?string $contactType,
         /** Null when the type is absent or unknown. */
         public ?ContactKind $kind,
         public Description $description,
         public string $value,
-        public bool $foreignBranchOffice,
-        public ?Date $since,
+        public bool $foreignBranchOfficeFlag,
+        public ?Date $begin,
     ) {}
 }

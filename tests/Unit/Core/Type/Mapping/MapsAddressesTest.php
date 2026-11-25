@@ -33,17 +33,17 @@ final class MapsAddressesTest extends TestCase
         // Assert
         $this->assertInstanceOf(Address::class, $address);
         $this->assertSame('0086', $address->street->code);
-        $this->assertSame('Vooruitgangsstraat', $address->street->name->in(Language::Dutch));
+        $this->assertSame('Vooruitgangsstraat', $address->street->description->in(Language::Dutch));
         $this->assertSame('50', $address->houseNumber);
         $this->assertNull($address->box);
         $this->assertSame('1210', $address->zipcode);
         $this->assertSame('21014', $address->municipality->code);
-        $this->assertSame('Sint-Joost-ten-Node', (string) $address->municipality->name);
+        $this->assertSame('Sint-Joost-ten-Node', (string) $address->municipality->description);
         $this->assertSame('City Atrium', $address->extraAddressInfo);
         $this->assertNull($address->country);
-        $this->assertSame(AddressKind::RegisteredOffice, $address->type?->kind);
-        $this->assertSame('REGO', $address->type?->code);
-        $this->assertSame('2005-02-01', $address->since?->toString());
+        $this->assertSame(AddressKind::RegisteredOffice, $address->typeOfAddress?->kind);
+        $this->assertSame('REGO', $address->typeOfAddress?->code);
+        $this->assertSame('2005-02-01', $address->begin?->toString());
         $this->assertNull($address->strikingOff);
         $this->assertNull($address->technicalCreationReason);
     }
@@ -65,14 +65,14 @@ final class MapsAddressesTest extends TestCase
         $this->assertNull($address->municipality->code);
         $this->assertSame('EH36AQ', $address->zipcode);
         $this->assertSame('112', $address->country?->code);
-        $this->assertSame('Groot-Brittannië', $address->country?->name->first());
+        $this->assertSame('Groot-Brittannië', $address->country?->description->first());
     }
 
     #[Test]
     public function unknown_type_of_address_keeps_the_raw_code(): void
     {
         // Act
-        $type = $this->addresses[3]->type;
+        $type = $this->addresses[3]->typeOfAddress;
 
         // Assert
         $this->assertSame('XXXX', $type?->code);
@@ -88,8 +88,8 @@ final class MapsAddressesTest extends TestCase
 
         // Assert
         $this->assertSame('B', $address->box);
-        $this->assertNull($address->type);
-        $this->assertNull($address->since);
+        $this->assertNull($address->typeOfAddress);
+        $this->assertNull($address->begin);
         $this->assertSame('001', $address->technicalCreationReason?->code);
         $this->assertSame('Fusion de communes', $address->technicalCreationReason?->description->in(Language::French));
     }

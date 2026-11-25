@@ -11,6 +11,6 @@ final readonly class Municipality
     public function __construct(
         /** The NIS code; null for foreign addresses. */
         public ?string $code,
-        public Description $name,
+        public Description $description,
     ) {}
 }

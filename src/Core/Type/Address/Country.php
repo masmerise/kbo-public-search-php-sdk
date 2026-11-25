@@ -10,6 +10,6 @@ final readonly class Country
     /** @internal */
     public function __construct(
         public string $code,
-        public Description $name,
+        public Description $description,
     ) {}
 }

@@ -22,14 +22,14 @@ final class MapsActivitiesTest extends TestCase
 
         // Assert
         $this->assertSame('68321', $activity->code);
-        $this->assertSame('006', $activity->group?->code);
-        $this->assertSame('Activités ONSS', $activity->group?->description->in(Language::French));
-        $this->assertSame('2008', $activity->versionCode);
-        $this->assertSame(NacebelVersion::Nacebel2008, $activity->version);
+        $this->assertSame('006', $activity->activityGroupAdministration?->activityGroup);
+        $this->assertSame('Activités ONSS', $activity->activityGroupAdministration?->description->in(Language::French));
+        $this->assertSame('2008', $activity->version);
+        $this->assertSame(NacebelVersion::Nacebel2008, $activity->nacebelVersion);
         $this->assertSame('2008-01-01', $activity->period->begin?->toString());
         $this->assertNull($activity->period->end);
-        $this->assertSame(ActivityClassificationKind::Main, $activity->classification?->kind);
-        $this->assertSame('MAIN', $activity->classification?->code);
+        $this->assertSame(ActivityClassificationKind::Main, $activity->activityClassification?->kind);
+        $this->assertSame('MAIN', $activity->activityClassification?->code);
     }
 
     #[Test]
@@ -39,10 +39,10 @@ final class MapsActivitiesTest extends TestCase
         $activity = $this->toActivities(Snippet::load('shared/activities'))[1];
 
         // Assert
-        $this->assertNull($activity->version);
-        $this->assertSame('20025', $activity->versionCode);
-        $this->assertSame('NEWC', $activity->classification?->code);
-        $this->assertNull($activity->classification?->kind);
+        $this->assertNull($activity->nacebelVersion);
+        $this->assertSame('20025', $activity->version);
+        $this->assertSame('NEWC', $activity->activityClassification?->code);
+        $this->assertNull($activity->activityClassification?->kind);
     }
 
     #[Test]
@@ -53,6 +53,6 @@ final class MapsActivitiesTest extends TestCase
 
         // Assert
         $this->assertCount(1, $main);
-        $this->assertSame(ActivityClassificationKind::Main, $main->first()?->classification?->kind);
+        $this->assertSame(ActivityClassificationKind::Main, $main->first()?->activityClassification?->kind);
     }
 }

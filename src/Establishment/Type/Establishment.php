@@ -24,14 +24,14 @@ final readonly class Establishment
 {
     /** @internal */
     public function __construct(
-        public EstablishmentNumber $number,
+        public EstablishmentNumber $establishmentNumber,
         public Status $status,
         public Period $period,
         /** Exceptionally absent on ReadEstablishmentByEstablishmentNumber. */
         public ?EnterpriseNumber $enterpriseNumber,
         public ?Status $enterpriseStatus,
         /** PrimaryDenomination (short): the name in each requested language. */
-        public Description $name,
+        public Description $primaryDenomination,
         /** Every name (long). */
         public Denominations $denominations,
         public ContactInformations $contactInformation,

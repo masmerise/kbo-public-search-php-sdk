@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Core\Type\ExOfficioStrikingOff;
 
 use KboPublicSearch\Core\Type\Description;
-use KboPublicSearch\Core\Type\Primitive\Date;
+use KboPublicSearch\Core\Type\Period;
 
 /** An ex officio striking off ("ambtshalve doorhaling"). */
 final readonly class ExOfficioStrikingOff
@@ -12,7 +12,6 @@ final readonly class ExOfficioStrikingOff
     public function __construct(
         public string $code,
         public Description $description,
-        /** ValidityPeriod > Begin. */
-        public ?Date $since,
+        public ?Period $validityPeriod,
     ) {}
 }

@@ -11,6 +11,6 @@ final readonly class Street
     public function __construct(
         /** Null when KBO has no street code, e.g. for foreign addresses. */
         public ?string $code,
-        public Description $name,
+        public Description $description,
     ) {}
 }

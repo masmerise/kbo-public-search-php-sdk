@@ -35,7 +35,7 @@ final class EstablishmentTest extends RecordedTestCase
 
         // Assert
         $this->assertInstanceOf(EstablishmentSearchReply::class, $reply);
-        $this->assertSame(self::ESTABLISHMENT, $reply->establishments->first()?->number->toString());
+        $this->assertSame(self::ESTABLISHMENT, $reply->establishments->first()?->establishmentNumber->toString());
     }
 
     #[Test]
@@ -49,8 +49,8 @@ final class EstablishmentTest extends RecordedTestCase
 
         // Assert
         $this->assertInstanceOf(EstablishmentReply::class, $reply);
-        $this->assertSame(self::ESTABLISHMENT, $reply->establishment->number->toString());
-        $this->assertNotEmpty($reply->establishment->name->first());
+        $this->assertSame(self::ESTABLISHMENT, $reply->establishment->establishmentNumber->toString());
+        $this->assertNotEmpty($reply->establishment->primaryDenomination->first());
     }
 
     #[Test]
@@ -96,7 +96,7 @@ final class EstablishmentTest extends RecordedTestCase
         $reply = $this->kbo->establishments->searchByName(EstablishmentName::fromString('Masmerise'));
 
         // Assert
-        $this->assertContains(self::ESTABLISHMENT, array_map(static fn (Establishment $e) => $e->number->toString(), $reply->establishments->all()));
+        $this->assertContains(self::ESTABLISHMENT, array_map(static fn (Establishment $e) => $e->establishmentNumber->toString(), $reply->establishments->all()));
     }
 
     #[Test]

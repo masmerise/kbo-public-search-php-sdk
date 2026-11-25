@@ -20,12 +20,12 @@ final class MapsContactInformationTest extends TestCase
         $contact = $this->toContactInformations(Snippet::load('shared/contact-information'))[0];
 
         // Assert
-        $this->assertSame('001', $contact->type);
+        $this->assertSame('001', $contact->contactType);
         $this->assertSame(ContactKind::Phone, $contact->kind);
         $this->assertSame('Téléphone', $contact->description->in(Language::French));
         $this->assertSame('0476/000000', $contact->value);
-        $this->assertFalse($contact->foreignBranchOffice);
-        $this->assertSame('2017-12-24', $contact->since?->toString());
+        $this->assertFalse($contact->foreignBranchOfficeFlag);
+        $this->assertSame('2017-12-24', $contact->begin?->toString());
     }
 
     #[Test]
@@ -35,12 +35,12 @@ final class MapsContactInformationTest extends TestCase
         $contact = $this->toContactInformations(Snippet::load('shared/contact-information'))[1];
 
         // Assert
-        $this->assertNull($contact->type);
+        $this->assertNull($contact->contactType);
         $this->assertNull($contact->kind);
         $this->assertSame([], $contact->description->all());
         $this->assertSame('https://economie.fgov.be', $contact->value);
-        $this->assertFalse($contact->foreignBranchOffice);
-        $this->assertNull($contact->since);
+        $this->assertFalse($contact->foreignBranchOfficeFlag);
+        $this->assertNull($contact->begin);
     }
 
     #[Test]
@@ -50,8 +50,8 @@ final class MapsContactInformationTest extends TestCase
         $contact = $this->toContactInformations(Snippet::load('shared/contact-information'))[2];
 
         // Assert
-        $this->assertSame('009', $contact->type);
+        $this->assertSame('009', $contact->contactType);
         $this->assertNull($contact->kind);
-        $this->assertTrue($contact->foreignBranchOffice);
+        $this->assertTrue($contact->foreignBranchOfficeFlag);
     }
 }

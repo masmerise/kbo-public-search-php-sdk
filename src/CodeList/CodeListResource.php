@@ -21,7 +21,7 @@ final readonly class CodeListResource extends KboResource
     /**
      * Read a code list (SOAP operation ReadCodeList). Free: it does not count towards the daily quota.
      *
-     * @param CodeListId $id The code list.
+     * @param CodeListId $codeListId The code list.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -29,9 +29,9 @@ final readonly class CodeListResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function read(CodeListId $id): CodeListReply
+    public function read(CodeListId $codeListId): CodeListReply
     {
-        $unwrapped = $this->lookup(new ReadCodeListRequest($id), CouldNotReadCodeList::class);
+        $unwrapped = $this->lookup(new ReadCodeListRequest($codeListId), CouldNotReadCodeList::class);
 
         return $this->reply(fn () => new CodeListReply($unwrapped->context, $this->toCodeList($unwrapped->body)));
     }

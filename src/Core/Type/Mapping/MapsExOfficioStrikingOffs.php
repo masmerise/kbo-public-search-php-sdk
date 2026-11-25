@@ -6,8 +6,6 @@ use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOff;
 use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Xml\Element;
 
-use function KboPublicSearch\Core\Utility\transform;
-
 /** @internal */
 trait MapsExOfficioStrikingOffs
 {
@@ -19,7 +17,7 @@ trait MapsExOfficioStrikingOffs
         return new ExOfficioStrikingOff(
             code: $strikingOff->textOf('Code'),
             description: $this->toDescription($strikingOff),
-            since: transform($strikingOff->optional('ValidityPeriod'), fn (Element $period) => $this->toDate($period, 'Begin')),
+            validityPeriod: $this->toOptionalPeriod($strikingOff, 'ValidityPeriod'),
         );
     }
 

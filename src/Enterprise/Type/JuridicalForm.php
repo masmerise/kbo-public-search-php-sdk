@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 use KboPublicSearch\Core\Type\Description;
-use KboPublicSearch\Core\Type\Primitive\Date;
+use KboPublicSearch\Core\Type\Period;
 
 /** The juridical form of a legal person. */
 final readonly class JuridicalForm
@@ -12,8 +12,7 @@ final readonly class JuridicalForm
     public function __construct(
         public string $code,
         public Description $description,
-        /** ValidityPeriod > Begin. */
-        public ?Date $since,
-        public ?JuridicalFormCac $cac,
+        public ?Period $validityPeriod,
+        public ?JuridicalFormCac $juridicalFormCac,
     ) {}
 }

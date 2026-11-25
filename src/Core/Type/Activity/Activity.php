@@ -12,12 +12,12 @@ final readonly class Activity
     public function __construct(
         /** The NACEBEL code. */
         public string $code,
-        public ?ActivityGroupAdministration $group,
+        public ?ActivityGroupAdministration $activityGroupAdministration,
         /** The raw Version, kept when it is not a known NACEBEL version. */
-        public string $versionCode,
-        public ?NacebelVersion $version,
+        public string $version,
+        public ?NacebelVersion $nacebelVersion,
         public Description $description,
         public Period $period,
-        public ?ActivityClassification $classification,
+        public ?ActivityClassification $activityClassification,
     ) {}
 }

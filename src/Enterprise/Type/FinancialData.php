@@ -3,7 +3,6 @@
 namespace KboPublicSearch\Enterprise\Type;
 
 use KboPublicSearch\Core\Type\Period;
-use KboPublicSearch\Core\Type\Primitive\Date;
 
 /** Annual meeting and fiscal year data. */
 final readonly class FinancialData
@@ -14,7 +13,6 @@ final readonly class FinancialData
         public ?int $fiscalYearEndDay,
         public ?int $fiscalYearEndMonth,
         public ?Period $exceptionalFiscalYear,
-        /** ValidityPeriod > Begin. */
-        public ?Date $since,
+        public ?Period $validityPeriod,
     ) {}
 }

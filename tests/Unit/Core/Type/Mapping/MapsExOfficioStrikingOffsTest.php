@@ -20,6 +20,6 @@ final class MapsExOfficioStrikingOffsTest extends TestCase
         // Assert
         $this->assertSame('001', $strikingOff?->code);
         $this->assertSame('niet-neerlegging jaarrekening', $strikingOff?->description->first());
-        $this->assertSame('2013-05-15', $strikingOff?->since?->toString());
+        $this->assertSame('2013-05-15', $strikingOff?->validityPeriod?->begin?->toString());
     }
 }

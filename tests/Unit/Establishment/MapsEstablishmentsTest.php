@@ -22,11 +22,11 @@ final class MapsEstablishmentsTest extends TestCase
         $establishment = $this->toEstablishment(Recording::unwrapped('establishment/find-short')->body->child('Establishment'));
 
         // Assert
-        $this->assertSame(RecordedTestCase::ESTABLISHMENT, $establishment->number->toString());
+        $this->assertSame(RecordedTestCase::ESTABLISHMENT, $establishment->establishmentNumber->toString());
         $this->assertSame(StatusKind::Active, $establishment->status->kind);
         $this->assertSame(RecordedTestCase::ENTERPRISE, $establishment->enterpriseNumber?->toString());
         $this->assertSame(StatusKind::Active, $establishment->enterpriseStatus?->kind);
-        $this->assertSame('REDACTED', $establishment->name->first()); // establishment names are redacted in fixtures
+        $this->assertSame('REDACTED', $establishment->primaryDenomination->first()); // establishment names are redacted in fixtures
         $this->assertSame(0, $establishment->denominations->count());
         $this->assertSame(0, $establishment->activities->count());
         $this->assertSame(0, $establishment->authorizations->count());
@@ -42,11 +42,11 @@ final class MapsEstablishmentsTest extends TestCase
         $establishment = $this->toEstablishment(Recording::unwrapped('establishment/find-long')->body->child('Establishment'));
 
         // Assert
-        $this->assertSame([], $establishment->name->all());
+        $this->assertSame([], $establishment->primaryDenomination->all());
         $this->assertSame(2, $establishment->denominations->count());
         $this->assertSame(DenominationKind::CommercialName, $establishment->denominations->first()?->kind);
         $this->assertGreaterThan(0, $establishment->activities->count());
-        $this->assertNull($establishment->address?->type);
+        $this->assertNull($establishment->address?->typeOfAddress);
     }
 
     #[Test]
@@ -76,6 +76,6 @@ final class MapsEstablishmentsTest extends TestCase
         $this->assertNull($establishment?->enterpriseStatus);
         $this->assertSame('2010-01-01', $establishment?->period->end?->toString());
         $this->assertSame('004', $establishment?->enterpriseExOfficioStrikingOffs->first()?->code);
-        $this->assertSame('Zuiderpoort Office Park', (string) $establishment?->name);
+        $this->assertSame('Zuiderpoort Office Park', (string) $establishment?->primaryDenomination);
     }
 }

@@ -10,7 +10,7 @@ final readonly class TypesOfEnterprise
 
     public static function all(): self
     {
-        return new self([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::NaturalPerson]);
+        return new self([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::PhysicalPerson]);
     }
 
     public static function legalPersons(): self
@@ -18,9 +18,9 @@ final readonly class TypesOfEnterprise
         return new self([TypeOfEnterprise::LegalPerson]);
     }
 
-    public static function naturalPersons(): self
+    public static function physicalPersons(): self
     {
-        return new self([TypeOfEnterprise::NaturalPerson]);
+        return new self([TypeOfEnterprise::PhysicalPerson]);
     }
 
     public function isLegalPersonsOnly(): bool

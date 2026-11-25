@@ -17,6 +17,6 @@ final readonly class Branch
         public Status $status,
         public ?Address $address,
         public Denominations $denominations,
-        public Period $period,
+        public Period $validityPeriod,
     ) {}
 }

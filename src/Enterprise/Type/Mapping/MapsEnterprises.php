@@ -59,7 +59,7 @@ trait MapsEnterprises
             juridicalSituation: $this->toJuridicalSituation($enterprise->child('JuridicalSituation')),
             period: $this->toRequiredPeriod($enterprise, 'Period'),
             duration: transform($enterprise->optionalText('Duration'), intval(...)),
-            type: TypeOfEnterprise::from($enterprise->textOf('TypeOfEnterprise')),
+            typeOfEnterprise: TypeOfEnterprise::from($enterprise->textOf('TypeOfEnterprise')),
             juridicalForm: transform($enterprise->optional('JuridicalForm'), $this->toJuridicalForm(...)),
             capital: transform($enterprise->optional('Capital'), static fn (Element $capital) => new Capital(
                 $capital->textOf('Amount'),
@@ -89,7 +89,7 @@ trait MapsEnterprises
             status: $this->toStatus($branch->child('Status')),
             address: transform($branch->optional('Address'), $this->toAddress(...)),
             denominations: $this->toDenominations($branch),
-            period: $this->toRequiredPeriod($branch, 'ValidityPeriod'),
+            validityPeriod: $this->toRequiredPeriod($branch, 'ValidityPeriod'),
         );
     }
 
@@ -100,7 +100,7 @@ trait MapsEnterprises
             fiscalYearEndDay: transform($data->optionalText('FiscalYearEndDay'), intval(...)),
             fiscalYearEndMonth: transform($data->optionalText('FiscalYearEndMonth'), intval(...)),
             exceptionalFiscalYear: $this->toOptionalPeriod($data, 'ExceptionalFiscalYear'),
-            since: $this->toOptionalPeriod($data, 'ValidityPeriod')?->begin,
+            validityPeriod: $this->toOptionalPeriod($data, 'ValidityPeriod'),
         );
     }
 
@@ -116,13 +116,13 @@ trait MapsEnterprises
             )),
             enterpriseNumber: transform($function->optionalText('EnterpriseNumber'), EnterpriseNumber::fromString(...)),
             professionalSyndic: transform($function->optional('ProfessionalSyndic')?->optionalText('EnterpriseNumber'), EnterpriseNumber::fromString(...)),
-            cac: transform($function->optional('FunctionCAC'), fn (Element $cac) => new FunctionCac(
+            functionCac: transform($function->optional('FunctionCAC'), fn (Element $cac) => new FunctionCac(
                 $cac->textOf('Code'),
                 $this->toDescription($cac),
                 $this->toRequiredPeriod($cac, 'CACPeriod'),
             )),
             strikingOff: $this->toDate($function, 'StrikingOff'),
-            active: transform($function->optionalText('ActiveFlag'), static fn (string $flag) => $flag === 'true'),
+            activeFlag: transform($function->optionalText('ActiveFlag'), static fn (string $flag) => $flag === 'true'),
         );
     }
 
@@ -131,8 +131,8 @@ trait MapsEnterprises
         return new JuridicalForm(
             code: $form->textOf('Code'),
             description: $this->toDescription($form),
-            since: $this->toOptionalPeriod($form, 'ValidityPeriod')?->begin,
-            cac: transform($form->optional('JuridicalFormCAC'), fn (Element $cac) => new JuridicalFormCac(
+            validityPeriod: $this->toOptionalPeriod($form, 'ValidityPeriod'),
+            juridicalFormCac: transform($form->optional('JuridicalFormCAC'), fn (Element $cac) => new JuridicalFormCac(
                 $cac->textOf('Code'),
                 $this->toDescription($cac),
                 Date::fromString($cac->textOf('CACDate')),
@@ -145,7 +145,7 @@ trait MapsEnterprises
         return new JuridicalSituation(
             code: $situation->optionalText('Code') ?? '',
             description: $this->toDescription($situation),
-            since: $this->toOptionalPeriod($situation, 'ValidityPeriod')?->begin,
+            validityPeriod: $this->toOptionalPeriod($situation, 'ValidityPeriod'),
             status: $this->toStatus($situation->child('Status')),
             event: transform($situation->optional('Event'), fn (Element $event) => new Event(
                 $event->textOf('Code'),
@@ -160,8 +160,8 @@ trait MapsEnterprises
         return new LinkedEnterprise(
             code: $link->textOf('Code'),
             description: $this->toDescription($link),
-            subject: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberSubject')),
-            object: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberObject')),
+            enterpriseNumberSubject: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberSubject')),
+            enterpriseNumberObject: EnterpriseNumber::fromString($link->textOf('EnterpriseNumberObject')),
             period: $this->toRequiredPeriod($link, 'Period'),
         );
     }
@@ -172,7 +172,7 @@ trait MapsEnterprises
             code: $competence->textOf('Code'),
             description: $this->toDescription($competence),
             period: $this->toRequiredPeriod($competence, 'Period'),
-            exemptionSince: $this->toOptionalPeriod($competence, 'Exemption')?->begin,
+            exemption: $this->toOptionalPeriod($competence, 'Exemption'),
             strikingOff: $this->toDate($competence, 'StrikingOff'),
         );
     }

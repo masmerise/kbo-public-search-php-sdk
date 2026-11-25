@@ -8,8 +8,8 @@ use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Enterprise\Reply\EnterpriseSearchReply;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
-use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
+use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
@@ -36,8 +36,8 @@ final class EnterpriseSearchTest extends RecordedTestCase
 
         foreach ($reply->enterprises as $enterprise) {
             $this->assertInstanceOf(EnterpriseSummary::class, $enterprise);
-            $this->assertNotEmpty($enterprise->name->first());
-            $this->assertSame(TypeOfEnterprise::LegalPerson, $enterprise->type);
+            $this->assertNotEmpty($enterprise->primaryDenomination->first());
+            $this->assertSame(TypeOfEnterprise::LegalPerson, $enterprise->typeOfEnterprise);
             $this->assertNotNull($enterprise->status);
         }
     }
@@ -92,13 +92,13 @@ final class EnterpriseSearchTest extends RecordedTestCase
         $this->record(ReadEnterpriseByPhysicalPersonNameExactMatchRequest::class, 'enterprise/search-by-person-name');
 
         // Act
-        $reply = $this->kbo->enterprises->searchByPersonName(LastName::fromString('Peeters'));
+        $reply = $this->kbo->enterprises->searchByPhysicalPersonName(LastName::fromString('Peeters'));
 
         // Assert
         $this->assertInstanceOf(EnterpriseSearchReply::class, $reply);
 
         foreach ($reply->enterprises as $enterprise) {
-            $this->assertSame(TypeOfEnterprise::NaturalPerson, $enterprise->type);
+            $this->assertSame(TypeOfEnterprise::PhysicalPerson, $enterprise->typeOfEnterprise);
         }
     }
 

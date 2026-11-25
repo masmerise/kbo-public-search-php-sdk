@@ -35,12 +35,12 @@ trait MapsEstablishments
     private function toEstablishment(Element $establishment): Establishment
     {
         return new Establishment(
-            number: EstablishmentNumber::fromString($establishment->textOf('EstablishmentNumber')),
+            establishmentNumber: EstablishmentNumber::fromString($establishment->textOf('EstablishmentNumber')),
             status: $this->toStatus($establishment->child('Status')),
             period: $this->toRequiredPeriod($establishment, 'Period'),
             enterpriseNumber: transform($establishment->optionalText('EnterpriseNumber'), EnterpriseNumber::fromString(...)),
             enterpriseStatus: transform($establishment->optional('EnterpriseStatus'), $this->toStatus(...)),
-            name: $this->toDescription($establishment, 'PrimaryDenomination'),
+            primaryDenomination: $this->toDescription($establishment, 'PrimaryDenomination'),
             denominations: $this->toDenominations($establishment),
             contactInformation: $this->toContactInformations($establishment),
             address: transform($establishment->optional('Address'), $this->toAddress(...)),

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KboPublicSearch\Enterprise\SearchByPersonName\Request;
+namespace KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request;
 
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;

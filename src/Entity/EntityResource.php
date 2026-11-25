@@ -28,9 +28,9 @@ final readonly class EntityResource extends KboResource
     /**
      * Search enterprises and establishment units by NACEBEL activity in a location (SOAP operation ReadEnterpriseOrEstablishmentByActivity).
      *
-     * @param ActivityFilter $activities 1 to 10 NACEBEL 2025 codes or prefixes.
-     * @param LocationFilter $location Municipalities, a municipality and its neighbours, or zipcodes.
-     * @param EntityFilter|null $kinds Natural persons, legal persons and/or establishment units; all by default.
+     * @param ActivityFilter $activityFilter 1 to 10 NACEBEL 2025 codes or prefixes.
+     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
+     * @param EntityFilter|null $entityFilter Natural persons, legal persons and/or establishment units; all by default.
      * @param bool $onlyActive Only active entities.
      *
      * @throws CouldNotAuthenticate
@@ -39,10 +39,10 @@ final readonly class EntityResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByActivity(ActivityFilter $activities, LocationFilter $location, ?EntityFilter $kinds = null, bool $onlyActive = true): EntitySearchReply
+    public function searchByActivity(ActivityFilter $activityFilter, LocationFilter $locationFilter, ?EntityFilter $entityFilter = null, bool $onlyActive = true): EntitySearchReply
     {
         $unwrapped = $this->searchFor(
-            new ReadEnterpriseOrEstablishmentByActivityRequest($activities, $location, $kinds ?? EntityFilter::all(), $onlyActive),
+            new ReadEnterpriseOrEstablishmentByActivityRequest($activityFilter, $locationFilter, $entityFilter ?? EntityFilter::all(), $onlyActive),
             CouldNotSearchEntitiesByActivity::class,
         );
 
@@ -53,7 +53,7 @@ final readonly class EntityResource extends KboResource
      * Search enterprises and establishment units at an address (SOAP operation ReadEnterpriseOrEstablishmentByAddress).
      *
      * @param Zipcode $zipcode The zipcode.
-     * @param StreetName $street The street name.
+     * @param StreetName $streetName The street name.
      * @param HouseNumber $houseNumber The house number.
      * @param bool $onlyActive Only active entities.
      *
@@ -63,10 +63,10 @@ final readonly class EntityResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByAddress(Zipcode $zipcode, StreetName $street, HouseNumber $houseNumber, bool $onlyActive = true): EntitySearchReply
+    public function searchByAddress(Zipcode $zipcode, StreetName $streetName, HouseNumber $houseNumber, bool $onlyActive = true): EntitySearchReply
     {
         $unwrapped = $this->searchFor(
-            new ReadEnterpriseOrEstablishmentByAddressRequest($zipcode, $street, $houseNumber, $onlyActive),
+            new ReadEnterpriseOrEstablishmentByAddressRequest($zipcode, $streetName, $houseNumber, $onlyActive),
             CouldNotSearchEntitiesByAddress::class,
         );
 

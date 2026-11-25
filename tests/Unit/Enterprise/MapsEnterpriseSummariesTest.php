@@ -42,10 +42,10 @@ final class MapsEnterpriseSummariesTest extends TestCase
         $this->assertSame('0314595348', $summary?->number->toString());
         $this->assertSame(StatusKind::Active, $summary?->status?->kind);
         $this->assertSame('1968-01-01', $summary?->period->begin?->toString());
-        $this->assertSame(TypeOfEnterprise::LegalPerson, $summary?->type);
+        $this->assertSame(TypeOfEnterprise::LegalPerson, $summary?->typeOfEnterprise);
         $this->assertSame('301', $summary?->juridicalForm?->code);
-        $this->assertSame('Service public fédéral Economie, P.M.E., Classes moyennes et Energie', $summary?->name->in(Language::French));
-        $this->assertSame('Federale Overheidsdienst Economie, KMO, Middenstand en Energie', (string) $summary?->name);
+        $this->assertSame('Service public fédéral Economie, P.M.E., Classes moyennes et Energie', $summary?->primaryDenomination->in(Language::French));
+        $this->assertSame('Federale Overheidsdienst Economie, KMO, Middenstand en Energie', (string) $summary?->primaryDenomination);
         $this->assertNull($summary?->address);
         $this->assertSame(17, $summary?->businessUnits);
     }
@@ -70,6 +70,6 @@ final class MapsEnterpriseSummariesTest extends TestCase
         // Assert
         $this->assertSame(StatusKind::Stopped, $summary?->status?->kind);
         $this->assertNull($summary?->juridicalForm);
-        $this->assertSame([], $summary?->name->all());
+        $this->assertSame([], $summary?->primaryDenomination->all());
     }
 }

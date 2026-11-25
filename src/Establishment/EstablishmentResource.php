@@ -39,8 +39,8 @@ final readonly class EstablishmentResource extends KboResource
     /**
      * Read an establishment unit by its number (SOAP operation ReadEstablishmentByEstablishmentNumber).
      *
-     * @param EstablishmentNumber $number The establishment unit number.
-     * @param TypeOfResult $detail Short or long information.
+     * @param EstablishmentNumber $establishmentNumber The establishment unit number.
+     * @param TypeOfResult $typeOfResult Short or long information.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -48,9 +48,9 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function find(EstablishmentNumber $number, TypeOfResult $detail = TypeOfResult::Short): EstablishmentReply
+    public function find(EstablishmentNumber $establishmentNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentReply
     {
-        $unwrapped = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($number, $detail), CouldNotFindEstablishment::class);
+        $unwrapped = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($establishmentNumber, $typeOfResult), CouldNotFindEstablishment::class);
 
         return $this->reply(fn () => new EstablishmentReply(
             $unwrapped->context,
@@ -63,8 +63,8 @@ final readonly class EstablishmentResource extends KboResource
      *
      * The list is not limited; prefer TypeOfResult::Short for enterprises with many establishments.
      *
-     * @param EnterpriseNumber $number The enterprise number.
-     * @param TypeOfResult $detail Short or long information.
+     * @param EnterpriseNumber $enterpriseNumber The enterprise number.
+     * @param TypeOfResult $typeOfResult Short or long information.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
@@ -72,9 +72,9 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function ofEnterprise(EnterpriseNumber $number, TypeOfResult $detail = TypeOfResult::Short): EstablishmentSearchReply
+    public function ofEnterprise(EnterpriseNumber $enterpriseNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentSearchReply
     {
-        $unwrapped = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($number, $detail), CouldNotGetEstablishmentsOfEnterprise::class);
+        $unwrapped = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($enterpriseNumber, $typeOfResult), CouldNotGetEstablishmentsOfEnterprise::class);
 
         return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->toEstablishments($unwrapped->body)));
     }
@@ -82,8 +82,8 @@ final readonly class EstablishmentResource extends KboResource
     /**
      * Search establishment units holding an authorization in a location (SOAP operation ReadEstablishmentByAuthorization).
      *
-     * @param AuthorizationSearchCode $code An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
-     * @param LocationFilter $location Municipalities, a municipality and its neighbours, or zipcodes.
+     * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
+     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
      * @param bool $onlyActive Only active establishment units.
      *
      * @throws CouldNotAuthenticate
@@ -92,10 +92,10 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByAuthorization(AuthorizationSearchCode $code, LocationFilter $location, bool $onlyActive = true): EstablishmentSearchReply
+    public function searchByAuthorization(AuthorizationSearchCode $authorizationFilter, LocationFilter $locationFilter, bool $onlyActive = true): EstablishmentSearchReply
     {
         return $this->searchEstablishments(
-            new ReadEstablishmentByAuthorizationRequest($code, $location, $onlyActive),
+            new ReadEstablishmentByAuthorizationRequest($authorizationFilter, $locationFilter, $onlyActive),
             CouldNotSearchEstablishmentsByAuthorization::class,
         );
     }
@@ -103,7 +103,7 @@ final readonly class EstablishmentResource extends KboResource
     /**
      * Search establishment units by their exact name (SOAP operation ReadEstablishmentByNameExactMatch).
      *
-     * @param EstablishmentName $name The exact name.
+     * @param EstablishmentName $establishmentName The exact name.
      * @param Zipcode|null $zipcode Only establishment units with this zipcode.
      * @param bool $onlyActive Only active establishment units.
      *
@@ -113,10 +113,10 @@ final readonly class EstablishmentResource extends KboResource
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function searchByName(EstablishmentName $name, ?Zipcode $zipcode = null, bool $onlyActive = true): EstablishmentSearchReply
+    public function searchByName(EstablishmentName $establishmentName, ?Zipcode $zipcode = null, bool $onlyActive = true): EstablishmentSearchReply
     {
         return $this->searchEstablishments(
-            new ReadEstablishmentByNameExactMatchRequest($name, $zipcode, $onlyActive),
+            new ReadEstablishmentByNameExactMatchRequest($establishmentName, $zipcode, $onlyActive),
             CouldNotSearchEstablishmentsByName::class,
         );
     }

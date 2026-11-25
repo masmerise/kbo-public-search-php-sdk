@@ -36,8 +36,8 @@ trait MapsAddresses
                 $country->textOf('Code'),
                 $this->toDescription($country),
             )),
-            since: $this->toDate($address, 'Begin'),
-            type: transform($address->optional('TypeOfAddress'), fn (Element $type) => new TypeOfAddress(
+            begin: $this->toDate($address, 'Begin'),
+            typeOfAddress: transform($address->optional('TypeOfAddress'), fn (Element $type) => new TypeOfAddress(
                 $code = $type->textOf('Code'),
                 AddressKind::tryFrom($code),
                 $this->toDescription($type),

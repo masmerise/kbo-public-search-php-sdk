@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Denomination;
 
-use KboPublicSearch\Core\Type\Primitive\Date;
+use KboPublicSearch\Core\Type\Period;
 
 /** A name of an enterprise, establishment or branch, in one language. */
 final readonly class Denomination
@@ -13,8 +13,8 @@ final readonly class Denomination
         /** Null for a code this SDK does not know yet. */
         public ?DenominationKind $kind,
         public string $name,
-        /** The language code as KBO returns it ("nl", "fr", "de"); empty for natural persons' names. */
+        /** The language code as KBO returns it ("nl", "fr", "de"); empty for physical persons' names. */
         public string $language,
-        public ?Date $since,
+        public ?Period $validityPeriod,
     ) {}
 }

@@ -20,12 +20,12 @@ trait MapsContactInformation
         $type = $contact->optionalText('ContactType');
 
         return new ContactInformation(
-            type: $type,
+            contactType: $type,
             kind: transform($type, ContactKind::tryFrom(...)),
             description: $this->toDescription($contact),
             value: $contact->optionalText('Value') ?? '',
-            foreignBranchOffice: $contact->optionalText('ForeignBranchOfficeFlag') === 'true',
-            since: $this->toDate($contact, 'Begin'),
+            foreignBranchOfficeFlag: $contact->optionalText('ForeignBranchOfficeFlag') === 'true',
+            begin: $this->toDate($contact, 'Begin'),
         );
     }
 

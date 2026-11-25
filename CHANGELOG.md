@@ -8,7 +8,7 @@ Initial release, implementing cookbook R018.08:
 
 - `enterprises->find()` (ReadEnterprise)
 - `enterprises->searchByPhoneme()` (ReadEnterpriseByPhoneme)
-- `enterprises->searchByPersonName()` (ReadEnterpriseByPhysicalPersonNameExactMatch)
+- `enterprises->searchByPhysicalPersonName()` (ReadEnterpriseByPhysicalPersonNameExactMatch)
 - `enterprises->searchByCompanyName()` (ReadEnterpriseLegalPersonByCompanyNameExactMatch)
 - `enterprises->searchByAuthorization()` (ReadEnterpriseByAuthorization)
 - `establishments->find()` (ReadEstablishmentByEstablishmentNumber)

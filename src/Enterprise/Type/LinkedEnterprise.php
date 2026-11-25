@@ -14,9 +14,9 @@ final readonly class LinkedEnterprise
         public string $code,
         public Description $description,
         /** EnterpriseNumberSubject: the left-hand side of the relation. */
-        public EnterpriseNumber $subject,
+        public EnterpriseNumber $enterpriseNumberSubject,
         /** EnterpriseNumberObject: the right-hand side of the relation. */
-        public EnterpriseNumber $object,
+        public EnterpriseNumber $enterpriseNumberObject,
         public Period $period,
     ) {}
 }

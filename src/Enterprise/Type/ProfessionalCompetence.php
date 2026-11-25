@@ -14,8 +14,7 @@ final readonly class ProfessionalCompetence
         public string $code,
         public Description $description,
         public Period $period,
-        /** Exemption > Begin. */
-        public ?Date $exemptionSince,
+        public ?Period $exemption,
         public ?Date $strikingOff,
     ) {}
 }

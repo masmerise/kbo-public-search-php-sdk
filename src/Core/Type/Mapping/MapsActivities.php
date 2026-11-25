@@ -24,15 +24,15 @@ trait MapsActivities
 
         return new Activity(
             code: $activity->textOf('Code'),
-            group: transform($activity->optional('ActivityGroupAdministration'), fn (Element $group) => new ActivityGroupAdministration(
+            activityGroupAdministration: transform($activity->optional('ActivityGroupAdministration'), fn (Element $group) => new ActivityGroupAdministration(
                 $group->optionalText('ActivityGroup') ?? '',
                 $this->toDescription($group),
             )),
-            versionCode: $version,
-            version: NacebelVersion::tryFrom($version),
+            version: $version,
+            nacebelVersion: NacebelVersion::tryFrom($version),
             description: $this->toDescription($activity),
             period: $this->toRequiredPeriod($activity, 'Period'),
-            classification: transform($activity->optional('ActivityClassification'), fn (Element $classification) => new ActivityClassification(
+            activityClassification: transform($activity->optional('ActivityClassification'), fn (Element $classification) => new ActivityClassification(
                 $code = $classification->textOf('Code'),
                 ActivityClassificationKind::tryFrom($code),
                 $this->toDescription($classification),

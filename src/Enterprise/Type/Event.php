@@ -12,6 +12,6 @@ final readonly class Event
     public function __construct(
         public string $code,
         public Description $description,
-        public Date $date,
+        public Date $eventDate,
     ) {}
 }

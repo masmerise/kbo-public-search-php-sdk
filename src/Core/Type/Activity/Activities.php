@@ -16,7 +16,7 @@ final readonly class Activities extends Collection
     {
         return self::of(array_values(array_filter(
             $this->items,
-            static fn (Activity $activity) => $activity->classification?->kind === ActivityClassificationKind::Main,
+            static fn (Activity $activity) => $activity->activityClassification?->kind === ActivityClassificationKind::Main,
         )));
     }
 }

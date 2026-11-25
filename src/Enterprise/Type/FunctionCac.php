@@ -12,7 +12,6 @@ final readonly class FunctionCac
     public function __construct(
         public string $code,
         public Description $description,
-        /** CACPeriod. */
-        public Period $period,
+        public Period $cacPeriod,
     ) {}
 }

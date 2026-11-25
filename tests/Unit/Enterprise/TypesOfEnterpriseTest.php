@@ -12,9 +12,9 @@ final class TypesOfEnterpriseTest extends TestCase
     #[Test]
     public function named_constructors(): void
     {
-        $this->assertSame([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::NaturalPerson], TypesOfEnterprise::all()->toArray());
+        $this->assertSame([TypeOfEnterprise::LegalPerson, TypeOfEnterprise::PhysicalPerson], TypesOfEnterprise::all()->toArray());
         $this->assertSame([TypeOfEnterprise::LegalPerson], TypesOfEnterprise::legalPersons()->toArray());
-        $this->assertSame([TypeOfEnterprise::NaturalPerson], TypesOfEnterprise::naturalPersons()->toArray());
+        $this->assertSame([TypeOfEnterprise::PhysicalPerson], TypesOfEnterprise::physicalPersons()->toArray());
     }
 
     #[Test]
@@ -22,6 +22,6 @@ final class TypesOfEnterpriseTest extends TestCase
     {
         $this->assertTrue(TypesOfEnterprise::legalPersons()->isLegalPersonsOnly());
         $this->assertFalse(TypesOfEnterprise::all()->isLegalPersonsOnly());
-        $this->assertFalse(TypesOfEnterprise::naturalPersons()->isLegalPersonsOnly());
+        $this->assertFalse(TypesOfEnterprise::physicalPersons()->isLegalPersonsOnly());
     }
 }

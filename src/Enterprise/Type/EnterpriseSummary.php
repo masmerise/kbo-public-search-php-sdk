@@ -17,12 +17,12 @@ final readonly class EnterpriseSummary
         /** Status, or JuridicalSituation > Status where KBO sends that instead. */
         public ?Status $status,
         public Period $period,
-        public TypeOfEnterprise $type,
+        public TypeOfEnterprise $typeOfEnterprise,
         /** Only for legal persons. */
         public ?JuridicalForm $juridicalForm,
         /** PrimaryDenomination: the name in each requested language. */
-        public Description $name,
-        /** The registered office; absent for natural persons. */
+        public Description $primaryDenomination,
+        /** The registered office; absent for physical persons. */
         public ?Address $address,
         public int $businessUnits,
     ) {}

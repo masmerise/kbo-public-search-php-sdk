@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-/** A natural person exercising a function. */
+/** A physical person exercising a function. */
 final readonly class Person
 {
     /** @internal */

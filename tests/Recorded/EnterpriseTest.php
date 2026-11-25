@@ -34,7 +34,7 @@ final class EnterpriseTest extends RecordedTestCase
 
         // Everything in the recording is mapped.
         $enterprise = $reply->enterprise;
-        $this->assertSame(TypeOfEnterprise::NaturalPerson, $enterprise->type);
+        $this->assertSame(TypeOfEnterprise::PhysicalPerson, $enterprise->typeOfEnterprise);
         $this->assertSame('000', $enterprise->juridicalSituation->code);
         $this->assertSame('2026-05-11', $enterprise->period->begin?->toString());
         $this->assertNull($enterprise->juridicalForm);
