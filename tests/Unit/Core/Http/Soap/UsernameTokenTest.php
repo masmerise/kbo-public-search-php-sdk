@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 final class UsernameTokenTest extends TestCase
 {
     private const array NS = [
-        'wsse' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecext-1.0.xsd',
+        'wsse' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd',
         'wsu' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd',
     ];
 

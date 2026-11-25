@@ -28,7 +28,7 @@ final readonly class Envelope
         'soapenv' => 'http://schemas.xmlsoap.org/soap/envelope/',
         'mes' => 'http://economie.fgov.be/kbopub/webservices/v1/messages',
         'dat' => 'http://economie.fgov.be/kbopub/webservices/v1/datamodel',
-        'wsse' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecext-1.0.xsd',
+        'wsse' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd',
         'wsu' => 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd',
     ];
 
