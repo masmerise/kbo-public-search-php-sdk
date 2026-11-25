@@ -5,7 +5,7 @@ namespace KboPublicSearch\Street\Search\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 
 /** @internal */
 final class ReadStreetNameRequest extends Request

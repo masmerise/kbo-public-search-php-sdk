@@ -15,19 +15,19 @@ final class EnvelopeUnwrapTest extends TestCase
     public function canceled_reply(): void
     {
         // Act
-        $result = Envelope::unwrap(file_get_contents(__DIR__ . '/../../../../Fixtures/Cookbook/reply-enterprise-canceled.xml'));
+        $unwrapped = Envelope::unwrap(file_get_contents(__DIR__ . '/../../../../Fixtures/Cookbook/reply-enterprise-canceled.xml'));
 
         // Assert
-        $this->assertSame(ReplyStatus::EnterpriseCanceled, $result->context->status);
-        $this->assertSame('00014', $result->context->statusCode);
-        $this->assertSame('Enterprise canceled', $result->context->statusDescription);
-        $this->assertSame('myid', $result->context->requestId);
-        $this->assertSame('23efbf0d-7d1e-4f67-981e-e1e2a766a5e0', $result->context->replyId);
-        $this->assertNull($result->context->accountBalance);
-        $this->assertNull($result->context->snapshotDate);
-        $this->assertTrue($result->context->charged());
-        $this->assertSame('ReadEnterpriseReply', $result->body->name());
-        $this->assertSame([], $result->body->elements());
+        $this->assertSame(ReplyStatus::EnterpriseCanceled, $unwrapped->context->status);
+        $this->assertSame('00014', $unwrapped->context->statusCode);
+        $this->assertSame('Enterprise canceled', $unwrapped->context->statusDescription);
+        $this->assertSame('myid', $unwrapped->context->requestId);
+        $this->assertSame('23efbf0d-7d1e-4f67-981e-e1e2a766a5e0', $unwrapped->context->replyId);
+        $this->assertNull($unwrapped->context->accountBalance);
+        $this->assertNull($unwrapped->context->snapshotDate);
+        $this->assertTrue($unwrapped->context->charged());
+        $this->assertSame('ReadEnterpriseReply', $unwrapped->body->name());
+        $this->assertSame([], $unwrapped->body->elements());
     }
 
     #[Test]
@@ -57,25 +57,25 @@ final class EnvelopeUnwrapTest extends TestCase
         XML;
 
         // Act
-        $result = Envelope::unwrap($xml);
+        $unwrapped = Envelope::unwrap($xml);
 
         // Assert
-        $this->assertSame(ReplyStatus::Success, $result->context->status);
-        $this->assertSame(7829, $result->context->accountBalance);
-        $this->assertSame('2020-05-15', $result->context->snapshotDate?->toString());
-        $this->assertSame('314595348', $result->body->child('Enterprise')->textOf('Number'));
+        $this->assertSame(ReplyStatus::Success, $unwrapped->context->status);
+        $this->assertSame(7829, $unwrapped->context->accountBalance);
+        $this->assertSame('2020-05-15', $unwrapped->context->snapshotDate?->toString());
+        $this->assertSame('314595348', $unwrapped->body->child('Enterprise')->textOf('Number'));
     }
 
     #[Test]
     public function unknown_status_keeps_the_raw_code(): void
     {
         // Act
-        $result = Envelope::unwrap(self::reply('<ReplyStatus><Code>12345</Code><Description>New</Description></ReplyStatus>', '<R/>'));
+        $unwrapped = Envelope::unwrap(self::reply('<ReplyStatus><Code>12345</Code><Description>New</Description></ReplyStatus>', '<R/>'));
 
         // Assert
-        $this->assertSame(ReplyStatus::Unknown, $result->context->status);
-        $this->assertSame('12345', $result->context->statusCode);
-        $this->assertFalse($result->context->charged());
+        $this->assertSame(ReplyStatus::Unknown, $unwrapped->context->status);
+        $this->assertSame('12345', $unwrapped->context->statusCode);
+        $this->assertFalse($unwrapped->context->charged());
     }
 
     #[Test]

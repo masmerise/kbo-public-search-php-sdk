@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KboPublicSearch\Entity\Type;
+namespace KboPublicSearch\Entity\Type\Primitive;
 
 use Stringable;
 use Webmozart\Assert\Assert;

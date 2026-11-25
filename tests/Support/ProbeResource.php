@@ -4,11 +4,11 @@ namespace KboPublicSearch\Tests\Support;
 
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
-use KboPublicSearch\Core\Http\Result;
+use KboPublicSearch\Core\Http\UnwrappedReply;
 
 final readonly class ProbeResource extends KboResource
 {
-    public function probeLookup(Request $request): Result
+    public function probeLookup(Request $request): UnwrappedReply
     {
         return $this->lookup($request, CouldNotProbe::class);
     }
@@ -18,7 +18,7 @@ final readonly class ProbeResource extends KboResource
         $this->reply(fn () => $this->lookup($request, CouldNotProbe::class)->body->child('Missing'));
     }
 
-    public function probeSearch(Request $request): Result
+    public function probeSearch(Request $request): UnwrappedReply
     {
         return $this->searchFor($request, CouldNotProbe::class);
     }

@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
 use KboPublicSearch\Street\Type\Mapping\MapsStreetNames;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

@@ -118,8 +118,8 @@ final class MapsEnterprisesTest extends TestCase
 
     private function enterprise(string $fixture): Enterprise
     {
-        $result = Envelope::unwrap(file_get_contents(__DIR__ . "/../../Fixtures/Cookbook/{$fixture}.xml"));
+        $unwrapped = Envelope::unwrap(file_get_contents(__DIR__ . "/../../Fixtures/Cookbook/{$fixture}.xml"));
 
-        return $this->toEnterprise($result->body->child('Enterprise'));
+        return $this->toEnterprise($unwrapped->body->child('Enterprise'));
     }
 }

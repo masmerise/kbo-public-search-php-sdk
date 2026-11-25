@@ -4,6 +4,7 @@ namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Enterprise\Reply\EnterpriseSearchReply;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
@@ -11,7 +12,6 @@ use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysic
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
 use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
 use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;

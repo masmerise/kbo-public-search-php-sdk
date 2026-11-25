@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KboPublicSearch\Establishment\Type;
+namespace KboPublicSearch\Establishment\Type\Primitive;
 
 use KboPublicSearch\Core\Utility\XmlText;
 use Stringable;

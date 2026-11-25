@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
@@ -13,7 +14,6 @@ use KboPublicSearch\Enterprise\SearchByPersonName\Request\ReadEnterpriseByPhysic
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
 use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;

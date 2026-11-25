@@ -29,7 +29,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function lookup(Request $request, string $onFailure): Result
+    protected function lookup(Request $request, string $onFailure): UnwrappedReply
     {
         return $this->send($request, $onFailure, static fn (ReplyStatus $status) => $status->isSuccess());
     }
@@ -66,7 +66,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function searchFor(Request $request, string $onFailure): Result
+    protected function searchFor(Request $request, string $onFailure): UnwrappedReply
     {
         return $this->send(
             $request,
@@ -81,7 +81,7 @@ abstract readonly class KboResource
      *
      * @throws KboPublicSearchException
      */
-    private function send(Request $request, string $onFailure, Closure $accepts): Result
+    private function send(Request $request, string $onFailure, Closure $accepts): UnwrappedReply
     {
         try {
             $response = $this->client->send($request);
@@ -90,21 +90,21 @@ abstract readonly class KboResource
         }
 
         try {
-            $result = $response->dto();
+            $unwrapped = $response->dto();
         } catch (KboPublicSearchException $ex) {
             throw $ex;
         } catch (Throwable $ex) {
             throw UnknownException::sorry($ex);
         }
 
-        if (! $result instanceof Result) {
+        if (! $unwrapped instanceof UnwrappedReply) {
             throw UnknownException::sorry(new RuntimeException('The reply could not be read.'));
         }
 
-        if (! $accepts($result->context->status)) {
-            throw new $onFailure($result->context);
+        if (! $accepts($unwrapped->context->status)) {
+            throw new $onFailure($unwrapped->context);
         }
 
-        return $result;
+        return $unwrapped;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Http\Mapping;
 
-use KboPublicSearch\Core\Http\Result;
+use KboPublicSearch\Core\Http\UnwrappedReply;
 use KboPublicSearch\Core\Reply\ReplyContext;
 use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Core\Type\Primitive\Date;
@@ -12,17 +12,17 @@ use RuntimeException;
 use function KboPublicSearch\Core\Utility\transform;
 
 /** @internal */
-final readonly class ResultMapper
+final readonly class UnwrappedReplyMapper
 {
     /** @throws RuntimeException when the envelope lacks a reply context or a reply body */
-    public function __invoke(Element $envelope): Result
+    public function __invoke(Element $envelope): UnwrappedReply
     {
         $header = $envelope->child('Header')->child('ReplyContext');
         $status = $header->child('ReplyStatus');
         $code = $status->textOf('Code');
         $body = $envelope->child('Body')->elements()[0] ?? throw new RuntimeException('The reply body is empty.');
 
-        return new Result(
+        return new UnwrappedReply(
             context: new ReplyContext(
                 requestId: $header->textOf('RequestId'),
                 replyId: $header->textOf('ReplyId'),

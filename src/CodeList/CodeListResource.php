@@ -31,8 +31,8 @@ final readonly class CodeListResource extends KboResource
      */
     public function read(CodeListId $id): CodeListReply
     {
-        $result = $this->lookup(new ReadCodeListRequest($id), CouldNotReadCodeList::class);
+        $unwrapped = $this->lookup(new ReadCodeListRequest($id), CouldNotReadCodeList::class);
 
-        return $this->reply(fn () => new CodeListReply($result->context, $this->toCodeList($result->body)));
+        return $this->reply(fn () => new CodeListReply($unwrapped->context, $this->toCodeList($unwrapped->body)));
     }
 }

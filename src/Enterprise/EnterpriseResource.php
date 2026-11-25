@@ -12,6 +12,7 @@ use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\Find\Failure\CouldNotFindEnterprise;
@@ -30,7 +31,6 @@ use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
 use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterprises;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterpriseSummaries;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
@@ -57,11 +57,11 @@ final readonly class EnterpriseResource extends KboResource
      */
     public function find(EnterpriseNumber $number): EnterpriseReply
     {
-        $result = $this->lookup(new ReadEnterpriseRequest($number), CouldNotFindEnterprise::class);
+        $unwrapped = $this->lookup(new ReadEnterpriseRequest($number), CouldNotFindEnterprise::class);
 
         return $this->reply(fn () => new EnterpriseReply(
-            $result->context,
-            $this->toEnterprise($result->body->child('Enterprise')),
+            $unwrapped->context,
+            $this->toEnterprise($unwrapped->body->child('Enterprise')),
         ));
     }
 
@@ -169,8 +169,8 @@ final readonly class EnterpriseResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEnterprises(Request $request, string $onFailure): EnterpriseSearchReply
     {
-        $result = $this->searchFor($request, $onFailure);
+        $unwrapped = $this->searchFor($request, $onFailure);
 
-        return $this->reply(fn () => new EnterpriseSearchReply($result->context, $this->toEnterpriseSummaries($result->body)));
+        return $this->reply(fn () => new EnterpriseSearchReply($unwrapped->context, $this->toEnterpriseSummaries($unwrapped->body)));
     }
 }

@@ -6,7 +6,7 @@ use KboPublicSearch\Core\Reply\ReplyContext;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */
-final readonly class Result
+final readonly class UnwrappedReply
 {
     public function __construct(
         public ReplyContext $context,

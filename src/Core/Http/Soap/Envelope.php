@@ -8,10 +8,10 @@ use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Failure\KboPublicSearchException;
 use KboPublicSearch\Core\Failure\Mapping\MapsSoapFaults;
 use KboPublicSearch\Core\Failure\UnknownException;
-use KboPublicSearch\Core\Http\Mapping\ResultMapper;
-use KboPublicSearch\Core\Http\Result;
+use KboPublicSearch\Core\Http\Mapping\UnwrappedReplyMapper;
 use KboPublicSearch\Core\Http\Soap\Security\Timestamp;
 use KboPublicSearch\Core\Http\Soap\Security\UsernameToken;
+use KboPublicSearch\Core\Http\UnwrappedReply;
 use KboPublicSearch\Core\Xml\Node;
 use KboPublicSearch\Core\Xml\Reader;
 use KboPublicSearch\Core\Xml\Writer;
@@ -64,7 +64,7 @@ final readonly class Envelope
     /**
      * @throws KboPublicSearchException a typed failure for a SOAP fault, UnknownException for anything that is not a KBO reply
      */
-    public static function unwrap(string $xml): Result
+    public static function unwrap(string $xml): UnwrappedReply
     {
         try {
             $envelope = Reader::fromString($xml);
@@ -86,7 +86,7 @@ final readonly class Envelope
         }
 
         try {
-            return new ResultMapper()($envelope);
+            return new UnwrappedReplyMapper()($envelope);
         } catch (InvalidArgumentException|RuntimeException $ex) {
             throw UnknownException::sorry($ex);
         }

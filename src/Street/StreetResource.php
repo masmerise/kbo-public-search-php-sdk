@@ -12,7 +12,7 @@ use KboPublicSearch\Street\Reply\StreetNameReply;
 use KboPublicSearch\Street\Search\Failure\CouldNotSearchStreets;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
 use KboPublicSearch\Street\Type\Mapping\MapsStreetNames;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 
 /** @internal */
 final readonly class StreetResource extends KboResource
@@ -33,8 +33,8 @@ final readonly class StreetResource extends KboResource
      */
     public function search(Zipcode $zipcode, PartOfStreetName $part): StreetNameReply
     {
-        $result = $this->searchFor(new ReadStreetNameRequest($zipcode, $part), CouldNotSearchStreets::class);
+        $unwrapped = $this->searchFor(new ReadStreetNameRequest($zipcode, $part), CouldNotSearchStreets::class);
 
-        return $this->reply(fn () => new StreetNameReply($result->context, $this->toStreetNames($result->body)));
+        return $this->reply(fn () => new StreetNameReply($unwrapped->context, $this->toStreetNames($unwrapped->body)));
     }
 }

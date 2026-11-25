@@ -89,10 +89,10 @@ final class KboResourceTest extends TestCase
         $this->respond(MockResponse::make(self::reply($code), 200));
 
         // Act
-        $result = $this->resource->probeSearch(new ProbeRequest('0314595348'));
+        $unwrapped = $this->resource->probeSearch(new ProbeRequest('0314595348'));
 
         // Assert
-        $this->assertSame($code, $result->context->statusCode);
+        $this->assertSame($code, $unwrapped->context->statusCode);
     }
 
     public static function acceptedBySearch(): iterable

@@ -5,7 +5,7 @@ namespace KboPublicSearch\Establishment\SearchByName\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Establishment\Type\EstablishmentName;
+use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 
 /** @internal */
 final class ReadEstablishmentByNameExactMatchRequest extends Request

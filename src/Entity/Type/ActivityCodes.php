@@ -2,6 +2,7 @@
 
 namespace KboPublicSearch\Entity\Type;
 
+use KboPublicSearch\Entity\Type\Primitive\ActivityCode;
 use Webmozart\Assert\Assert;
 
 /** 1 to 10 NACEBEL codes or prefixes. */

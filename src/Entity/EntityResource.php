@@ -41,12 +41,12 @@ final readonly class EntityResource extends KboResource
      */
     public function searchByActivity(ActivityCodes $activities, LocationFilter $location, ?EntityKinds $kinds = null, bool $onlyActive = true): EntitySearchReply
     {
-        $result = $this->searchFor(
+        $unwrapped = $this->searchFor(
             new ReadEnterpriseOrEstablishmentByActivityRequest($activities, $location, $kinds ?? EntityKinds::all(), $onlyActive),
             CouldNotSearchEntitiesByActivity::class,
         );
 
-        return $this->reply(fn () => new EntitySearchReply($result->context, $this->toEntities($result->body)));
+        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->toEntities($unwrapped->body)));
     }
 
     /**
@@ -65,11 +65,11 @@ final readonly class EntityResource extends KboResource
      */
     public function searchByAddress(Zipcode $zipcode, StreetName $street, HouseNumber $houseNumber, bool $onlyActive = true): EntitySearchReply
     {
-        $result = $this->searchFor(
+        $unwrapped = $this->searchFor(
             new ReadEnterpriseOrEstablishmentByAddressRequest($zipcode, $street, $houseNumber, $onlyActive),
             CouldNotSearchEntitiesByAddress::class,
         );
 
-        return $this->reply(fn () => new EntitySearchReply($result->context, $this->toEntities($result->body)));
+        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->toEntities($unwrapped->body)));
     }
 }

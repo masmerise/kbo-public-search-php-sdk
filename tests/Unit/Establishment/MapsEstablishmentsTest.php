@@ -19,7 +19,7 @@ final class MapsEstablishmentsTest extends TestCase
     public function recorded_short(): void
     {
         // Act
-        $establishment = $this->toEstablishment(Recording::result('establishment/find-short')->body->child('Establishment'));
+        $establishment = $this->toEstablishment(Recording::unwrapped('establishment/find-short')->body->child('Establishment'));
 
         // Assert
         $this->assertSame(RecordedTestCase::ESTABLISHMENT, $establishment->number->toString());
@@ -39,7 +39,7 @@ final class MapsEstablishmentsTest extends TestCase
     public function recorded_long(): void
     {
         // Act
-        $establishment = $this->toEstablishment(Recording::result('establishment/find-long')->body->child('Establishment'));
+        $establishment = $this->toEstablishment(Recording::unwrapped('establishment/find-long')->body->child('Establishment'));
 
         // Assert
         $this->assertSame([], $establishment->name->all());

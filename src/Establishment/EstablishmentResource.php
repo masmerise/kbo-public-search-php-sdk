@@ -12,10 +12,10 @@ use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\Detail;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Establishment\Find\Failure\CouldNotFindEstablishment;
 use KboPublicSearch\Establishment\Find\Request\ReadEstablishmentByEstablishmentNumberRequest;
 use KboPublicSearch\Establishment\OfEnterprise\Failure\CouldNotGetEstablishmentsOfEnterprise;
@@ -28,8 +28,8 @@ use KboPublicSearch\Establishment\SearchByName\Failure\CouldNotSearchEstablishme
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Failure\CouldNotSearchEstablishmentsByPhoneme;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
-use KboPublicSearch\Establishment\Type\EstablishmentName;
 use KboPublicSearch\Establishment\Type\Mapping\MapsEstablishments;
+use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 
 /** @internal */
 final readonly class EstablishmentResource extends KboResource
@@ -50,11 +50,11 @@ final readonly class EstablishmentResource extends KboResource
      */
     public function find(EstablishmentNumber $number, Detail $detail = Detail::Short): EstablishmentReply
     {
-        $result = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($number, $detail), CouldNotFindEstablishment::class);
+        $unwrapped = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($number, $detail), CouldNotFindEstablishment::class);
 
         return $this->reply(fn () => new EstablishmentReply(
-            $result->context,
-            $this->toEstablishment($result->body->child('Establishment')),
+            $unwrapped->context,
+            $this->toEstablishment($unwrapped->body->child('Establishment')),
         ));
     }
 
@@ -74,9 +74,9 @@ final readonly class EstablishmentResource extends KboResource
      */
     public function ofEnterprise(EnterpriseNumber $number, Detail $detail = Detail::Short): EstablishmentSearchReply
     {
-        $result = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($number, $detail), CouldNotGetEstablishmentsOfEnterprise::class);
+        $unwrapped = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($number, $detail), CouldNotGetEstablishmentsOfEnterprise::class);
 
-        return $this->reply(fn () => new EstablishmentSearchReply($result->context, $this->toEstablishments($result->body)));
+        return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->toEstablishments($unwrapped->body)));
     }
 
     /**
@@ -145,8 +145,8 @@ final readonly class EstablishmentResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEstablishments(Request $request, string $onFailure): EstablishmentSearchReply
     {
-        $result = $this->searchFor($request, $onFailure);
+        $unwrapped = $this->searchFor($request, $onFailure);
 
-        return $this->reply(fn () => new EstablishmentSearchReply($result->context, $this->toEstablishments($result->body)));
+        return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->toEstablishments($unwrapped->body)));
     }
 }

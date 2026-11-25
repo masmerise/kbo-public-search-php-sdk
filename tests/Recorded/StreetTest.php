@@ -5,7 +5,7 @@ namespace KboPublicSearch\Tests\Recorded;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Street\Reply\StreetNameReply;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 

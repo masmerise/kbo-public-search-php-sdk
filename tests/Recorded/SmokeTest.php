@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Http\KboConnector;
-use KboPublicSearch\Core\Http\Result;
+use KboPublicSearch\Core\Http\UnwrappedReply;
 use KboPublicSearch\Tests\RecordedTestCase;
 use KboPublicSearch\Tests\Support\ProbeRequest;
 use PHPUnit\Framework\Attributes\Test;
@@ -19,10 +19,10 @@ final class SmokeTest extends RecordedTestCase
         $connector->useEnvironment(self::environment());
 
         // Act
-        $result = $connector->send(new ProbeRequest(self::ENTERPRISE))->dto();
+        $unwrapped = $connector->send(new ProbeRequest(self::ENTERPRISE))->dto();
 
         // Assert
-        $this->assertInstanceOf(Result::class, $result);
-        $this->assertTrue($result->context->status->isSuccess(), "{$result->context->statusCode} {$result->context->statusDescription}");
+        $this->assertInstanceOf(UnwrappedReply::class, $unwrapped);
+        $this->assertTrue($unwrapped->context->status->isSuccess(), "{$unwrapped->context->statusCode} {$unwrapped->context->statusDescription}");
     }
 }

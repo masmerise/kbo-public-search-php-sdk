@@ -4,8 +4,8 @@ namespace KboPublicSearch\Enterprise\SearchByAuthorization\Request;
 
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 
 /** @internal */
 final class ReadEnterpriseByAuthorizationRequest extends Request

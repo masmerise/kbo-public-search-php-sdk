@@ -78,7 +78,7 @@ use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
 use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
@@ -130,8 +130,8 @@ use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
-use KboPublicSearch\Establishment\Type\EstablishmentName;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
+use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 
 $establishment = $kbo->establishments->find(EstablishmentNumber::fromString('2.147.241.191'), Detail::Long)->establishment;
 
@@ -177,7 +177,7 @@ $kbo->entities->searchByActivity(
 ```php
 use KboPublicSearch\CodeList\Type\CodeListId;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 
 $streets = $kbo->streets->search(Zipcode::fromString('9000'), PartOfStreetName::fromString('veld'))->streetNames;
 

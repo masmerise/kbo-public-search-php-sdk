@@ -6,9 +6,9 @@ use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Core\Type\Parameter\Detail;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
 use KboPublicSearch\Establishment\Find\Failure\CouldNotFindEstablishment;
 use KboPublicSearch\Establishment\Find\Request\ReadEstablishmentByEstablishmentNumberRequest;
 use KboPublicSearch\Establishment\OfEnterprise\Request\ReadEstablishmentByEnterpriseNumberRequest;
@@ -18,7 +18,7 @@ use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmen
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
 use KboPublicSearch\Establishment\Type\Establishment;
-use KboPublicSearch\Establishment\Type\EstablishmentName;
+use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 

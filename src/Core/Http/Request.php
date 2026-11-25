@@ -19,7 +19,7 @@ abstract class Request extends RequestBase
     /** @return list<Node> The children of mes:{operation}Request, in XSD sequence order. */
     abstract public function message(): array;
 
-    public function createDtoFromResponse(Response $response): Result
+    public function createDtoFromResponse(Response $response): UnwrappedReply
     {
         return $response |> new UnwrapResponse();
     }
