@@ -1,0 +1,10 @@
+.idea
+build
+composer.lock
+vendor
+.phpunit.cache
+.phpunit.result.cache
+.php-cs-fixer.cache
+tests/.env
+.superpowers/
+.DS_Store

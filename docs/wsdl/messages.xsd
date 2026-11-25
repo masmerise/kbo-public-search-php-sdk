@@ -1,0 +1,570 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by Annick Buelinckx (UPFRONT SPRL) --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://economie.fgov.be/kbopub/webservices/v1/messages" xmlns:datamodel="http://economie.fgov.be/kbopub/webservices/v1/datamodel" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://economie.fgov.be/kbopub/webservices/v1/messages">
+	<xs:import namespace="http://economie.fgov.be/kbopub/webservices/v1/datamodel" schemaLocation="https://kbopub.economie.fgov.be/kbopubws180000/services/wsKBOPub?xsd=datamodel.xsd"/>
+	<!-- Request1 : ReadEnterprise -->
+	<xs:complexType name="ReadEnterpriseRequestType">
+		<xs:sequence>
+			<xs:element ref="datamodel:EnterpriseNumber"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseReplyType">
+		<xs:sequence>
+			<xs:element minOccurs="0" ref="datamodel:Enterprise"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request2 : ReadEstablishmentByEnterpriseNumber -->
+	<xs:simpleType name="RepresentationType">
+		<xs:annotation>
+			<xs:documentation>
+				Type of the representation of the requests
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="short">
+				<xs:annotation>
+					<xs:documentation>
+						Summary representation of a request
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="long">
+				<xs:annotation>
+					<xs:documentation>
+						Comprehensive representation of a request
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ReadEstablishmentByEnterpriseNumberRequestType">
+		<xs:sequence>
+			<xs:element ref="datamodel:EnterpriseNumber"/>
+			<xs:element name="TypeOfResult" type="tns:RepresentationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEstablishmentByEnterpriseNumberReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Establishment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request3 : ReadEstablishmentByEstablishmentNumber -->
+	<xs:complexType name="ReadEstablishmentByEstablishmentNumberRequestType">
+		<xs:sequence>
+			<xs:element ref="datamodel:EstablishmentNumber"/>
+			<xs:element name="TypeOfResult" type="tns:RepresentationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEstablishmentByEstablishmentNumberReplyType">
+		<xs:sequence>
+			<xs:element minOccurs="0" ref="datamodel:Establishment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request4 : ReadEnterpriseByPhoneme -->
+	<xs:simpleType name="JuridicalFormType">
+		<xs:annotation>
+			<xs:documentation>
+				Code of the juridical form
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:length value="3"/>
+			<xs:enumeration value="006">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Coöperatieve vennootschap met onbeperkte aansprakelijkheid
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société coopérative à responsabilité illimitée
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="008">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Coöperatieve vennootschap met beperkte aansprakelijkheid
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société coopérative à responsabilité limitée
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="011">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Vennootschap onder firma
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société en nom collectif
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="012">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Gewone commanditaire vennootschap
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société en commandite simple
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="014">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Naamloze vennootschap
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société anonyme
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="015">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Besloten vennootschap met beperkte aansprakelijkheid
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société privée à responsabilité limitée
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="017">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Vereniging zonder winstoogmerk
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Association sans but lucratif
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="070">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Vereniging van mede-eigenaars
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Association des copropriétaires
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="610">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Besloten vennootschap
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société à responsabilité limitée
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="612">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Commanditaire vennootschap
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société en commandite
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="706">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Coöperatieve vennootschap
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société coopérative
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="721">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Vennootschap of vereniging zonder rechtspersoonlijkheid
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Société ou association sans personnalité juridique
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABO">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Buitenlandse entiteit
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Entité étrangère
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ALL">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Alle rechtsvormen
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Toutes les formes légales
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OVE">
+				<xs:annotation>
+					<xs:documentation xml:lang="nl">
+						Overige rechtsvormen
+					</xs:documentation>
+					<xs:documentation xml:lang="fr">
+						Autres formes légales
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PhonemeType">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="160"/>
+			<xs:minLength value="1"/>
+			<xs:pattern value=".+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ZipcodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="4"/>
+			<xs:pattern value="\d{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ReadEnterpriseByPhonemeRequestType">
+		<xs:sequence>
+			<xs:element maxOccurs="10" name="Phoneme" type="tns:PhonemeType"/>
+			<xs:element minOccurs="0" name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element maxOccurs="2" name="TypeOfEnterprise" type="datamodel:Type"/>
+			<xs:element minOccurs="0" name="EnterpriseJuridicalForm" type="tns:JuridicalFormType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseByPhonemeReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Enterprise"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request 5 : ReadEnterpriseByPhysicalPersonNameExactMatch -->
+	<xs:complexType name="ReadEnterpriseByPhysicalPersonNameExactMatchRequestType">
+		<xs:sequence>
+			<xs:element name="LastName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="160"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="FirstName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="160"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseByPhysicalPersonNameExactMatchReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Enterprise"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request 6 : ReadEnterpriseLegalPersonByCompanyNameExactMatch -->
+	<xs:complexType name="ReadEnterpriseLegalPersonByCompanyNameExactMatchRequestType">
+		<xs:sequence>
+			<xs:element name="CompanyName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="160"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element minOccurs="0" name="EnterpriseJuridicalForm" type="tns:JuridicalFormType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseLegalPersonByCompanyNameExactMatchReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Enterprise"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request 7 : ReadEstablishmentByNameExactMatch -->
+	<xs:complexType name="ReadEstablishmentByNameExactMatchRequestType">
+		<xs:sequence>
+			<xs:element name="EstablishmentName">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="160"/>
+						<xs:whiteSpace value="collapse"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEstablishmentByNameExactMatchReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Establishment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request 8 : ReadEstablishmentByPhoneme -->
+	<xs:complexType name="ReadEstablishmentByPhonemeRequestType">
+		<xs:sequence>
+			<xs:element maxOccurs="10" name="Phoneme" type="tns:PhonemeType"/>
+			<xs:element minOccurs="0" name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEstablishmentByPhonemeReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Establishment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request9 : ReadEnterpriseOrEstablishmentByAddress-->
+	<xs:simpleType name="HouseNumberType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="11"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="StreetNameType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="2"/>
+			<xs:maxLength value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ReadEnterpriseOrEstablishmentByAddressRequestType">
+		<xs:sequence>
+			<xs:element name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element name="StreetName" type="tns:StreetNameType"/>
+			<xs:element name="HouseNumber" type="tns:HouseNumberType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseOrEstablishmentByAddressReplyType">
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="datamodel:Enterprise"/>
+				<xs:element ref="datamodel:Establishment"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request10 : ReadStreetName -->
+	<xs:complexType name="ReadStreetNameRequestType">
+		<xs:sequence>
+			<xs:element name="Zipcode" type="tns:ZipcodeType"/>
+			<xs:element name="PartOfStreetName" type="tns:StreetNameType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadStreetNameReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="StreetName" type="tns:StreetNameType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request11 : ReadEnterpriseOrEstablishmentByActivity-->
+	<xs:simpleType name="NaceSearchType">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="3"/>
+			<xs:maxLength value="7"/>
+			<xs:pattern value="\d{3,7}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MunicipalityCodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="5"/>
+			<xs:pattern value="\d{5}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="MunicipalityLocationFilterType">
+		<xs:sequence>
+			<xs:element maxOccurs="4" name="MunicipalityCode" type="tns:MunicipalityCodeType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NeighboringMunicipalityLocationFilterType">
+		<xs:sequence>
+			<xs:element name="MunicipalityCode" type="tns:MunicipalityCodeType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ZipcodeLocationFilterType">
+		<xs:sequence>
+			<xs:element maxOccurs="4" name="Zipcode" type="tns:ZipcodeType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationFilterType">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="MunicipalityLocationFilter" type="tns:MunicipalityLocationFilterType"/>
+				<xs:element name="NeighboringMunicipalityLocationFilter" type="tns:NeighboringMunicipalityLocationFilterType"/>
+				<xs:element name="ZipcodeLocationFilter" type="tns:ZipcodeLocationFilterType"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActivityFilterType">
+		<xs:sequence>
+			<xs:element maxOccurs="10" name="ActivityCode" type="tns:NaceSearchType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseOrEstablishmentByActivityRequestType">
+		<xs:sequence>
+			<xs:element name="ActivityFilter" type="tns:ActivityFilterType"/>
+			<xs:element name="LocationFilter" type="tns:LocationFilterType"/>
+			<xs:element name="EnterprisePhysicalPersonFilter" type="xs:boolean"/>
+			<xs:element name="EnterpriseLegalPersonFilter" type="xs:boolean"/>
+			<xs:element name="EstablishmentFilter" type="xs:boolean"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseOrEstablishmentByActivityReplyType">
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="datamodel:Enterprise"/>
+				<xs:element ref="datamodel:Establishment"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request12 : ReadEnterpriseByAuthorization -->
+	<xs:simpleType name="AuthorizationSearchCodeType">
+		<xs:restriction base="xs:string">
+			<xs:length value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ReadEnterpriseByAuthorizationRequestType">
+		<xs:sequence>
+			<xs:element name="AuthorizationFilter" type="tns:AuthorizationSearchCodeType"/>
+			<xs:element name="LocationFilter" type="tns:LocationFilterType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEnterpriseByAuthorizationReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Enterprise"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request13 : ReadEstablishmentByAuthorization -->
+	<xs:complexType name="ReadEstablishmentByAuthorizationRequestType">
+		<xs:sequence>
+			<xs:element name="AuthorizationFilter" type="tns:AuthorizationSearchCodeType"/>
+			<xs:element name="LocationFilter" type="tns:LocationFilterType"/>
+			<xs:element name="ActiveFilter" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadEstablishmentByAuthorizationReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" ref="datamodel:Establishment"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Request14 : ReadCodeList -->
+	<xs:simpleType name="EntityKindType">
+		<xs:annotation>
+			<xs:documentation>
+				Reference to the kind of entity: enterprise of establisment
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ENT">
+				<xs:annotation>
+					<xs:documentation>
+						Enterprise
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EST">
+				<xs:annotation>
+					<xs:documentation>
+						Establisment
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="KeyValuePairType">
+		<xs:sequence>
+			<xs:element name="Key" type="xs:string"/>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CodeListItemType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Description" type="datamodel:DescriptionType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="KeyValuePair" type="tns:KeyValuePairType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadCodeListRequestType">
+		<xs:sequence>
+			<xs:element name="CodeListId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReadCodeListReplyType">
+		<xs:sequence>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="CodeListItem" type="tns:CodeListItemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Header types -->
+	<xs:complexType name="ReplyStatusType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element name="Description" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestContextType">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element maxOccurs="2" name="Language">
+				<xs:simpleType>
+					<xs:restriction base="xs:language">
+						<xs:enumeration value="nl"/>
+						<xs:enumeration value="fr"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReplyContextType">
+		<xs:sequence>
+			<xs:element name="RequestId" type="xs:string"/>
+			<xs:element name="ReplyId" type="xs:string"/>
+			<xs:element name="ReplyStatus" type="tns:ReplyStatusType"/>
+			<xs:element name="AccountBalance" type="xs:int"/>
+			<xs:element minOccurs="0" name="SnapshotDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReadEnterpriseRequest" type="tns:ReadEnterpriseRequestType"/>
+	<xs:element name="ReadEnterpriseReply" type="tns:ReadEnterpriseReplyType"/>
+	<xs:element name="ReadEnterpriseByPhonemeRequest" type="tns:ReadEnterpriseByPhonemeRequestType"/>
+	<xs:element name="ReadEnterpriseByPhonemeReply" type="tns:ReadEnterpriseByPhonemeReplyType"/>
+	<xs:element name="ReadEstablishmentByEnterpriseNumberRequest" type="tns:ReadEstablishmentByEnterpriseNumberRequestType"/>
+	<xs:element name="ReadEstablishmentByEnterpriseNumberReply" type="tns:ReadEstablishmentByEnterpriseNumberReplyType"/>
+	<xs:element name="ReadEstablishmentByEstablishmentNumberRequest" type="tns:ReadEstablishmentByEstablishmentNumberRequestType"/>
+	<xs:element name="ReadEstablishmentByEstablishmentNumberReply" type="tns:ReadEstablishmentByEstablishmentNumberReplyType"/>
+	<xs:element name="ReadEnterpriseByPhysicalPersonNameExactMatchRequest" type="tns:ReadEnterpriseByPhysicalPersonNameExactMatchRequestType"/>
+	<xs:element name="ReadEnterpriseByPhysicalPersonNameExactMatchReply" type="tns:ReadEnterpriseByPhysicalPersonNameExactMatchReplyType"/>
+	<xs:element name="ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest" type="tns:ReadEnterpriseLegalPersonByCompanyNameExactMatchRequestType"/>
+	<xs:element name="ReadEnterpriseLegalPersonByCompanyNameExactMatchReply" type="tns:ReadEnterpriseLegalPersonByCompanyNameExactMatchReplyType"/>
+	<xs:element name="ReadEstablishmentByNameExactMatchRequest" type="tns:ReadEstablishmentByNameExactMatchRequestType"/>
+	<xs:element name="ReadEstablishmentByNameExactMatchReply" type="tns:ReadEstablishmentByNameExactMatchReplyType"/>
+	<xs:element name="ReadEstablishmentByPhonemeRequest" type="tns:ReadEstablishmentByPhonemeRequestType"/>
+	<xs:element name="ReadEstablishmentByPhonemeReply" type="tns:ReadEstablishmentByPhonemeReplyType"/>
+	<xs:element name="ReadEnterpriseOrEstablishmentByAddressRequest" type="tns:ReadEnterpriseOrEstablishmentByAddressRequestType"/>
+	<xs:element name="ReadEnterpriseOrEstablishmentByAddressReply" type="tns:ReadEnterpriseOrEstablishmentByAddressReplyType"/>
+	<xs:element name="ReadStreetNameRequest" type="tns:ReadStreetNameRequestType"/>
+	<xs:element name="ReadStreetNameReply" type="tns:ReadStreetNameReplyType"/>
+	<xs:element name="ReadEnterpriseOrEstablishmentByActivityRequest" type="tns:ReadEnterpriseOrEstablishmentByActivityRequestType"/>
+	<xs:element name="ReadEnterpriseOrEstablishmentByActivityReply" type="tns:ReadEnterpriseOrEstablishmentByActivityReplyType"/>
+	<xs:element name="ReadEnterpriseByAuthorizationRequest" type="tns:ReadEnterpriseByAuthorizationRequestType"/>
+	<xs:element name="ReadEnterpriseByAuthorizationReply" type="tns:ReadEnterpriseByAuthorizationReplyType"/>
+	<xs:element name="ReadEstablishmentByAuthorizationRequest" type="tns:ReadEstablishmentByAuthorizationRequestType"/>
+	<xs:element name="ReadEstablishmentByAuthorizationReply" type="tns:ReadEstablishmentByAuthorizationReplyType"/>
+	<xs:element name="ReadCodeListRequest" type="tns:ReadCodeListRequestType"/>
+	<xs:element name="ReadCodeListReply" type="tns:ReadCodeListReplyType"/>
+	<xs:element name="RequestContext" type="tns:RequestContextType"/>
+	<xs:element name="ReplyContext" type="tns:ReplyContextType"/>
+</xs:schema>

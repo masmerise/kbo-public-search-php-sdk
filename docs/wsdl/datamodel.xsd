@@ -1,0 +1,435 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by Annick Buelinckx (UPFRONT SPRL) --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://economie.fgov.be/kbopub/webservices/v1/datamodel" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+	<xs:complexType name="EnterpriseType">
+		<xs:sequence>
+			<xs:element name="Number" type="tns:EnterpriseNumberType"/>
+			<xs:element name="JuridicalSituation" type="tns:JuridicalSituationType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="Duration" type="xs:short"/>
+			<xs:element name="TypeOfEnterprise" type="tns:Type"/>
+			<xs:element minOccurs="0" name="JuridicalForm" type="tns:JuridicalFormType"/>
+			<xs:element minOccurs="0" name="Capital" type="tns:CapitalType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="PrimaryDenomination" type="tns:DescriptionType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Denomination" type="tns:DenominationType"/>
+			<xs:element maxOccurs="2" minOccurs="0" name="Address" type="tns:AddressType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ContactInformation" type="tns:ContactInformationType"/>
+			<xs:element name="BusinessUnits" type="xs:long"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Branch" type="tns:BranchType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ProfessionalCompetence" type="tns:ProfessionalCompetenceType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Qualification" type="tns:QualificationType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Authorization" type="tns:AuthorizationType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Activity" type="tns:ActivityType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Function" type="tns:FunctionType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="LinkedEnterprise" type="tns:LinkedEnterpriseType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="FinancialData" type="tns:FinancialDataType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Replacement" type="tns:ReplacementType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ExOfficioStrikingOff" type="tns:ExOfficioStrikingOffType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EstablishmentType">
+		<xs:sequence>
+			<xs:element name="EstablishmentNumber" type="tns:EstablishmentNumberType"/>
+			<xs:element name="Status" type="tns:StatusType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="EnterpriseNumber" type="tns:EnterpriseNumberType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="EnterpriseStatus" type="tns:StatusType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="EnterpriseExOfficioStrikingOff" type="tns:ExOfficioStrikingOffType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="PrimaryDenomination" type="tns:DescriptionType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Denomination" type="tns:DenominationType"/>
+			<xs:element name="Address" type="tns:AddressType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="ContactInformation" type="tns:ContactInformationType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Authorization" type="tns:AuthorizationType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Activity" type="tns:ActivityType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="EnterpriseNumberType">
+		<xs:restriction base="xs:long">
+			<xs:pattern value="[01]?[0-9]{9}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EstablishmentNumberType">
+		<xs:restriction base="xs:long">
+			<xs:pattern value="[2-9][0-9]{9}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BanchIdType">
+        <xs:restriction base="xs:long">
+            <xs:pattern value="[09]?[0-9]{9}"/>
+        </xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="Type">
+		<xs:annotation>
+			<xs:documentation>
+				Reference to the type of enterprise
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ELP">
+				<xs:annotation>
+					<xs:documentation>
+						Enterprise Legal Person
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="EPP">
+				<xs:annotation>
+					<xs:documentation>
+						Enterprise Physical Person
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TypeOfAddressCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				There are five different types of addresses
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="REGO">
+				<xs:annotation>
+					<xs:documentation>
+						Address of an Registered Office
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="NOAD">
+				<xs:annotation>
+					<xs:documentation>
+						No Adress
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BAET">
+				<xs:annotation>
+					<xs:documentation>
+						Business Adress of an Establishment
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABBR">
+				<xs:annotation>
+					<xs:documentation>
+						Adress of Belgian branch
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TypeOfAddressType">
+		<xs:sequence>
+			<xs:element name="Code" type="tns:TypeOfAddressCodeType"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfessionalSyndicType">
+   		<xs:sequence>
+      		<xs:element name="EnterpriseNumber" type="tns:EnterpriseNumberType"/>
+   		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JuridicalSituationType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Description" type="tns:DescriptionType"/>
+			<xs:element minOccurs="0" name="ValidityPeriod" type="tns:PeriodType"/>
+			<xs:element name="Status" type="tns:StatusType"/>
+			<xs:element minOccurs="0" name="Event" type="tns:EventType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EventType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="EventDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JuridicalFormType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element minOccurs="0" name="ValidityPeriod" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="JuridicalFormCAC" type="tns:JuridicalFormCACType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="JuridicalFormCACType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element maxOccurs="1" minOccurs="1" name="CACDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DenominationType">
+		<xs:sequence>
+			<xs:element name="Code" type="tns:DenominationCodeType"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="ValidityPeriod" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DescriptionType">
+		<xs:sequence>
+			<xs:element name="Value" type="xs:string"/>
+			<xs:element name="Language" type="xs:token"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="DenominationCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="001"/>
+			<xs:enumeration value="002"/>
+			<xs:enumeration value="003"/>
+			<xs:enumeration value="004"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="PeriodType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Begin" type="xs:date"/>
+			<xs:element minOccurs="0" name="End" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AddressType">
+		<xs:sequence>
+			<xs:element name="Street" type="tns:StreetType"/>
+			<xs:element name="HouseNumber" type="xs:string"/>
+			<xs:element minOccurs="0" name="Box" type="xs:string"/>
+			<xs:element name="Zipcode" type="xs:string"/>
+			<xs:element name="Municipality" type="tns:MunicipalityType"/>
+			<xs:element minOccurs="0" name="Country" type="tns:CountryType"/>
+			<xs:element minOccurs="0" name="ExtraAddressInfo" type="xs:string"/>
+			<xs:element minOccurs="0" name="Begin" type="xs:date"/>
+			<xs:element minOccurs="0" name="TypeOfAddress" type="tns:TypeOfAddressType"/>
+			<xs:element minOccurs="0" name="TechnicalCreationReason" type="tns:CbeTechnicalType"/>
+			<xs:element minOccurs="0" name="StrikingOff" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StreetType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MunicipalityType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CountryType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CbeTechnicalType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AuthorizationType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActivityType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element minOccurs="1" name="ActivityGroupAdministration" type="tns:ActivityGroupAdministrationType"/>
+			<xs:element name="Version" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="ActivityClassification" type="tns:ActivityClassificationType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FunctionType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="Person" type="tns:PersonType"/>
+			<xs:element minOccurs="0" name="EnterpriseNumber" type="xs:long"/>
+			<xs:element minOccurs="0" name="ProfessionalSyndic" type="tns:ProfessionalSyndicType"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="FunctionCAC" type="tns:FunctionCACType"/>
+			<xs:element minOccurs="0" name="StrikingOff" type="xs:date"/>
+			<xs:element maxOccurs="1" minOccurs="0" name="ActiveFlag" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FunctionCACType">
+	   <xs:sequence>
+	      <xs:element name="Code" type="xs:string"/>
+	      <xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+	      <xs:element name="CACPeriod" type="tns:PeriodType"/>
+	   </xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LinkedEnterpriseType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="EnterpriseNumberSubject" type="xs:long"/>
+			<xs:element name="EnterpriseNumberObject" type="xs:long"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FinancialDataType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="AnnualMeetingMonth">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="FiscalYearEndDay">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="31"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="FiscalYearEndMonth">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="1"/>
+						<xs:maxInclusive value="12"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="ExceptionalFiscalYear" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="ValidityPeriod" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProfessionalCompetenceType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+			<xs:element minOccurs="0" name="Exemption" type="tns:ExemptionType"/>
+			<xs:element minOccurs="0" name="StrikingOff" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExemptionType">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Begin" type="xs:date"/>
+			<xs:element minOccurs="0" name="End" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PersonType">
+		<xs:sequence>
+			<xs:element name="Surname" type="xs:string"/>
+			<xs:element name="GivenName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QualificationType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ActivityClassificationCodeType">
+		<xs:annotation>
+			<xs:documentation>
+				Reference to the type of activity of enterprise
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MAIN">
+				<xs:annotation>
+					<xs:documentation>
+						Main Activity
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ANCI">
+				<xs:annotation>
+					<xs:documentation>
+						Ancillary Activity
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="SECO">
+				<xs:annotation>
+					<xs:documentation>
+						Secondary Activity
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ActivityClassificationType">
+		<xs:sequence>
+			<xs:element name="Code" type="tns:ActivityClassificationCodeType"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+		<xs:complexType name="ActivityGroupAdministrationType">
+		<xs:sequence>
+			<xs:element name="ActivityGroup" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="StatusType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" minOccurs="1" name="Description" type="tns:DescriptionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CapitalType">
+		<xs:sequence>
+			<xs:element name="Amount" type="xs:decimal"/>
+			<xs:element name="Currency" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReplacementType">
+		<xs:sequence>
+			<xs:element name="EnterpriseNumber" type="xs:long"/>
+			<xs:element name="Period" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExOfficioStrikingOffType">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string"/>
+			<xs:element maxOccurs="unbounded" name="Description" type="tns:DescriptionType"/>
+			<xs:element minOccurs="0" name="ValidityPeriod" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Enterprise" type="tns:EnterpriseType"/>
+	<xs:element name="Establishment" type="tns:EstablishmentType"/>
+	<xs:element name="EnterpriseNumber" type="tns:EnterpriseNumberType"/>
+	<xs:element name="EstablishmentNumber" type="tns:EstablishmentNumberType"/>
+    <xs:complexType name="ContactInformationType">
+	    <xs:annotation>
+	 		<xs:documentation>
+	 			contact information
+	 		</xs:documentation>
+	 	</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="ContactType" type="tns:CbeContactType"/> <xs:element maxOccurs="unbounded" minOccurs="0" name="Description" type="tns:DescriptionType"/>
+			<xs:element minOccurs="1" name="Value" type="xs:string"/>
+			<xs:element minOccurs="0" name="Begin" type="xs:date"/>
+	 	</xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CbeContactType">
+			<xs:annotation>
+				<xs:documentation>
+					type code to identify different contact.
+				</xs:documentation>
+			</xs:annotation>
+		<xs:restriction base="xs:string"/>
+ 	</xs:simpleType>
+ 	<xs:complexType name="BranchType">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="Id" type="tns:BanchIdType"/>
+			<xs:element minOccurs="1" name="Status" type="tns:StatusType"/>
+			<xs:element minOccurs="1" name="Address" type="tns:AddressType"/>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="Denomination" type="tns:DenominationType"/>
+			<xs:element minOccurs="1" name="ValidityPeriod" type="tns:PeriodType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>
