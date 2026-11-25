@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:04:56 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>55769f84-dfee-40d5-8bdb-220222436bd5<\/RequestId><ReplyId>02f88b8b-3fa6-43ca-8858-549cf2857e98<\/ReplyId><ReplyStatus><Code>00014<\/Code><Description>Enterprise canceled<\/Description><\/ReplyStatus><AccountBalance>2996<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadEnterpriseReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"\/><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}

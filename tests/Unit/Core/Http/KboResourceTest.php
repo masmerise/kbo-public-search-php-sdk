@@ -162,6 +162,20 @@ final class KboResourceTest extends TestCase
     }
 
     #[Test]
+    public function mapping_failure_is_unknown(): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make(self::reply('00001'), 200));
+
+        // Assert
+        $this->expectException(UnknownException::class);
+        $this->expectExceptionMessage('Element [Missing] not found.');
+
+        // Act
+        $this->resource->probeMapping(new ProbeRequest('0314595348'));
+    }
+
+    #[Test]
     public function connection_failure_is_unknown(): void
     {
         // Arrange

@@ -30,6 +30,7 @@ final class SoapFaultMappingTest extends TestCase
     {
         yield 'terms' => [self::fixture('fault-terms'), MustAcceptTermsOfService::class];
         yield 'authentication' => [self::fixture('fault-authentication'), CouldNotAuthenticate::class];
+        yield 'wss4j security error (wrong credentials)' => [self::fixture('fault-security-error'), CouldNotAuthenticate::class];
         yield 'quota' => [self::fixture('fault-quota'), RequestLimitReached::class];
         yield 'balance' => [self::fixture('fault-balance'), RequestLimitReached::class];
         yield 'unmarshalling' => [self::fixture('fault-unmarshalling'), CouldNotCompleteRequest::class];

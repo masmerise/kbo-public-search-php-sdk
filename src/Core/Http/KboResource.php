@@ -35,6 +35,27 @@ abstract readonly class KboResource
     }
 
     /**
+     * Builds the reply from a result; anything that goes wrong while mapping it is an UnknownException.
+     *
+     * @template T
+     * @param Closure(): T $build
+     *
+     * @return T
+     *
+     * @throws KboPublicSearchException
+     */
+    protected function reply(Closure $build): mixed
+    {
+        try {
+            return $build();
+        } catch (KboPublicSearchException $ex) {
+            throw $ex;
+        } catch (Throwable $ex) {
+            throw UnknownException::sorry($ex);
+        }
+    }
+
+    /**
      * A search: "no data" yields an empty result and more than 200 matches a truncated one.
      *
      * @param class-string<ValidationException> $onFailure

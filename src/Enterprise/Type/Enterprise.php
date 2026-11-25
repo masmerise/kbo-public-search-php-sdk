@@ -1,0 +1,46 @@
+<?php declare(strict_types=1);
+
+namespace KboPublicSearch\Enterprise\Type;
+
+use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Core\Type\Shared\Activities;
+use KboPublicSearch\Core\Type\Shared\Addresses;
+use KboPublicSearch\Core\Type\Shared\Authorizations;
+use KboPublicSearch\Core\Type\Shared\ContactInformations;
+use KboPublicSearch\Core\Type\Shared\Denominations;
+use KboPublicSearch\Core\Type\Shared\ExOfficioStrikingOffs;
+use KboPublicSearch\Core\Type\Shared\Period;
+
+/** An enterprise as ReadEnterprise returns it. */
+final readonly class Enterprise
+{
+    /** @internal */
+    public function __construct(
+        public EnterpriseNumber $number,
+        public JuridicalSituation $juridicalSituation,
+        public Period $period,
+        /** In years, when the enterprise has a limited duration. */
+        public ?int $duration,
+        public TypeOfEnterprise $type,
+        /** Only for legal persons. */
+        public ?JuridicalForm $juridicalForm,
+        public ?Capital $capital,
+        /** Every name KBO holds, in every language. */
+        public Denominations $denominations,
+        /** The registered office; the XSD allows two. */
+        public Addresses $addresses,
+        public ContactInformations $contactInformation,
+        /** The number of active establishment units. */
+        public int $businessUnits,
+        public Branches $branches,
+        public ProfessionalCompetences $professionalCompetences,
+        public Qualifications $qualifications,
+        public Authorizations $authorizations,
+        public Activities $activities,
+        public Functions $functions,
+        public LinkedEnterprises $linkedEnterprises,
+        public ?FinancialData $financialData,
+        public Replacements $replacements,
+        public ExOfficioStrikingOffs $exOfficioStrikingOffs,
+    ) {}
+}
