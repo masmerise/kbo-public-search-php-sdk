@@ -16,9 +16,10 @@ final class ReadmeExamplesTest extends TestCase
         preg_match_all('/```php\n(.*?)```/s', (string) $readme, $blocks);
 
         $this->assertNotEmpty($blocks[1], 'The README has no PHP examples.');
+        $leftovers = glob(sys_get_temp_dir() . '/readme*') ?: [];
 
         foreach ($blocks[1] as $index => $code) {
-            $file = tempnam(sys_get_temp_dir(), 'readme') . '.php';
+            $file = (string) tempnam(sys_get_temp_dir(), 'readme'); // php -l does not need a .php extension
             file_put_contents($file, "<?php\n{$code}");
 
             // Act
@@ -29,5 +30,7 @@ final class ReadmeExamplesTest extends TestCase
             $this->assertSame(0, $exitCode, "README example #{$index} is not valid PHP:\n{$code}\n" . implode("\n", $output));
             $output = [];
         }
+
+        $this->assertSame($leftovers, glob(sys_get_temp_dir() . '/readme*') ?: [], 'Temporary files were left behind.');
     }
 }
