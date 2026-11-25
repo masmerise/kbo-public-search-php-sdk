@@ -5,6 +5,7 @@ namespace KboPublicSearch;
 use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Enterprise\EnterpriseResource;
+use KboPublicSearch\Entity\EntityResource;
 use KboPublicSearch\Environments\Environment;
 use KboPublicSearch\Establishment\EstablishmentResource;
 use KboPublicSearch\Localization\Languages;
@@ -17,6 +18,8 @@ final readonly class KboPublicSearch
 
     public EnterpriseResource $enterprises;
 
+    public EntityResource $entities;
+
     public EstablishmentResource $establishments;
 
     private KboConnector $client;
@@ -26,6 +29,7 @@ final readonly class KboPublicSearch
         $this->client = new KboConnector($credentials);
         $this->enterprises = new EnterpriseResource($this->client);
         $this->establishments = new EstablishmentResource($this->client);
+        $this->entities = new EntityResource($this->client);
     }
 
     public static function authenticate(#[SensitiveParameter] Credentials $credentials): self
