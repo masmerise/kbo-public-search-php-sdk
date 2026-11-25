@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\ExOfficioStrikingOff;
-use KboPublicSearch\Core\Type\Shared\ExOfficioStrikingOffs;
+use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOff;
+use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;

@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Tests\Unit\Enterprise;
 
-use KboPublicSearch\Core\Type\Shared\StatusKind;
+use KboPublicSearch\Core\Type\Status\StatusKind;
 use KboPublicSearch\Core\Xml\Reader;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterpriseSummaries;
 use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;

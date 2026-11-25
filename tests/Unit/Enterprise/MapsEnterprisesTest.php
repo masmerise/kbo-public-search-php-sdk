@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Tests\Unit\Enterprise;
 
 use KboPublicSearch\Core\Http\Soap\Envelope;
-use KboPublicSearch\Core\Type\Shared\StatusKind;
+use KboPublicSearch\Core\Type\Status\StatusKind;
 use KboPublicSearch\Enterprise\Type\Enterprise;
 use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterprises;
 use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;

@@ -2,12 +2,12 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\Activities;
-use KboPublicSearch\Core\Type\Shared\Activity;
-use KboPublicSearch\Core\Type\Shared\ActivityClassification;
-use KboPublicSearch\Core\Type\Shared\ActivityClassificationKind;
-use KboPublicSearch\Core\Type\Shared\ActivityGroup;
-use KboPublicSearch\Core\Type\Shared\NaceVersion;
+use KboPublicSearch\Core\Type\Activity\Activities;
+use KboPublicSearch\Core\Type\Activity\Activity;
+use KboPublicSearch\Core\Type\Activity\ActivityClassification;
+use KboPublicSearch\Core\Type\Activity\ActivityClassificationKind;
+use KboPublicSearch\Core\Type\Activity\ActivityGroup;
+use KboPublicSearch\Core\Type\Activity\NaceVersion;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;

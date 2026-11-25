@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\Status;
-use KboPublicSearch\Core\Type\Shared\StatusKind;
+use KboPublicSearch\Core\Type\Status\Status;
+use KboPublicSearch\Core\Type\Status\StatusKind;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */

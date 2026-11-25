@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\Period;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;

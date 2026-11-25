@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\Denomination;
-use KboPublicSearch\Core\Type\Shared\DenominationKind;
-use KboPublicSearch\Core\Type\Shared\Denominations;
+use KboPublicSearch\Core\Type\Denomination\Denomination;
+use KboPublicSearch\Core\Type\Denomination\DenominationKind;
+use KboPublicSearch\Core\Type\Denomination\Denominations;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;

@@ -2,14 +2,14 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\Address;
-use KboPublicSearch\Core\Type\Shared\Addresses;
-use KboPublicSearch\Core\Type\Shared\AddressKind;
-use KboPublicSearch\Core\Type\Shared\CodedValue;
-use KboPublicSearch\Core\Type\Shared\Country;
-use KboPublicSearch\Core\Type\Shared\Municipality;
-use KboPublicSearch\Core\Type\Shared\Street;
-use KboPublicSearch\Core\Type\Shared\TypeOfAddress;
+use KboPublicSearch\Core\Type\Address\Address;
+use KboPublicSearch\Core\Type\Address\Addresses;
+use KboPublicSearch\Core\Type\Address\AddressKind;
+use KboPublicSearch\Core\Type\Address\Country;
+use KboPublicSearch\Core\Type\Address\Municipality;
+use KboPublicSearch\Core\Type\Address\Street;
+use KboPublicSearch\Core\Type\Address\TechnicalCreationReason;
+use KboPublicSearch\Core\Type\Address\TypeOfAddress;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;
@@ -43,7 +43,7 @@ trait MapsAddresses
                 $this->toLocalizedText($type),
             )),
             strikingOff: $this->toDate($address, 'StrikingOff'),
-            technicalCreationReason: transform($address->optional('TechnicalCreationReason'), fn (Element $reason) => new CodedValue(
+            technicalCreationReason: transform($address->optional('TechnicalCreationReason'), fn (Element $reason) => new TechnicalCreationReason(
                 $reason->textOf('Code'),
                 $this->toLocalizedText($reason),
             )),

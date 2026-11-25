@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Tests\Unit\Establishment;
 
-use KboPublicSearch\Core\Type\Shared\DenominationKind;
-use KboPublicSearch\Core\Type\Shared\StatusKind;
+use KboPublicSearch\Core\Type\Denomination\DenominationKind;
+use KboPublicSearch\Core\Type\Status\StatusKind;
 use KboPublicSearch\Core\Xml\Reader;
 use KboPublicSearch\Establishment\Type\Mapping\MapsEstablishments;
 use KboPublicSearch\Tests\RecordedTestCase;

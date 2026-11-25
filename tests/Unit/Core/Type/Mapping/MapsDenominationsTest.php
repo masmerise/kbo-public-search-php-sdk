@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\Denomination\DenominationKind;
 use KboPublicSearch\Core\Type\Mapping\MapsDenominations;
-use KboPublicSearch\Core\Type\Shared\DenominationKind;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

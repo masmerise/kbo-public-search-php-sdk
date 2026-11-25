@@ -2,11 +2,11 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\Address\Address;
+use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-use KboPublicSearch\Core\Type\Shared\Address;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Period;
-use KboPublicSearch\Core\Type\Shared\Status;
+use KboPublicSearch\Core\Type\Status\Status;
 
 /** An enterprise as searches return it: fewer elements than ReadEnterprise (cookbook §2.2.2). */
 final readonly class EnterpriseSummary

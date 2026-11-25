@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
 use KboPublicSearch\Core\Type\Mapping\MapsStatuses;
-use KboPublicSearch\Core\Type\Shared\StatusKind;
+use KboPublicSearch\Core\Type\Status\StatusKind;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;

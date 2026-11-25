@@ -2,10 +2,10 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-use KboPublicSearch\Core\Type\Shared\Address;
-use KboPublicSearch\Core\Type\Shared\Denominations;
-use KboPublicSearch\Core\Type\Shared\Period;
-use KboPublicSearch\Core\Type\Shared\Status;
+use KboPublicSearch\Core\Type\Address\Address;
+use KboPublicSearch\Core\Type\Denomination\Denominations;
+use KboPublicSearch\Core\Type\Period;
+use KboPublicSearch\Core\Type\Status\Status;
 
 /** A branch ("bijkantoor") of a foreign enterprise. */
 final readonly class Branch

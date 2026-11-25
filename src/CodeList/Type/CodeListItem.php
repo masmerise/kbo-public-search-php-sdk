@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\CodeList\Type;
 
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
+use KboPublicSearch\Core\Type\LocalizedText;
 
 final readonly class CodeListItem
 {

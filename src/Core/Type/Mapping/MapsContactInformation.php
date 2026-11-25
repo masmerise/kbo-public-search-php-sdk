@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\ContactInformation;
-use KboPublicSearch\Core\Type\Shared\ContactInformations;
-use KboPublicSearch\Core\Type\Shared\ContactKind;
+use KboPublicSearch\Core\Type\Contact\ContactInformation;
+use KboPublicSearch\Core\Type\Contact\ContactInformations;
+use KboPublicSearch\Core\Type\Contact\ContactKind;
 use KboPublicSearch\Core\Xml\Element;
 
 use function KboPublicSearch\Core\Utility\transform;

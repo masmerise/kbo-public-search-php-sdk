@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\Contact\ContactKind;
 use KboPublicSearch\Core\Type\Mapping\MapsContactInformation;
-use KboPublicSearch\Core\Type\Shared\ContactKind;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

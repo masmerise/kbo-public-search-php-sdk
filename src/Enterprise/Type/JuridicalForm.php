@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\LocalizedText;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
 
 /** The juridical form of a legal person. */
 final readonly class JuridicalForm

@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\Period;
 
 /** Annual meeting and fiscal year data. */
 final readonly class FinancialData

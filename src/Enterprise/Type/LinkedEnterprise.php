@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Period;
 
 /** A relation with another enterprise, e.g. "is split into". */
 final readonly class LinkedEnterprise

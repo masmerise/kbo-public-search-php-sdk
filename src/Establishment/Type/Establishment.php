@@ -2,17 +2,17 @@
 
 namespace KboPublicSearch\Establishment\Type;
 
+use KboPublicSearch\Core\Type\Activity\Activities;
+use KboPublicSearch\Core\Type\Address\Address;
+use KboPublicSearch\Core\Type\Authorization\Authorizations;
+use KboPublicSearch\Core\Type\Contact\ContactInformations;
+use KboPublicSearch\Core\Type\Denomination\Denominations;
+use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
-use KboPublicSearch\Core\Type\Shared\Activities;
-use KboPublicSearch\Core\Type\Shared\Address;
-use KboPublicSearch\Core\Type\Shared\Authorizations;
-use KboPublicSearch\Core\Type\Shared\ContactInformations;
-use KboPublicSearch\Core\Type\Shared\Denominations;
-use KboPublicSearch\Core\Type\Shared\ExOfficioStrikingOffs;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Period;
-use KboPublicSearch\Core\Type\Shared\Status;
+use KboPublicSearch\Core\Type\Status\Status;
+use KboPublicSearch\Core\Type\StrikingOff\ExOfficioStrikingOffs;
 
 /**
  * An establishment unit ("vestigingseenheid").

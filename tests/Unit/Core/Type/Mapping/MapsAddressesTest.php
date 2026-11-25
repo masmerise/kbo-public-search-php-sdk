@@ -2,10 +2,10 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\Address\Address;
+use KboPublicSearch\Core\Type\Address\Addresses;
+use KboPublicSearch\Core\Type\Address\AddressKind;
 use KboPublicSearch\Core\Type\Mapping\MapsAddresses;
-use KboPublicSearch\Core\Type\Shared\Address;
-use KboPublicSearch\Core\Type\Shared\Addresses;
-use KboPublicSearch\Core\Type\Shared\AddressKind;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

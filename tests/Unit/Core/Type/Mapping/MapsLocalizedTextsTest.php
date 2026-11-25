@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\LocalizedText;
 use KboPublicSearch\Core\Type\Mapping\MapsLocalizedTexts;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\LocalizedText;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
 
 /** An event on a juridical situation, e.g. a rehabilitation. */
 final readonly class JuridicalEvent

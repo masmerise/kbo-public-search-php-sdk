@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\Authorization;
-use KboPublicSearch\Core\Type\Shared\Authorizations;
+use KboPublicSearch\Core\Type\Authorization\Authorization;
+use KboPublicSearch\Core\Type\Authorization\Authorizations;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */

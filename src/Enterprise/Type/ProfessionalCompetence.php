@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Period;
 
 /** A professional competence ("beroepsbekwaamheid"). */
 final readonly class ProfessionalCompetence

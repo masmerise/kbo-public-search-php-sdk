@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Mapping;
 
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
+use KboPublicSearch\Core\Type\LocalizedText;
 use KboPublicSearch\Core\Xml\Element;
 
 /** @internal */

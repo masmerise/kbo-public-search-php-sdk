@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\LocalizedText;
 use KboPublicSearch\Core\Type\Primitive\Date;
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Status;
+use KboPublicSearch\Core\Type\Status\Status;
 
 /** The juridical situation ("rechtstoestand") and status of an enterprise. */
 final readonly class JuridicalSituation

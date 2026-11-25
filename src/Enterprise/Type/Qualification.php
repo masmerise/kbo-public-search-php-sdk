@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
-use KboPublicSearch\Core\Type\Shared\LocalizedText;
-use KboPublicSearch\Core\Type\Shared\Period;
+use KboPublicSearch\Core\Type\LocalizedText;
+use KboPublicSearch\Core\Type\Period;
 
 /** A qualification ("hoedanigheid"). */
 final readonly class Qualification

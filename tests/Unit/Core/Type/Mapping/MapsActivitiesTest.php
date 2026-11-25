@@ -2,9 +2,9 @@
 
 namespace KboPublicSearch\Tests\Unit\Core\Type\Mapping;
 
+use KboPublicSearch\Core\Type\Activity\ActivityClassificationKind;
+use KboPublicSearch\Core\Type\Activity\NaceVersion;
 use KboPublicSearch\Core\Type\Mapping\MapsActivities;
-use KboPublicSearch\Core\Type\Shared\ActivityClassificationKind;
-use KboPublicSearch\Core\Type\Shared\NaceVersion;
 use KboPublicSearch\Localization\Language;
 use KboPublicSearch\Tests\Support\Snippet;
 use KboPublicSearch\Tests\TestCase;

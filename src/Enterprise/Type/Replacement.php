@@ -2,8 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-use KboPublicSearch\Core\Type\Shared\Period;
 
 /** A closed enterprise number replaced by this one. */
 final readonly class Replacement
