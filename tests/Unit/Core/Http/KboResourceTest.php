@@ -176,6 +176,40 @@ final class KboResourceTest extends TestCase
     }
 
     #[Test]
+    public function unknown_reply_names_the_http_status_and_body(): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make("<html>\n<body><h1>502 Bad Gateway</h1></body></html>", 502));
+
+        // Act
+        try {
+            $this->resource->probeSearch(new ProbeRequest('0314595348'));
+            $this->fail('Expected UnknownException.');
+        } catch (UnknownException $ex) {
+            // Assert
+            $this->assertStringContainsString('HTTP 502', $ex->getMessage());
+            $this->assertStringContainsString('<html> <body><h1>502 Bad Gateway</h1>', $ex->getMessage());
+        }
+    }
+
+    #[Test]
+    public function unknown_reply_excerpt_is_short(): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make(str_repeat('x', 5000), 503));
+
+        // Act
+        try {
+            $this->resource->probeSearch(new ProbeRequest('0314595348'));
+            $this->fail('Expected UnknownException.');
+        } catch (UnknownException $ex) {
+            // Assert
+            $this->assertStringContainsString('HTTP 503', $ex->getMessage());
+            $this->assertLessThan(400, strlen($ex->getMessage()));
+        }
+    }
+
+    #[Test]
     public function connection_failure_is_unknown(): void
     {
         // Arrange
