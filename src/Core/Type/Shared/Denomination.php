@@ -9,7 +9,9 @@ final readonly class Denomination
 {
     /** @internal */
     public function __construct(
-        public DenominationKind $kind,
+        public string $code,
+        /** Null for a code this SDK does not know yet. */
+        public ?DenominationKind $kind,
         public string $name,
         /** The language code as KBO returns it ("nl", "fr", "de"); empty for natural persons' names. */
         public string $language,

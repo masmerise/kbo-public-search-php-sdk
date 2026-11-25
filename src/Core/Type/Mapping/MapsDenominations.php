@@ -17,9 +17,11 @@ trait MapsDenominations
     private function toDenomination(Element $denomination): Denomination
     {
         $description = $denomination->child('Description');
+        $code = $denomination->textOf('Code');
 
         return new Denomination(
-            kind: DenominationKind::from($denomination->textOf('Code')),
+            code: $code,
+            kind: DenominationKind::tryFrom($code),
             name: preg_replace('/\s+/', ' ', $description->optionalText('Value') ?? '') ?? '',
             language: $description->optionalText('Language') ?? '',
             since: transform($denomination->optional('ValidityPeriod'), fn (Element $period) => $this->toDate($period, 'Begin')),

@@ -29,19 +29,23 @@ final class KboFixture extends Fixture
     /**
      * Replaces each match in place, unlike Saloon's regex swap, which str_replace()s a match everywhere in the body.
      *
-     * The name of a natural person's enterprise (EPP) is the person's name, so those denominations are redacted too.
+     * The name of a natural person's enterprise (EPP) is the person's name, so those denominations are redacted too,
+     * as are all establishment names.
      */
     public static function redact(string $body): string
     {
         $body = preg_replace(array_keys(self::SENSITIVE_PATTERNS), array_values(self::SENSITIVE_PATTERNS), $body) ?? $body;
 
-        return preg_replace_callback(
+        $names = static fn (string $block) => preg_replace('/(<(?:\w+:)?(?:Primary)?Denomination>.*?<(?:\w+:)?Value>)[^<]+/s', '$1REDACTED', $block) ?? $block;
+
+        $body = preg_replace_callback(
             '/<(\w+:)?Enterprise>.*?<\/\1Enterprise>/s',
-            static fn (array $enterprise) => preg_match('/TypeOfEnterprise>EPP</', $enterprise[0]) === 1
-                ? preg_replace('/(<(?:\w+:)?(?:Primary)?Denomination>.*?<(?:\w+:)?Value>)[^<]+/s', '$1REDACTED', $enterprise[0]) ?? $enterprise[0]
-                : $enterprise[0],
+            static fn (array $enterprise) => preg_match('/TypeOfEnterprise>EPP</', $enterprise[0]) === 1 ? $names($enterprise[0]) : $enterprise[0],
             $body,
         ) ?? $body;
+
+        // Establishments carry no TypeOfEnterprise, and a sole trader's establishment is often named after the person.
+        return preg_replace_callback('/<(\w+:)?Establishment>.*?<\/\1Establishment>/s', static fn (array $establishment) => $names($establishment[0]), $body) ?? $body;
     }
 
     protected function beforeSave(RecordedResponse $recordedResponse): RecordedResponse

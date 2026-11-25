@@ -7,7 +7,9 @@ final readonly class TypeOfAddress
 {
     /** @internal */
     public function __construct(
-        public AddressKind $kind,
+        public string $code,
+        /** Null for a code this SDK does not know yet. */
+        public ?AddressKind $kind,
         public LocalizedText $description,
     ) {}
 }

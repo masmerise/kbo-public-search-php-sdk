@@ -33,7 +33,8 @@ trait MapsActivities
             description: $this->toLocalizedText($activity),
             period: $this->toRequiredPeriod($activity, 'Period'),
             classification: transform($activity->optional('ActivityClassification'), fn (Element $classification) => new ActivityClassification(
-                ActivityClassificationKind::from($classification->textOf('Code')),
+                $code = $classification->textOf('Code'),
+                ActivityClassificationKind::tryFrom($code),
                 $this->toLocalizedText($classification),
             )),
         );

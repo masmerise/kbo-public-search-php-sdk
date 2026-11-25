@@ -57,6 +57,24 @@ final class KboFixtureTest extends TestCase
     }
 
     #[Test]
+    public function redacts_establishment_names(): void
+    {
+        // Arrange: establishments carry no TypeOfEnterprise, and a sole trader's establishment is often named after the person.
+        $body = '<ns2:Establishment><ns2:EstablishmentNumber>2389061005</ns2:EstablishmentNumber>'
+            . '<ns2:PrimaryDenomination><ns2:Value>Jane Doe</ns2:Value><ns2:Language>nl</ns2:Language></ns2:PrimaryDenomination>'
+            . '<ns2:Denomination><ns2:Code>003</ns2:Code><ns2:Description><ns2:Value>Jane Doe</ns2:Value></ns2:Description></ns2:Denomination>'
+            . '<ns2:Address><ns2:Street><ns2:Description><ns2:Value>Doestraat</ns2:Value></ns2:Description></ns2:Street></ns2:Address></ns2:Establishment>';
+
+        // Act
+        $redacted = KboFixture::redact($body);
+
+        // Assert
+        $this->assertStringNotContainsString('Jane', $redacted);
+        $this->assertSame(2, substr_count($redacted, '<ns2:Value>REDACTED</ns2:Value>'));
+        $this->assertStringContainsString('<ns2:Value>Doestraat</ns2:Value>', $redacted);
+    }
+
+    #[Test]
     public function leaves_empty_names_alone(): void
     {
         $this->assertSame('<Surname/><GivenName></GivenName>', KboFixture::redact('<Surname/><GivenName></GivenName>'));

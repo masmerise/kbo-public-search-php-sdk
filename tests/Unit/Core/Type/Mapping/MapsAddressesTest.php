@@ -42,6 +42,7 @@ final class MapsAddressesTest extends TestCase
         $this->assertSame('City Atrium', $address->extraAddressInfo);
         $this->assertNull($address->country);
         $this->assertSame(AddressKind::RegisteredOffice, $address->type?->kind);
+        $this->assertSame('REGO', $address->type?->code);
         $this->assertSame('2005-02-01', $address->since?->toString());
         $this->assertNull($address->strikingOff);
         $this->assertNull($address->technicalCreationReason);
@@ -68,10 +69,22 @@ final class MapsAddressesTest extends TestCase
     }
 
     #[Test]
+    public function unknown_type_of_address_keeps_the_raw_code(): void
+    {
+        // Act
+        $type = $this->addresses[3]->type;
+
+        // Assert
+        $this->assertSame('XXXX', $type?->code);
+        $this->assertNull($type?->kind);
+        $this->assertSame('Nouveau', $type?->description->first());
+    }
+
+    #[Test]
     public function optional_parts(): void
     {
         // Act
-        $address = $this->addresses[3];
+        $address = $this->addresses[4];
 
         // Assert
         $this->assertSame('B', $address->box);
@@ -85,6 +98,6 @@ final class MapsAddressesTest extends TestCase
     public function absent_addresses_are_an_empty_collection(): void
     {
         $this->assertCount(0, $this->toAddresses(Snippet::load('shared/statuses')));
-        $this->assertCount(4, $this->addresses);
+        $this->assertCount(5, $this->addresses);
     }
 }

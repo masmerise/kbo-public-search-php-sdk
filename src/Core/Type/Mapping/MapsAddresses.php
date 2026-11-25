@@ -38,7 +38,8 @@ trait MapsAddresses
             )),
             since: $this->toDate($address, 'Begin'),
             type: transform($address->optional('TypeOfAddress'), fn (Element $type) => new TypeOfAddress(
-                AddressKind::from($type->textOf('Code')),
+                $code = $type->textOf('Code'),
+                AddressKind::tryFrom($code),
                 $this->toLocalizedText($type),
             )),
             strikingOff: $this->toDate($address, 'StrikingOff'),

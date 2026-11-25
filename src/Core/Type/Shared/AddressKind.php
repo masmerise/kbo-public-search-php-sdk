@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Shared;
 
-/** TypeOfAddress codes (enumerated in the XSD). */
+/** TypeOfAddress codes (enumerated in the XSD); unknown codes map to null. */
 enum AddressKind: string
 {
     case RegisteredOffice = 'REGO';

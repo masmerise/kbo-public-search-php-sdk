@@ -29,10 +29,11 @@ final class MapsActivitiesTest extends TestCase
         $this->assertSame('2008-01-01', $activity->period->begin?->toString());
         $this->assertNull($activity->period->end);
         $this->assertSame(ActivityClassificationKind::Main, $activity->classification?->kind);
+        $this->assertSame('MAIN', $activity->classification?->code);
     }
 
     #[Test]
-    public function an_unknown_version_keeps_the_raw_code(): void
+    public function unknown_version_and_classification_keep_the_raw_code(): void
     {
         // Act
         $activity = $this->toActivities(Snippet::load('shared/activities'))[1];
@@ -40,7 +41,8 @@ final class MapsActivitiesTest extends TestCase
         // Assert
         $this->assertNull($activity->version);
         $this->assertSame('20025', $activity->versionCode);
-        $this->assertNull($activity->classification);
+        $this->assertSame('NEWC', $activity->classification?->code);
+        $this->assertNull($activity->classification?->kind);
     }
 
     #[Test]

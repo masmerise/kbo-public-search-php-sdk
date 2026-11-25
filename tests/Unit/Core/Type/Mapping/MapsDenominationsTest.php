@@ -25,6 +25,7 @@ final class MapsDenominationsTest extends TestCase
         $this->assertSame('de', $denominations->primary(Language::German)?->language);
         $this->assertSame('fr', $denominations->primary()?->language);
         $this->assertSame(DenominationKind::Abbreviation, $denominations[4]->kind);
+        $this->assertSame('002', $denominations[4]->code);
         $this->assertSame('FOD Economie', $denominations[4]->name);
         $this->assertSame('2002-03-05', $denominations[4]->since?->toString());
     }
@@ -39,5 +40,17 @@ final class MapsDenominationsTest extends TestCase
         $this->assertSame('Doe, John', $denominations->primary()?->name);
         $this->assertSame('', $denominations->primary()?->language);
         $this->assertNull($denominations->primary(Language::Dutch));
+    }
+
+    #[Test]
+    public function unknown_code_keeps_the_raw_code(): void
+    {
+        // Act
+        $denomination = $this->toDenominations(Snippet::load('shared/denominations-natural-person'))[1];
+
+        // Assert
+        $this->assertSame('009', $denomination->code);
+        $this->assertNull($denomination->kind);
+        $this->assertSame('Something new', $denomination->name);
     }
 }

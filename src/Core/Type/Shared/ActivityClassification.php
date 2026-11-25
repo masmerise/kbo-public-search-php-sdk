@@ -7,7 +7,9 @@ final readonly class ActivityClassification
 {
     /** @internal */
     public function __construct(
-        public ActivityClassificationKind $kind,
+        public string $code,
+        /** Null for a code this SDK does not know yet. */
+        public ?ActivityClassificationKind $kind,
         public LocalizedText $description,
     ) {}
 }

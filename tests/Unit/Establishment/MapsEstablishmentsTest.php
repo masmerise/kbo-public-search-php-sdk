@@ -26,7 +26,7 @@ final class MapsEstablishmentsTest extends TestCase
         $this->assertSame(StatusKind::Active, $establishment->status->kind);
         $this->assertSame(RecordedTestCase::ENTERPRISE, $establishment->enterpriseNumber?->toString());
         $this->assertSame(StatusKind::Active, $establishment->enterpriseStatus?->kind);
-        $this->assertSame('Masmerise', $establishment->name->first());
+        $this->assertSame('REDACTED', $establishment->name->first()); // establishment names are redacted in fixtures
         $this->assertSame(0, $establishment->denominations->count());
         $this->assertSame(0, $establishment->activities->count());
         $this->assertSame(0, $establishment->authorizations->count());

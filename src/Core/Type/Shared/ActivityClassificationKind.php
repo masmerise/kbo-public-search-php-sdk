@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Shared;
 
-/** ActivityClassification codes (enumerated in the XSD). */
+/** ActivityClassification codes (enumerated in the XSD); unknown codes map to null. */
 enum ActivityClassificationKind: string
 {
     case Main = 'MAIN';

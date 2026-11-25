@@ -34,5 +34,6 @@
     <ns2:Version>20025</ns2:Version>
     <ns2:Description><ns2:Value>Administration de biens immobiliers résidentiels pour compte de tiers</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
     <ns2:Period><ns2:Begin>2008-01-01</ns2:Begin></ns2:Period>
+    <ns2:ActivityClassification><ns2:Code>NEWC</ns2:Code><ns2:Description><ns2:Value>Nouveau</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:ActivityClassification>
 </ns2:Activity>
 </ns2:Snippet>

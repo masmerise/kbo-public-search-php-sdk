@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Type\Shared;
 
-/** Denomination codes (enumerated in the XSD). */
+/** Denomination codes (enumerated in the XSD); unknown codes map to null. */
 enum DenominationKind: string
 {
     case Name = '001';

@@ -90,6 +90,14 @@
      </ns2:Description>
     </ns2:TypeOfAddress>
 </ns2:Address>
+<!-- A TypeOfAddress code this SDK does not know (the XSD documents "five different types" but lists four). -->
+<ns2:Address>
+  <ns2:Street><ns2:Code/><ns2:Description><ns2:Value>Rue X</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:Street>
+  <ns2:HouseNumber>1</ns2:HouseNumber>
+  <ns2:Zipcode>1000</ns2:Zipcode>
+  <ns2:Municipality><ns2:Code>21004</ns2:Code><ns2:Description><ns2:Value>Bruxelles</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:Municipality>
+  <ns2:TypeOfAddress><ns2:Code>XXXX</ns2:Code><ns2:Description><ns2:Value>Nouveau</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:TypeOfAddress>
+</ns2:Address>
 <!-- Not in the cookbook: a technical creation reason and no TypeOfAddress (both optional in the XSD). -->
 <ns2:Address>
   <ns2:Street>
