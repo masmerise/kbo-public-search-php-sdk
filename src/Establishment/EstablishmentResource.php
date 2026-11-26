@@ -7,11 +7,11 @@ use KboPublicSearch\Core\Failure\CouldNotCompleteRequest;
 use KboPublicSearch\Core\Failure\RequestLimitReached;
 use KboPublicSearch\Core\Failure\UnknownException;
 use KboPublicSearch\Core\Failure\ValidationException;
+use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
@@ -22,19 +22,26 @@ use KboPublicSearch\Establishment\OfEnterprise\Failure\CouldNotGetEstablishments
 use KboPublicSearch\Establishment\OfEnterprise\Request\ReadEstablishmentByEnterpriseNumberRequest;
 use KboPublicSearch\Establishment\Reply\EstablishmentReply;
 use KboPublicSearch\Establishment\Reply\EstablishmentSearchReply;
+use KboPublicSearch\Establishment\Reply\EstablishmentsOfEnterpriseReply;
 use KboPublicSearch\Establishment\SearchByAuthorization\Failure\CouldNotSearchEstablishmentsByAuthorization;
 use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmentByAuthorizationRequest;
 use KboPublicSearch\Establishment\SearchByName\Failure\CouldNotSearchEstablishmentsByName;
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Failure\CouldNotSearchEstablishmentsByPhoneme;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
-use KboPublicSearch\Establishment\Type\Mapping\MapsEstablishments;
+use KboPublicSearch\Establishment\Type\Mapping\EstablishmentMapper;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
+use KboPublicSearch\Establishment\Type\TypeOfResult;
 
 /** @internal */
 final readonly class EstablishmentResource extends KboResource
 {
-    use MapsEstablishments;
+    public function __construct(
+        KboConnector $client,
+        private EstablishmentMapper $establishmentMapper = new EstablishmentMapper(),
+    ) {
+        parent::__construct($client);
+    }
 
     /**
      * Read an establishment unit by its number (SOAP operation ReadEstablishmentByEstablishmentNumber).
@@ -54,35 +61,36 @@ final readonly class EstablishmentResource extends KboResource
 
         return $this->reply(fn () => new EstablishmentReply(
             $unwrapped->context,
-            $this->toEstablishment($unwrapped->body->child('Establishment')),
+            $this->establishmentMapper->toEstablishment($unwrapped->body->child('Establishment')),
         ));
     }
 
     /**
      * Read every active establishment unit of an enterprise (SOAP operation ReadEstablishmentByEnterpriseNumber).
      *
-     * The list is not limited; prefer TypeOfResult::Short for enterprises with many establishments.
+     * The list is not limited; prefer TypeOfResult::Short for enterprises with many establishments. An enterprise without
+     * active establishment units yields an empty list.
      *
      * @param EnterpriseNumber $enterpriseNumber The enterprise number.
      * @param TypeOfResult $typeOfResult Short or long information.
      *
      * @throws CouldNotAuthenticate
      * @throws CouldNotCompleteRequest
-     * @throws CouldNotGetEstablishmentsOfEnterprise also when the enterprise has no active establishment units
+     * @throws CouldNotGetEstablishmentsOfEnterprise when the enterprise number is invalid, does not exist, is canceled or is not active yet
      * @throws RequestLimitReached
      * @throws UnknownException
      */
-    public function ofEnterprise(EnterpriseNumber $enterpriseNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentSearchReply
+    public function ofEnterprise(EnterpriseNumber $enterpriseNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentsOfEnterpriseReply
     {
-        $unwrapped = $this->lookup(new ReadEstablishmentByEnterpriseNumberRequest($enterpriseNumber, $typeOfResult), CouldNotGetEstablishmentsOfEnterprise::class);
+        $unwrapped = $this->listFor(new ReadEstablishmentByEnterpriseNumberRequest($enterpriseNumber, $typeOfResult), CouldNotGetEstablishmentsOfEnterprise::class);
 
-        return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->toEstablishments($unwrapped->body)));
+        return $this->reply(fn () => new EstablishmentsOfEnterpriseReply($unwrapped->context, $this->establishmentMapper->toEstablishments($unwrapped->body)));
     }
 
     /**
      * Search establishment units holding an authorization in a location (SOAP operation ReadEstablishmentByAuthorization).
      *
-     * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
+     * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->authorizationSearchCodes().
      * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
      * @param bool $onlyActive Only active establishment units.
      *
@@ -147,6 +155,6 @@ final readonly class EstablishmentResource extends KboResource
     {
         $unwrapped = $this->searchFor($request, $onFailure);
 
-        return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->toEstablishments($unwrapped->body)));
+        return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->establishmentMapper->toEstablishments($unwrapped->body)));
     }
 }

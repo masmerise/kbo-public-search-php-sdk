@@ -2,6 +2,7 @@
 
 namespace KboPublicSearch\Tests\Recorded;
 
+use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Street\Reply\StreetNameReply;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
@@ -22,6 +23,6 @@ final class StreetTest extends RecordedTestCase
 
         // Assert
         $this->assertInstanceOf(StreetNameReply::class, $reply);
-        $this->assertContains('VELDSTRAAT', $reply->streetNames->all());
+        $this->assertContains('VELDSTRAAT', array_map(static fn (StreetName $name) => $name->toString(), $reply->streetNames->all()));
     }
 }

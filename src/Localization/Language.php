@@ -9,4 +9,6 @@ enum Language: string
 
     /** Only appears in replies (denominations); it cannot be requested. */
     case German = 'de';
+    /** Only appears in replies (denominations); it cannot be requested. */
+    case English = 'en';
 }

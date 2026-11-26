@@ -5,7 +5,6 @@ namespace KboPublicSearch\Tests\Recorded;
 use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
@@ -14,11 +13,13 @@ use KboPublicSearch\Establishment\Find\Request\ReadEstablishmentByEstablishmentN
 use KboPublicSearch\Establishment\OfEnterprise\Request\ReadEstablishmentByEnterpriseNumberRequest;
 use KboPublicSearch\Establishment\Reply\EstablishmentReply;
 use KboPublicSearch\Establishment\Reply\EstablishmentSearchReply;
+use KboPublicSearch\Establishment\Reply\EstablishmentsOfEnterpriseReply;
 use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmentByAuthorizationRequest;
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
 use KboPublicSearch\Establishment\Type\Establishment;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
+use KboPublicSearch\Establishment\Type\TypeOfResult;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -34,7 +35,7 @@ final class EstablishmentTest extends RecordedTestCase
         $reply = $this->kbo->establishments->ofEnterprise(EnterpriseNumber::fromString(self::ENTERPRISE));
 
         // Assert
-        $this->assertInstanceOf(EstablishmentSearchReply::class, $reply);
+        $this->assertInstanceOf(EstablishmentsOfEnterpriseReply::class, $reply);
         $this->assertSame(self::ESTABLISHMENT, $reply->establishments->first()?->establishmentNumber->toString());
     }
 
@@ -79,8 +80,7 @@ final class EstablishmentTest extends RecordedTestCase
             $this->fail('Expected CouldNotFindEstablishment.');
         } catch (CouldNotFindEstablishment $ex) {
             // Assert
-            $this->assertSame(ReplyStatus::Unknown, $ex->status);
-            $this->assertSame('00020', $ex->context->statusCode);
+            $this->assertSame(ReplyStatus::EstablishmentStopped, $ex->status);
             $this->assertSame('Establishment stopped', $ex->getMessage());
             $this->assertSame(20, $ex->getCode());
         }

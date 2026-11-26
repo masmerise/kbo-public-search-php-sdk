@@ -89,7 +89,7 @@ $enterprise = $kbo->enterprises->find(
 
 $enterprise->number->toString();               // "0314595348"
 $enterprise->denominations->primary()?->name;  // the first name, in any language
-$enterprise->juridicalSituation->status->kind; // StatusKind::Active
+$enterprise->juridicalSituation->status->code; // StatusCode::Active
 $enterprise->addresses->first()?->street->description->first();
 $enterprise->functions;                        // Functions
 $enterprise->activities->main();               // activities classified MAIN
@@ -125,7 +125,7 @@ LocationFilter::zipcodes('9000', '9050');
 ### Establishments
 
 ```php
-use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
+use KboPublicSearch\Establishment\Type\TypeOfResult;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
@@ -150,7 +150,7 @@ does not return is an empty collection. Long replies are slow for enterprises wi
 
 ```php
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Entity\Type\ActivityFilter;
@@ -162,8 +162,8 @@ $entities = $kbo->entities->searchByAddress(
     houseNumber: HouseNumber::fromString('50'),
 )->entities;
 
-$entities->enterprises();     // EnterpriseSummaries
-$entities->establishments();  // Establishments
+$entities->enterprises();     // Entity\Type\Enterprises
+$entities->establishments();  // Entity\Type\Establishments
 
 $kbo->entities->searchByActivity(
     activityFilter: ActivityFilter::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
@@ -175,17 +175,21 @@ $kbo->entities->searchByActivity(
 ### Street names and code lists
 
 ```php
-use KboPublicSearch\CodeList\Type\CodeListId;
+use KboPublicSearch\CodeList\Type\EntityKind;
+use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 
-$streets = $kbo->streets->search(Zipcode::fromString('9000'), PartOfStreetName::fromString('veld'))->streetNames;
+// The exact spelling an address search needs (cookbook §2.9.1); each name is a StreetName.
+$street = $kbo->streets->search(Zipcode::fromString('9000'), PartOfStreetName::fromString('veld'))->streetNames->first();
+$kbo->entities->searchByAddress(Zipcode::fromString('9000'), $street, HouseNumber::fromString('1'));
 
-$codes = $kbo->codeLists->read(CodeListId::AuthorizationSearchCode)->codeList;
-$lists = $kbo->codeLists->read(CodeListId::MetaCodeList)->codeList; // which lists exist
+$codes = $kbo->codeLists->authorizationSearchCodes()->authorizationSearchCodes;
+$lists = $kbo->codeLists->metaCodeList()->metaCodeList; // which lists exist
 
-foreach ($codes as $item) {
-    echo $item->code, ' ', $item->description, ' ', $item->value('EntityKind'), PHP_EOL;
+foreach ($codes->ofKind(EntityKind::Enterprise) as $item) {
+    $kbo->enterprises->searchByAuthorization($item->code, LocationFilter::zipcodes('9300'));
 }
 ```
 
@@ -214,13 +218,39 @@ $reply->context->charged();         // false for free replies (10001/10003)
 | `enterprises->find()`                             | `EnterpriseReply`          | `enterprise: Enterprise`                 |
 | `enterprises->searchBy*()`                        | `EnterpriseSearchReply`    | `enterprises: EnterpriseSummaries`       |
 | `establishments->find()`                          | `EstablishmentReply`       | `establishment: Establishment`           |
-| `establishments->ofEnterprise()` / `searchBy*()`  | `EstablishmentSearchReply` | `establishments: Establishments`         |
+| `establishments->ofEnterprise()`                  | `EstablishmentsOfEnterpriseReply` | `establishments: Establishments`  |
+| `establishments->searchBy*()`                     | `EstablishmentSearchReply` | `establishments: Establishments`         |
 | `entities->searchBy*()`                           | `EntitySearchReply`        | `entities: Entities`                     |
 | `streets->search()`                               | `StreetNameReply`          | `streetNames: StreetNames`               |
-| `codeLists->read()`                               | `CodeListReply`            | `codeList: CodeList`                     |
+| `codeLists->authorizationSearchCodes()`           | `AuthorizationSearchCodesReply` | `authorizationSearchCodes: AuthorizationSearchCodes` |
+| `codeLists->metaCodeList()`                       | `MetaCodeListReply`        | `metaCodeList: MetaCodeList`             |
 
 Searches return at most 200 results. When KBO found more, `$reply->isTruncated()` is `true`.
-A search without matches returns an empty collection rather than throwing.
+A search without matches returns an empty collection rather than throwing. `ofEnterprise()` is not a search: its list
+is never truncated, and an enterprise without active establishment units yields an empty list.
+
+## Codes
+
+Codes in replies are typed, never plain strings:
+
+```php
+use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Enterprise\Type\JuridicalFormCode;
+
+$enterprise = $kbo->enterprises->find(EnterpriseNumber::fromString('0314.595.348'))->enterprise;
+
+$enterprise->juridicalForm?->code === JuridicalFormCode::FederalPublicService;
+$enterprise->juridicalForm?->code->value; // "301"
+$enterprise->juridicalForm?->description; // the description in the requested language(s)
+```
+
+Most codes are enums generated from [KBO's code tables](https://economie.fgov.be/nl/themas/ondernemingen/kruispuntbank-van/diensten-voor-administraties/codetabellen).
+Codes from tables that grow often or are too large for an enum are value objects instead: `AuthorizationCode`,
+`QualificationCode`, `MunicipalityCode`, `NacebelCode` and `StreetCode`.
+
+A reply holding a code the SDK does not know yet throws an `UnknownException`; so does a reply status the SDK does not
+know. Please open an issue: the enums are
+regenerated from the code tables (see `docs/codes`) and released as soon as possible.
 
 ## Failures (exception handling)
 
@@ -228,7 +258,8 @@ The SDK uses exceptions as its medium to communicate failures.
 
 ```
 KboPublicSearchException
-├── CouldNotAuthenticate (wrong credentials)
+├── CouldNotAuthenticate
+│   ├── InvalidCredentials (wrong username or password, or a skewed clock)
 │   └── MustAcceptTermsOfService (exposes ->url)
 ├── RequestLimitReached (daily quota used up)
 ├── CouldNotCompleteRequest (any other SOAP fault, exposes ->faultCode and ->faultString)
@@ -262,7 +293,7 @@ try {
 } catch (CouldNotFindEnterprise $ex) {
     $ex->status;              // ReplyStatus::EnterpriseCanceled
     $ex->getMessage();        // "Enterprise canceled"
-    $ex->context->statusCode; // "00014", also kept for codes the SDK does not know (ReplyStatus::Unknown)
+    $ex->status->value;       // "00014"
 }
 ```
 
@@ -299,7 +330,7 @@ Every request carries a WS-Security timestamp, which KBO checks against its own 
 Keep the clock of the machine running the SDK synchronised with a time server.
 
 KBO answers a rejected timestamp with the same generic security fault as wrong credentials, so a skewed clock
-surfaces as `CouldNotAuthenticate`. When credentials that worked before start failing, check the clock first.
+surfaces as `InvalidCredentials`. When credentials that worked before start failing, check the clock first.
 
 ## Terms of service
 
@@ -347,7 +378,7 @@ KboPublicSearch::VERSION; // "R018.08"
 | ReadEnterpriseOrEstablishmentByAddress           | `entities->searchByAddress()`            | ✓ |
 | ReadEnterpriseOrEstablishmentByActivity          | `entities->searchByActivity()`           | ✓ |
 | ReadStreetName                                   | `streets->search()`                      | ✓ |
-| ReadCodeList                                     | `codeLists->read()`                      | ✓ |
+| ReadCodeList                                     | `codeLists->authorizationSearchCodes()`, `codeLists->metaCodeList()` | ✓ |
 
 This is an unofficial SDK. Feel free to submit a feature or pull request!
 

@@ -7,6 +7,7 @@ use KboPublicSearch\Core\Type\Description;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Status\Status;
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
 
 /** An enterprise as searches return it: fewer elements than ReadEnterprise (cookbook §2.2.2). */
 final readonly class EnterpriseSummary

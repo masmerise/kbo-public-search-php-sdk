@@ -4,10 +4,5 @@ namespace KboPublicSearch\Authentication\Failure;
 
 use KboPublicSearch\Core\Failure\KboPublicSearchException;
 
-class CouldNotAuthenticate extends KboPublicSearchException
-{
-    public static function because(string $faultString): self
-    {
-        return new self($faultString);
-    }
-}
+/** KBO refused access: catch this for every authentication failure, or one of its subclasses for a specific one. */
+abstract class CouldNotAuthenticate extends KboPublicSearchException {}

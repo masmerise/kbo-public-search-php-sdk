@@ -11,7 +11,7 @@ final readonly class LinkedEnterprise
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public LinkedEnterpriseCode $code,
         public Description $description,
         /** EnterpriseNumberSubject: the left-hand side of the relation. */
         public EnterpriseNumber $enterpriseNumberSubject,

@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Tests\Recorded;
 
-use KboPublicSearch\Authentication\Failure\CouldNotAuthenticate;
+use KboPublicSearch\Authentication\Failure\InvalidCredentials;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Enterprise\Find\Request\ReadEnterpriseRequest;
 use KboPublicSearch\Environments\Environment;
@@ -21,7 +21,7 @@ final class AuthenticationTest extends RecordedTestCase
         self::environment() === Environment::Production ? $kbo->useProduction() : $kbo->useTest();
 
         // Assert
-        $this->expectException(CouldNotAuthenticate::class);
+        $this->expectException(InvalidCredentials::class);
 
         // Act
         $kbo->enterprises->find(EnterpriseNumber::fromString(self::ENTERPRISE));

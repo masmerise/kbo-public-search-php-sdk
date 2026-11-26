@@ -2,13 +2,15 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Enterprise\Type\Primitive\Amount;
+
 /** The capital of an enterprise. */
 final readonly class Capital
 {
     /** @internal */
     public function __construct(
-        /** The decimal amount as KBO returns it, e.g. "1000000000.00". */
-        public string $amount,
-        public string $currency,
+        public Amount $amount,
+        /** Optional in the XSD. */
+        public ?Currency $currency,
     ) {}
 }

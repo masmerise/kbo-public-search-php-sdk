@@ -5,7 +5,6 @@ namespace KboPublicSearch\Tests\Unit\Establishment;
 use InvalidArgumentException;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
@@ -16,6 +15,7 @@ use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmen
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
+use KboPublicSearch\Establishment\Type\TypeOfResult;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;

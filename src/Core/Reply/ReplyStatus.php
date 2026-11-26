@@ -2,7 +2,7 @@
 
 namespace KboPublicSearch\Core\Reply;
 
-/** How KBO handled a request (ReplyContext > ReplyStatus > Code, cookbook §1.4). */
+/** How KBO handled a request (ReplyContext > ReplyStatus > Code, cookbook §1.4). A code not listed here fails the reply. */
 enum ReplyStatus: string
 {
     case Success = '00001';
@@ -17,16 +17,10 @@ enum ReplyStatus: string
     case EstablishmentCanceled = '00015';
     case EnterpriseNotYetActive = '00016';
     case EstablishmentNotYetActive = '00017';
+    /** Not in the cookbook; KBO answers it for a stopped establishment unit. */
+    case EstablishmentStopped = '00020';
     case SuccessUncharged = '10001';
     case NoDataUncharged = '10003';
-
-    /** A code this SDK does not know yet; the raw code is kept on ReplyContext::$statusCode. */
-    case Unknown = 'unknown';
-
-    public static function fromCode(string $code): self
-    {
-        return self::tryFrom($code) ?? self::Unknown;
-    }
 
     /** Whether this reply was deducted from the daily request quota (cookbook §1.7). */
     public function charged(): bool

@@ -5,7 +5,7 @@ namespace KboPublicSearch\Tests\Unit\Street;
 use InvalidArgumentException;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
-use KboPublicSearch\Street\Type\Mapping\MapsStreetNames;
+use KboPublicSearch\Street\Type\Mapping\StreetNameMapper;
 use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\Support\Snippet;
@@ -14,18 +14,16 @@ use PHPUnit\Framework\Attributes\Test;
 
 final class StreetTest extends TestCase
 {
-    use MapsStreetNames;
-
     #[Test]
     public function maps_the_cookbook_reply(): void
     {
         // Act
-        $streetNames = $this->toStreetNames(Snippet::load('reply-street-names'));
+        $streetNames = $this->streetNameMapper()->toStreetNames(Snippet::load('reply-street-names'));
 
         // Assert
         $this->assertCount(6, $streetNames);
-        $this->assertSame('BASSEVELDESTRAAT', $streetNames->all()[0]);
-        $this->assertSame('VELDSTRAAT', $streetNames[5]);
+        $this->assertSame('BASSEVELDESTRAAT', $streetNames->all()[0]->toString());
+        $this->assertSame('VELDSTRAAT', $streetNames[5]->toString());
     }
 
     #[Test]
@@ -50,5 +48,10 @@ final class StreetTest extends TestCase
                 $this->addToAssertionCount(1);
             }
         }
+    }
+
+    private function streetNameMapper(): StreetNameMapper
+    {
+        return new StreetNameMapper();
     }
 }

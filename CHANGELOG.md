@@ -19,4 +19,4 @@ Initial release, implementing cookbook R018.08:
 - `entities->searchByAddress()` (ReadEnterpriseOrEstablishmentByAddress)
 - `entities->searchByActivity()` (ReadEnterpriseOrEstablishmentByActivity)
 - `streets->search()` (ReadStreetName)
-- `codeLists->read()` (ReadCodeList)
+- `codeLists->authorizationSearchCodes()` and `codeLists->metaCodeList()` (ReadCodeList)

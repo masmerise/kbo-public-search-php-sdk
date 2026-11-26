@@ -16,7 +16,7 @@ final readonly class Denominations extends Collection
     public function primary(?Language $language = null): ?Denomination
     {
         foreach ($this->items as $denomination) {
-            if ($denomination->kind === DenominationKind::Name && ($language === null || $denomination->language === $language->value)) {
+            if ($denomination->code === DenominationCode::Name && ($language === null || $denomination->language === $language)) {
                 return $denomination;
             }
         }

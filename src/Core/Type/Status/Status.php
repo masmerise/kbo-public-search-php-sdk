@@ -9,9 +9,7 @@ final readonly class Status
 {
     /** @internal */
     public function __construct(
-        public string $code,
-        /** Null for a code this SDK does not know yet. */
-        public ?StatusKind $kind,
+        public StatusCode $code,
         public Description $description,
     ) {}
 }

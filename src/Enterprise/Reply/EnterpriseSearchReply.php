@@ -2,15 +2,12 @@
 
 namespace KboPublicSearch\Enterprise\Reply;
 
-use KboPublicSearch\Core\Reply\Reply;
 use KboPublicSearch\Core\Reply\ReplyContext;
-use KboPublicSearch\Core\Reply\ReportsTruncation;
+use KboPublicSearch\Core\Reply\SearchReply;
 use KboPublicSearch\Enterprise\Type\EnterpriseSummaries;
 
-final readonly class EnterpriseSearchReply extends Reply
+final readonly class EnterpriseSearchReply extends SearchReply
 {
-    use ReportsTruncation;
-
     /** @internal */
     public function __construct(ReplyContext $context, public EnterpriseSummaries $enterprises)
     {

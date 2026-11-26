@@ -4,7 +4,6 @@ namespace KboPublicSearch\Tests\Unit\Entity;
 
 use InvalidArgumentException;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Entity\SearchByActivity\Request\ReadEnterpriseOrEstablishmentByActivityRequest;
@@ -12,6 +11,7 @@ use KboPublicSearch\Entity\SearchByAddress\Request\ReadEnterpriseOrEstablishment
 use KboPublicSearch\Entity\Type\ActivityFilter;
 use KboPublicSearch\Entity\Type\EntityFilter;
 use KboPublicSearch\Entity\Type\Primitive\ActivityCode;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;

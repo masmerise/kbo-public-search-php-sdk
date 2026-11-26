@@ -6,7 +6,7 @@ use DateTimeImmutable;
 use InvalidArgumentException;
 use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\Core\Failure\KboPublicSearchException;
-use KboPublicSearch\Core\Failure\Mapping\MapsSoapFaults;
+use KboPublicSearch\Core\Failure\Mapping\SoapFaultMapper;
 use KboPublicSearch\Core\Failure\UnknownException;
 use KboPublicSearch\Core\Http\Mapping\UnwrappedReplyMapper;
 use KboPublicSearch\Core\Http\Soap\Security\Timestamp;
@@ -22,8 +22,6 @@ use SensitiveParameter;
 /** @internal */
 final readonly class Envelope
 {
-    use MapsSoapFaults;
-
     public const array NAMESPACES = [
         'soapenv' => 'http://schemas.xmlsoap.org/soap/envelope/',
         'mes' => 'http://economie.fgov.be/kbopub/webservices/v1/messages',
@@ -79,7 +77,7 @@ final readonly class Envelope
         }
 
         if ($fault !== null) {
-            throw self::toException(new Fault(
+            throw new SoapFaultMapper()->toException(new Fault(
                 code: $fault->optionalText('faultcode') ?? '',
                 string: preg_replace('/\s+/', ' ', $fault->optionalText('faultstring') ?? '') ?? '',
             ));

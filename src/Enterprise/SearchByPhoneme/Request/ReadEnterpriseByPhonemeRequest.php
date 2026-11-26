@@ -5,9 +5,9 @@ namespace KboPublicSearch\Enterprise\SearchByPhoneme\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
 use KboPublicSearch\Core\Xml\Node;
 use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
-use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
 use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 
 /** @internal */

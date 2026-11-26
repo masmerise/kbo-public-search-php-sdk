@@ -4,6 +4,7 @@ namespace KboPublicSearch\Tests\Unit\Core\Failure;
 
 use Exception;
 use KboPublicSearch\Authentication\Failure\CouldNotAuthenticate;
+use KboPublicSearch\Authentication\Failure\InvalidCredentials;
 use KboPublicSearch\Authentication\Failure\MustAcceptTermsOfService;
 use KboPublicSearch\Core\Failure\CouldNotCompleteRequest;
 use KboPublicSearch\Core\Failure\KboPublicSearchException;
@@ -63,6 +64,7 @@ final class FailureTreeTest extends TestCase
     public function request_limit_and_authentication_carry_the_fault_string(): void
     {
         $this->assertSame('Quota Exceeded!', RequestLimitReached::because('Quota Exceeded!')->getMessage());
-        $this->assertSame('nope', CouldNotAuthenticate::because('nope')->getMessage());
+        $this->assertSame('nope', InvalidCredentials::because('nope')->getMessage());
+        $this->assertInstanceOf(CouldNotAuthenticate::class, InvalidCredentials::because('nope'));
     }
 }

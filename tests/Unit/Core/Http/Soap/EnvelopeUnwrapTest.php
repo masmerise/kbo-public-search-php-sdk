@@ -8,6 +8,7 @@ use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use ValueError;
 
 final class EnvelopeUnwrapTest extends TestCase
 {
@@ -19,7 +20,7 @@ final class EnvelopeUnwrapTest extends TestCase
 
         // Assert
         $this->assertSame(ReplyStatus::EnterpriseCanceled, $unwrapped->context->status);
-        $this->assertSame('00014', $unwrapped->context->statusCode);
+        $this->assertSame(ReplyStatus::EnterpriseCanceled, $unwrapped->context->status);
         $this->assertSame('Enterprise canceled', $unwrapped->context->statusDescription);
         $this->assertSame('myid', $unwrapped->context->requestId);
         $this->assertSame('23efbf0d-7d1e-4f67-981e-e1e2a766a5e0', $unwrapped->context->replyId);
@@ -67,15 +68,13 @@ final class EnvelopeUnwrapTest extends TestCase
     }
 
     #[Test]
-    public function unknown_status_keeps_the_raw_code(): void
+    public function unknown_status_fails(): void
     {
-        // Act
-        $unwrapped = Envelope::unwrap(self::reply('<ReplyStatus><Code>12345</Code><Description>New</Description></ReplyStatus>', '<R/>'));
-
         // Assert
-        $this->assertSame(ReplyStatus::Unknown, $unwrapped->context->status);
-        $this->assertSame('12345', $unwrapped->context->statusCode);
-        $this->assertFalse($unwrapped->context->charged());
+        $this->expectException(ValueError::class);
+
+        // Act
+        Envelope::unwrap(self::reply('<ReplyStatus><Code>12345</Code><Description>New</Description></ReplyStatus>', '<R/>'));
     }
 
     #[Test]

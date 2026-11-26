@@ -12,7 +12,7 @@ abstract class ValidationException extends KboPublicSearchException
 
     final public function __construct(public readonly ReplyContext $context)
     {
-        parent::__construct($context->statusDescription, (int) $context->statusCode);
+        parent::__construct($context->statusDescription, (int) $context->status->value);
 
         $this->status = $context->status;
     }

@@ -6,9 +6,9 @@ use KboPublicSearch\Authentication\Failure\CouldNotAuthenticate;
 use KboPublicSearch\Core\Failure\CouldNotCompleteRequest;
 use KboPublicSearch\Core\Failure\RequestLimitReached;
 use KboPublicSearch\Core\Failure\UnknownException;
+use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Entity\Reply\EntitySearchReply;
@@ -18,12 +18,18 @@ use KboPublicSearch\Entity\SearchByAddress\Failure\CouldNotSearchEntitiesByAddre
 use KboPublicSearch\Entity\SearchByAddress\Request\ReadEnterpriseOrEstablishmentByAddressRequest;
 use KboPublicSearch\Entity\Type\ActivityFilter;
 use KboPublicSearch\Entity\Type\EntityFilter;
-use KboPublicSearch\Entity\Type\Mapping\MapsEntities;
+use KboPublicSearch\Entity\Type\Mapping\EntityMapper;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 
 /** @internal */
 final readonly class EntityResource extends KboResource
 {
-    use MapsEntities;
+    public function __construct(
+        KboConnector $client,
+        private EntityMapper $entityMapper = new EntityMapper(),
+    ) {
+        parent::__construct($client);
+    }
 
     /**
      * Search enterprises and establishment units by NACEBEL activity in a location (SOAP operation ReadEnterpriseOrEstablishmentByActivity).
@@ -46,7 +52,7 @@ final readonly class EntityResource extends KboResource
             CouldNotSearchEntitiesByActivity::class,
         );
 
-        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->toEntities($unwrapped->body)));
+        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->entityMapper->toEntities($unwrapped->body)));
     }
 
     /**
@@ -70,6 +76,6 @@ final readonly class EntityResource extends KboResource
             CouldNotSearchEntitiesByAddress::class,
         );
 
-        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->toEntities($unwrapped->body)));
+        return $this->reply(fn () => new EntitySearchReply($unwrapped->context, $this->entityMapper->toEntities($unwrapped->body)));
     }
 }

@@ -11,7 +11,8 @@ final readonly class JuridicalSituation
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        /** Optional in the XSD. */
+        public ?JuridicalSituationCode $code,
         public Description $description,
         public ?Period $validityPeriod,
         public Status $status,

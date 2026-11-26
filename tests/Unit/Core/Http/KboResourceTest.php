@@ -92,7 +92,7 @@ final class KboResourceTest extends TestCase
         $unwrapped = $this->resource->probeSearch(new ProbeRequest('0314595348'));
 
         // Assert
-        $this->assertSame($code, $unwrapped->context->statusCode);
+        $this->assertSame($code, $unwrapped->context->status->value);
     }
 
     public static function acceptedBySearch(): iterable
@@ -123,7 +123,53 @@ final class KboResourceTest extends TestCase
     {
         yield 'invalid enterprise number' => ['00005'];
         yield 'juridical form' => ['00007'];
-        yield 'unknown' => ['99999'];
+    }
+
+    #[Test]
+    #[DataProvider('acceptedByList')]
+    public function list_accepts_no_data(string $code): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make(self::reply($code), 200));
+
+        // Act
+        $unwrapped = $this->resource->probeList(new ProbeRequest('0314595348'));
+
+        // Assert
+        $this->assertSame($code, $unwrapped->context->status->value);
+    }
+
+    public static function acceptedByList(): iterable
+    {
+        yield 'success' => ['00001'];
+        yield 'no data' => ['00003'];
+        yield 'uncharged no data' => ['10003'];
+    }
+
+    #[Test]
+    public function list_rejects_truncated(): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make(self::reply('00008'), 200));
+
+        // Assert
+        $this->expectException(CouldNotProbe::class);
+
+        // Act
+        $this->resource->probeList(new ProbeRequest('0314595348'));
+    }
+
+    #[Test]
+    public function an_unknown_status_is_unknown(): void
+    {
+        // Arrange
+        $this->respond(MockResponse::make(self::reply('99999'), 200));
+
+        // Assert
+        $this->expectException(UnknownException::class);
+
+        // Act
+        $this->resource->probeSearch(new ProbeRequest('0314595348'));
     }
 
     #[Test]

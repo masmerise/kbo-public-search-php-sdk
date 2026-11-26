@@ -9,7 +9,7 @@ final readonly class TechnicalCreationReason
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public TechnicalCreationReasonCode $code,
         public Description $description,
     ) {}
 }

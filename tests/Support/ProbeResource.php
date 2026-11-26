@@ -13,6 +13,11 @@ final readonly class ProbeResource extends KboResource
         return $this->lookup($request, CouldNotProbe::class);
     }
 
+    public function probeList(Request $request): UnwrappedReply
+    {
+        return $this->listFor($request, CouldNotProbe::class);
+    }
+
     public function probeMapping(Request $request): never
     {
         $this->reply(fn () => $this->lookup($request, CouldNotProbe::class)->body->child('Missing'));

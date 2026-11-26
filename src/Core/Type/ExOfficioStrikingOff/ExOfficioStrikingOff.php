@@ -10,7 +10,7 @@ final readonly class ExOfficioStrikingOff
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public ExOfficioStrikingOffCode $code,
         public Description $description,
         public ?Period $validityPeriod,
     ) {}

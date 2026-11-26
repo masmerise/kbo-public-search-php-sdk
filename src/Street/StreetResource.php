@@ -6,18 +6,24 @@ use KboPublicSearch\Authentication\Failure\CouldNotAuthenticate;
 use KboPublicSearch\Core\Failure\CouldNotCompleteRequest;
 use KboPublicSearch\Core\Failure\RequestLimitReached;
 use KboPublicSearch\Core\Failure\UnknownException;
+use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Street\Reply\StreetNameReply;
 use KboPublicSearch\Street\Search\Failure\CouldNotSearchStreets;
 use KboPublicSearch\Street\Search\Request\ReadStreetNameRequest;
-use KboPublicSearch\Street\Type\Mapping\MapsStreetNames;
+use KboPublicSearch\Street\Type\Mapping\StreetNameMapper;
 use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 
 /** @internal */
 final readonly class StreetResource extends KboResource
 {
-    use MapsStreetNames;
+    public function __construct(
+        KboConnector $client,
+        private StreetNameMapper $streetNameMapper = new StreetNameMapper(),
+    ) {
+        parent::__construct($client);
+    }
 
     /**
      * Search the street names in a zipcode that contain a text (SOAP operation ReadStreetName).
@@ -35,6 +41,6 @@ final readonly class StreetResource extends KboResource
     {
         $unwrapped = $this->searchFor(new ReadStreetNameRequest($zipcode, $partOfStreetName), CouldNotSearchStreets::class);
 
-        return $this->reply(fn () => new StreetNameReply($unwrapped->context, $this->toStreetNames($unwrapped->body)));
+        return $this->reply(fn () => new StreetNameReply($unwrapped->context, $this->streetNameMapper->toStreetNames($unwrapped->body)));
     }
 }

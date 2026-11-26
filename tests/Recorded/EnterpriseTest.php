@@ -4,10 +4,11 @@ namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
 use KboPublicSearch\Enterprise\Find\Failure\CouldNotFindEnterprise;
 use KboPublicSearch\Enterprise\Find\Request\ReadEnterpriseRequest;
 use KboPublicSearch\Enterprise\Reply\EnterpriseReply;
-use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
+use KboPublicSearch\Enterprise\Type\JuridicalSituationCode;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -35,15 +36,15 @@ final class EnterpriseTest extends RecordedTestCase
         // Everything in the recording is mapped.
         $enterprise = $reply->enterprise;
         $this->assertSame(TypeOfEnterprise::PhysicalPerson, $enterprise->typeOfEnterprise);
-        $this->assertSame('000', $enterprise->juridicalSituation->code);
+        $this->assertSame(JuridicalSituationCode::NormalSituation, $enterprise->juridicalSituation->code);
         $this->assertSame('2026-05-11', $enterprise->period->begin?->toString());
         $this->assertNull($enterprise->juridicalForm);
-        $this->assertSame('', $enterprise->denominations->primary()?->language);
+        $this->assertNull($enterprise->denominations->primary()?->language);
         $this->assertSame(1, $enterprise->businessUnits);
         $this->assertSame(0, $enterprise->addresses->count());
         $this->assertSame(2, $enterprise->qualifications->count());
         $this->assertSame(2, $enterprise->activities->count());
-        $this->assertSame('62100', $enterprise->activities->main()->first()?->code);
+        $this->assertSame('62100', $enterprise->activities->main()->first()?->code->toString());
         $this->assertSame(1, $enterprise->functions->count());
         $this->assertNotNull($enterprise->functions->first()?->person);
     }

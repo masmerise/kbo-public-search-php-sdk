@@ -3,9 +3,9 @@
 namespace KboPublicSearch\Establishment\Find\Request;
 
 use KboPublicSearch\Core\Http\Request;
-use KboPublicSearch\Core\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
 use KboPublicSearch\Core\Xml\Node;
+use KboPublicSearch\Establishment\Type\TypeOfResult;
 
 /** @internal */
 final class ReadEstablishmentByEstablishmentNumberRequest extends Request

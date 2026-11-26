@@ -3,15 +3,15 @@
 namespace KboPublicSearch\Tests\Recorded;
 
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
 use KboPublicSearch\Entity\Reply\EntitySearchReply;
 use KboPublicSearch\Entity\SearchByActivity\Request\ReadEnterpriseOrEstablishmentByActivityRequest;
 use KboPublicSearch\Entity\SearchByAddress\Request\ReadEnterpriseOrEstablishmentByAddressRequest;
 use KboPublicSearch\Entity\Type\ActivityFilter;
-use KboPublicSearch\Establishment\Type\Establishment;
+use KboPublicSearch\Entity\Type\Enterprise;
+use KboPublicSearch\Entity\Type\Establishment;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 
@@ -28,7 +28,7 @@ final class EntityTest extends RecordedTestCase
 
         // Assert
         $this->assertInstanceOf(EntitySearchReply::class, $reply);
-        $numbers = array_map(static fn (EnterpriseSummary $e) => $e->number->toString(), $reply->entities->enterprises()->all());
+        $numbers = array_map(static fn (Enterprise $e) => $e->number->toString(), $reply->entities->enterprises()->all());
         $this->assertContains('0314595348', $numbers);
     }
 
@@ -45,7 +45,7 @@ final class EntityTest extends RecordedTestCase
         $this->assertGreaterThan(0, $reply->entities->count());
 
         foreach ($reply->entities as $entity) {
-            $this->assertTrue($entity instanceof EnterpriseSummary || $entity instanceof Establishment);
+            $this->assertTrue($entity instanceof Enterprise || $entity instanceof Establishment);
         }
     }
 }

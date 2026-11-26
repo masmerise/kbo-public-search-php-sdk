@@ -35,6 +35,22 @@ abstract readonly class KboResource
     }
 
     /**
+     * A complete list: "no data" yields an empty result; it is never truncated.
+     *
+     * @param class-string<ValidationException> $onFailure
+     *
+     * @throws CouldNotAuthenticate
+     * @throws CouldNotCompleteRequest
+     * @throws RequestLimitReached
+     * @throws UnknownException
+     * @throws ValidationException
+     */
+    protected function listFor(Request $request, string $onFailure): UnwrappedReply
+    {
+        return $this->send($request, $onFailure, static fn (ReplyStatus $status) => $status->isSuccess() || $status->isNoData());
+    }
+
+    /**
      * Builds the reply from a result; anything that goes wrong while mapping it is an UnknownException.
      *
      * @template T

@@ -10,6 +10,7 @@ use KboPublicSearch\Core\Type\Denomination\Denominations;
 use KboPublicSearch\Core\Type\ExOfficioStrikingOff\ExOfficioStrikingOffs;
 use KboPublicSearch\Core\Type\Period;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
 
 /** An enterprise as ReadEnterprise returns it. */
 final readonly class Enterprise

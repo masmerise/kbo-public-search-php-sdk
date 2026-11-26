@@ -10,7 +10,7 @@ final readonly class Event
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public EventCode $code,
         public Description $description,
         public Date $eventDate,
     ) {}

@@ -12,7 +12,7 @@ final readonly class EnterpriseFunction
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public FunctionCode $code,
         public Description $description,
         public Period $period,
         public ?Person $person,

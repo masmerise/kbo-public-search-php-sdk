@@ -3,21 +3,17 @@
 namespace KboPublicSearch\Entity\Type;
 
 use KboPublicSearch\Core\Type\Collection;
-use KboPublicSearch\Enterprise\Type\EnterpriseSummaries;
-use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
-use KboPublicSearch\Establishment\Type\Establishment;
-use KboPublicSearch\Establishment\Type\Establishments;
 
 /**
  * Enterprises and establishment units, in reply order.
  *
- * @extends Collection<EnterpriseSummary|Establishment>
+ * @extends Collection<Enterprise|Establishment>
  */
 final readonly class Entities extends Collection
 {
-    public function enterprises(): EnterpriseSummaries
+    public function enterprises(): Enterprises
     {
-        return EnterpriseSummaries::of(array_values(array_filter($this->items, static fn ($entity) => $entity instanceof EnterpriseSummary)));
+        return Enterprises::of(array_values(array_filter($this->items, static fn ($entity) => $entity instanceof Enterprise)));
     }
 
     public function establishments(): Establishments

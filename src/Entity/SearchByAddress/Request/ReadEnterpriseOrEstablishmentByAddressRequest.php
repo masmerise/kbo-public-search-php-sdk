@@ -3,10 +3,10 @@
 namespace KboPublicSearch\Entity\SearchByAddress\Request;
 
 use KboPublicSearch\Core\Http\Request;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
+use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
 
 /** @internal */
 final class ReadEnterpriseOrEstablishmentByAddressRequest extends Request

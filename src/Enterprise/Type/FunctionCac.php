@@ -10,7 +10,7 @@ final readonly class FunctionCac
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public FunctionCode $code,
         public Description $description,
         public Period $cacPeriod,
     ) {}

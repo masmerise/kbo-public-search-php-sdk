@@ -3,18 +3,17 @@
 namespace KboPublicSearch\Core\Type\Denomination;
 
 use KboPublicSearch\Core\Type\Period;
+use KboPublicSearch\Localization\Language;
 
 /** A name of an enterprise, establishment or branch, in one language. */
 final readonly class Denomination
 {
     /** @internal */
     public function __construct(
-        public string $code,
-        /** Null for a code this SDK does not know yet. */
-        public ?DenominationKind $kind,
+        public DenominationCode $code,
         public string $name,
-        /** The language code as KBO returns it ("nl", "fr", "de"); empty for physical persons' names. */
-        public string $language,
+        /** Null for physical persons' names, which KBO sends without a language. */
+        public ?Language $language,
         public ?Period $validityPeriod,
     ) {}
 }

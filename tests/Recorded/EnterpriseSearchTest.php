@@ -5,6 +5,7 @@ namespace KboPublicSearch\Tests\Recorded;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
 use KboPublicSearch\Enterprise\Reply\EnterpriseSearchReply;
 use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAuthorizationRequest;
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
@@ -13,7 +14,6 @@ use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterprise
 use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
-use KboPublicSearch\Enterprise\Type\TypeOfEnterprise;
 use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;

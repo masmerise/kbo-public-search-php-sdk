@@ -23,6 +23,6 @@ final class SmokeTest extends RecordedTestCase
 
         // Assert
         $this->assertInstanceOf(UnwrappedReply::class, $unwrapped);
-        $this->assertTrue($unwrapped->context->status->isSuccess(), "{$unwrapped->context->statusCode} {$unwrapped->context->statusDescription}");
+        $this->assertTrue($unwrapped->context->status->isSuccess(), "{$unwrapped->context->status->value} {$unwrapped->context->statusDescription}");
     }
 }

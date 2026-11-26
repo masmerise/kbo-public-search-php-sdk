@@ -241,7 +241,8 @@ générale</ns2:Value>
                      <ns2:Language>fr</ns2:Language> 
                   </ns2:Description> 
                </ns2:ActivityGroupAdministration> 
-               <ns2:Version>20025</ns2:Version> 
+               <!-- The cookbook prints 20025 here, a typo for 2025. -->
+               <ns2:Version>2025</ns2:Version> 
                <ns2:Description> 
                   <ns2:Value>Administration de et contribution à l’amélioration 
 de l’efficacité des activités économiques</ns2:Value> 

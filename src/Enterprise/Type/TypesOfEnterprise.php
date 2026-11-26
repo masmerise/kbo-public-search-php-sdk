@@ -2,6 +2,8 @@
 
 namespace KboPublicSearch\Enterprise\Type;
 
+use KboPublicSearch\Core\Type\TypeOfEnterprise;
+
 /** Which types of enterprise a search returns. */
 final readonly class TypesOfEnterprise
 {

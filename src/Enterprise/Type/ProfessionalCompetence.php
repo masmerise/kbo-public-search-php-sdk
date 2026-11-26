@@ -11,7 +11,7 @@ final readonly class ProfessionalCompetence
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public ProfessionalCompetenceCode $code,
         public Description $description,
         public Period $period,
         public ?Period $exemption,

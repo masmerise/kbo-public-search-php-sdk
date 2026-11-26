@@ -10,7 +10,7 @@ final readonly class JuridicalFormCac
 {
     /** @internal */
     public function __construct(
-        public string $code,
+        public JuridicalFormCode $code,
         public Description $description,
         public Date $cacDate,
     ) {}

@@ -10,22 +10,13 @@ use PHPUnit\Framework\Attributes\Test;
 final class ReplyStatusTest extends TestCase
 {
     #[Test]
-    public function known_and_unknown_codes(): void
-    {
-        $this->assertSame(ReplyStatus::EnterpriseCanceled, ReplyStatus::fromCode('00014'));
-        $this->assertSame(ReplyStatus::Unknown, ReplyStatus::fromCode('99999'));
-        $this->assertSame(ReplyStatus::Unknown, ReplyStatus::fromCode('unknown'));
-    }
-
-    #[Test]
     #[DataProvider('codes')]
     public function classifies_every_code(string $code, bool $success, bool $noData, bool $truncated, bool $charged): void
     {
         // Act
-        $status = ReplyStatus::fromCode($code);
+        $status = ReplyStatus::from($code);
 
         // Assert
-        $this->assertNotSame(ReplyStatus::Unknown, $status);
         $this->assertSame($success, $status->isSuccess(), 'isSuccess');
         $this->assertSame($noData, $status->isNoData(), 'isNoData');
         $this->assertSame($truncated, $status->isTruncated(), 'isTruncated');
@@ -47,6 +38,7 @@ final class ReplyStatusTest extends TestCase
         yield '00015' => ['00015', false, false, false, true];
         yield '00016' => ['00016', false, false, false, true];
         yield '00017' => ['00017', false, false, false, true];
+        yield '00020' => ['00020', false, false, false, false];
         yield '10001' => ['10001', true, false, false, false];
         yield '10003' => ['10003', false, true, false, false];
     }

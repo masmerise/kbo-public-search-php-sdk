@@ -8,6 +8,7 @@ use KboPublicSearch\Core\Failure\CouldNotCompleteRequest;
 use KboPublicSearch\Core\Failure\RequestLimitReached;
 use KboPublicSearch\Core\Failure\UnknownException;
 use KboPublicSearch\Core\Failure\ValidationException;
+use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Core\Http\KboResource;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
@@ -28,8 +29,8 @@ use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRe
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Failure\CouldNotSearchEnterprisesByPhysicalPersonName;
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
-use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterprises;
-use KboPublicSearch\Enterprise\Type\Mapping\MapsEnterpriseSummaries;
+use KboPublicSearch\Enterprise\Type\Mapping\EnterpriseMapper;
+use KboPublicSearch\Enterprise\Type\Mapping\EnterpriseSummaryMapper;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
@@ -39,8 +40,13 @@ use Webmozart\Assert\Assert;
 /** @internal */
 final readonly class EnterpriseResource extends KboResource
 {
-    use MapsEnterprises;
-    use MapsEnterpriseSummaries;
+    public function __construct(
+        KboConnector $client,
+        private EnterpriseMapper $enterpriseMapper = new EnterpriseMapper(),
+        private EnterpriseSummaryMapper $enterpriseSummaryMapper = new EnterpriseSummaryMapper(),
+    ) {
+        parent::__construct($client);
+    }
 
     /**
      * Read an enterprise by its number (SOAP operation ReadEnterprise).
@@ -61,7 +67,7 @@ final readonly class EnterpriseResource extends KboResource
 
         return $this->reply(fn () => new EnterpriseReply(
             $unwrapped->context,
-            $this->toEnterprise($unwrapped->body->child('Enterprise')),
+            $this->enterpriseMapper->toEnterprise($unwrapped->body->child('Enterprise')),
         ));
     }
 
@@ -112,7 +118,7 @@ final readonly class EnterpriseResource extends KboResource
     /**
      * Search enterprises holding an authorization in a location (SOAP operation ReadEnterpriseByAuthorization).
      *
-     * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->read(CodeListId::AuthorizationSearchCode).
+     * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->authorizationSearchCodes().
      * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
      * @param bool $onlyActive Only active enterprises.
      *
@@ -171,6 +177,6 @@ final readonly class EnterpriseResource extends KboResource
     {
         $unwrapped = $this->searchFor($request, $onFailure);
 
-        return $this->reply(fn () => new EnterpriseSearchReply($unwrapped->context, $this->toEnterpriseSummaries($unwrapped->body)));
+        return $this->reply(fn () => new EnterpriseSearchReply($unwrapped->context, $this->enterpriseSummaryMapper->toEnterpriseSummaries($unwrapped->body)));
     }
 }

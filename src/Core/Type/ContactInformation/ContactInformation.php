@@ -10,10 +10,8 @@ final readonly class ContactInformation
 {
     /** @internal */
     public function __construct(
-        /** The raw ContactType, if any. */
-        public ?string $contactType,
-        /** Null when the type is absent or unknown. */
-        public ?ContactKind $kind,
+        /** Optional in the XSD. */
+        public ?ContactType $contactType,
         public Description $description,
         public string $value,
         public bool $foreignBranchOfficeFlag,

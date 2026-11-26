@@ -9,8 +9,7 @@ final readonly class ActivityGroupAdministration
 {
     /** @internal */
     public function __construct(
-        /** The ActivityGroupAdministration code, e.g. "006" (RSZ-activiteiten). */
-        public string $activityGroup,
+        public ActivityGroup $activityGroup,
         public Description $description,
     ) {}
 }
