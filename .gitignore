@@ -8,3 +8,4 @@ vendor
 tests/.env
 .superpowers/
 .DS_Store
+docs/superpowers/
