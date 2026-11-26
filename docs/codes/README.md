@@ -17,8 +17,11 @@ The spreadsheets in this folder are KBO's official code tables, downloaded on 20
 3. Run `composer format` and `composer verify`, then review the diff. A case is renamed when its English
    description changes, which is a breaking change for callers.
 
-Case names come from the English description. When two codes share a description (usually a retired code and its
-successor), both get their code as a suffix, e.g. `Hairdresser20006` and `Hairdresser20301`.
+Case names come from the English description; currencies use their ISO code (`Currency::EUR`). When codes share a
+description, the one still in use keeps the plain name and retired ones get the year they were retired
+(`Hairdresser` and `HairdresserUntil2007`). Codes still in use side by side get a hand-picked name in `OVERRIDES`
+(`PublicLimitedCompanyUnderPublicLaw`). The few left that the tables cannot tell apart get their code as a suffix,
+e.g. the historical countries `Germany134` and `Germany173`.
 
 ## What is generated, and what is not
 

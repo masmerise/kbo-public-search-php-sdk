@@ -17,8 +17,9 @@ use KboPublicSearch\Core\Type\Status\Status;
 /**
  * An establishment unit ("vestigingseenheid").
  *
- * TypeOfResult::Short fills $name; TypeOfResult::Long fills $denominations, $activities, $authorizations and
- * $enterpriseExOfficioStrikingOffs instead. What a level does not return is empty.
+ * TypeOfResult::Short fills $primaryDenomination; TypeOfResult::Long fills $denominations, $activities,
+ * $authorizations and $enterpriseExOfficioStrikingOffs instead (cookbook §2.5.2). What a level does not return is
+ * empty.
  */
 final readonly class Establishment
 {
@@ -34,7 +35,7 @@ final readonly class Establishment
         public Description $primaryDenomination,
         /** Every name (long). */
         public Denominations $denominations,
-        public ContactInformations $contactInformation,
+        public ContactInformations $contactInformations,
         public ?Address $address,
         /** Long only. */
         public Activities $activities,

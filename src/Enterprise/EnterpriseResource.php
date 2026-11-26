@@ -28,13 +28,13 @@ use KboPublicSearch\Enterprise\SearchByPhoneme\Failure\CouldNotSearchEnterprises
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Failure\CouldNotSearchEnterprisesByPhysicalPersonName;
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
-use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\Mapping\EnterpriseMapper;
 use KboPublicSearch\Enterprise\Type\Mapping\EnterpriseSummaryMapper;
+use KboPublicSearch\Enterprise\Type\Parameter\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
-use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use Webmozart\Assert\Assert;
 
 /** @internal */
@@ -63,7 +63,7 @@ final readonly class EnterpriseResource extends KboResource
      */
     public function find(EnterpriseNumber $enterpriseNumber): EnterpriseReply
     {
-        $unwrapped = $this->lookup(new ReadEnterpriseRequest($enterpriseNumber), CouldNotFindEnterprise::class);
+        $unwrapped = $this->sendLookup(new ReadEnterpriseRequest($enterpriseNumber), CouldNotFindEnterprise::class);
 
         return $this->reply(fn () => new EnterpriseReply(
             $unwrapped->context,
@@ -119,7 +119,7 @@ final readonly class EnterpriseResource extends KboResource
      * Search enterprises holding an authorization in a location (SOAP operation ReadEnterpriseByAuthorization).
      *
      * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->authorizationSearchCodes().
-     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
+     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbors, or zipcodes.
      * @param bool $onlyActive Only active enterprises.
      *
      * @throws CouldNotAuthenticate
@@ -175,7 +175,7 @@ final readonly class EnterpriseResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEnterprises(Request $request, string $onFailure): EnterpriseSearchReply
     {
-        $unwrapped = $this->searchFor($request, $onFailure);
+        $unwrapped = $this->sendSearch($request, $onFailure);
 
         return $this->reply(fn () => new EnterpriseSearchReply($unwrapped->context, $this->enterpriseSummaryMapper->toEnterpriseSummaries($unwrapped->body)));
     }

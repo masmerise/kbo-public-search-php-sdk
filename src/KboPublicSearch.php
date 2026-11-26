@@ -6,7 +6,7 @@ use KboPublicSearch\Authentication\Credentials;
 use KboPublicSearch\CodeList\CodeListResource;
 use KboPublicSearch\Core\Http\KboConnector;
 use KboPublicSearch\Enterprise\EnterpriseResource;
-use KboPublicSearch\Entity\EntityResource;
+use KboPublicSearch\EnterpriseOrEstablishment\EnterpriseOrEstablishmentResource;
 use KboPublicSearch\Environments\Environment;
 use KboPublicSearch\Establishment\EstablishmentResource;
 use KboPublicSearch\Localization\Languages;
@@ -22,7 +22,7 @@ final readonly class KboPublicSearch
 
     public EnterpriseResource $enterprises;
 
-    public EntityResource $entities;
+    public EnterpriseOrEstablishmentResource $enterprisesOrEstablishments;
 
     public EstablishmentResource $establishments;
 
@@ -35,7 +35,7 @@ final readonly class KboPublicSearch
         $this->client = new KboConnector($credentials);
         $this->enterprises = new EnterpriseResource($this->client);
         $this->establishments = new EstablishmentResource($this->client);
-        $this->entities = new EntityResource($this->client);
+        $this->enterprisesOrEstablishments = new EnterpriseOrEstablishmentResource($this->client);
         $this->streets = new StreetResource($this->client);
         $this->codeLists = new CodeListResource($this->client);
     }

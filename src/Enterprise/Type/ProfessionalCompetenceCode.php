@@ -20,7 +20,7 @@ enum ProfessionalCompetenceCode: string
     /** Insurance broker (Verzekeringsmakelaar); no longer assigned since 2003-06-30. */
     case InsuranceBroker = '20005';
     /** Hairdresser (Kapper); no longer assigned since 2007-08-31. */
-    case Hairdresser20006 = '20006';
+    case HairdresserUntil2007 = '20006';
     /** Miller (Molenaar); no longer assigned since 2005-12-31. */
     case Miller = '20007';
     /** Painting contractor (Aannemer van schilderwerken); no longer assigned since 2007-08-31. */
@@ -30,7 +30,7 @@ enum ProfessionalCompetenceCode: string
     /** Wholesale meat trader (Slager-groothandelaar); no longer assigned since 2024-03-31. */
     case WholesaleMeatTrader = '20010';
     /** Optician (Opticien); no longer assigned since 2007-08-31. */
-    case Optician20011 = '20011';
+    case OpticianUntil2007 = '20011';
     /** Bicycle mechanic (Fietsmecanicien); no longer assigned since 2007-08-31. */
     case BicycleMechanic = '20012';
     /** Moped mechanic (Bromfietsmecanicien); no longer assigned since 2007-08-31. */
@@ -58,7 +58,7 @@ enum ProfessionalCompetenceCode: string
     /** Watchmaker - clock repairs (Horlogemaker-hersteller); no longer assigned since 2005-12-31. */
     case WatchmakerClockRepairs = '20024';
     /** Dental technician (Technicus in tandprothese); no longer assigned since 2007-08-31. */
-    case DentalTechnician20025 = '20025';
+    case DentalTechnicianUntil2007 = '20025';
     /** Garage mechanic - repair services (Garagehouder hersteller); no longer assigned since 2007-08-31. */
     case GarageMechanicRepairServices = '20026';
     /** Glazing contractor (Aannemer van glaswerken); no longer assigned since 2007-08-31. */
@@ -84,7 +84,7 @@ enum ProfessionalCompetenceCode: string
     /** Coachbuilder - body repairer (Carrossier-hersteller); no longer assigned since 2007-08-31. */
     case CoachbuilderBodyRepairer = '20037';
     /** Funeral director (Begrafenisondernemer); no longer assigned since 2007-08-31. */
-    case FuneralDirector20038 = '20038';
+    case FuneralDirectorUntil2007 = '20038';
     /** Manufacturer - installer neon signs (Fabrikant-installateur van lichtreclames); no longer assigned since 2007-08-31. */
     case ManufacturerInstallerNeonSigns = '20039';
     /** Restaurateur or catering service-banquet organiser (Restaurateur of traiteur-banketaannemer). */
@@ -96,7 +96,7 @@ enum ProfessionalCompetenceCode: string
     /** Baker - confectioner (Brood- en banketbakker). */
     case BakerConfectioner = '20043';
     /** Beautician (Schoonheidsspecialist(e)); no longer assigned since 2007-08-31. */
-    case Beautician20044 = '20044';
+    case BeauticianUntil2007 = '20044';
     /** Butcher - specialist butcher (Beenhouwer-spekslager). */
     case ButcherSpecialistButcher = '20045';
     /** Mobile trade (Leurhandel); no longer assigned since 2024-12-19. */
@@ -142,17 +142,17 @@ enum ProfessionalCompetenceCode: string
     /** General contractor (Algemeen aannemer). */
     case GeneralContractor = '20210';
     /** Hairdresser (Kapper/ kapster). */
-    case Hairdresser20301 = '20301';
+    case Hairdresser = '20301';
     /** Beautician (Schoonheidsspecialist(-e)). */
-    case Beautician20302 = '20302';
+    case Beautician = '20302';
     /** Pedicure (Voetverzorg(st)er); no longer assigned since 2024-03-31. */
     case Pedicure = '20303';
     /** Masseur/masseuse; no longer assigned since 2024-03-31. */
     case MasseurMasseuse = '20304';
     /** Optician (Opticien). */
-    case Optician20305 = '20305';
+    case Optician = '20305';
     /** Dental technician (Dentaaltechnicus); no longer assigned since 2024-03-31. */
-    case DentalTechnician20306 = '20306';
+    case DentalTechnicianUntil2024 = '20306';
     /** Funeral director (Begrafenisondernemer). */
-    case FuneralDirector20307 = '20307';
+    case FuneralDirector = '20307';
 }

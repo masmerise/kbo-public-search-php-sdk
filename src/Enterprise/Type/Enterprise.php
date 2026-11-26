@@ -30,7 +30,7 @@ final readonly class Enterprise
         public Denominations $denominations,
         /** The registered office; the XSD allows two. */
         public Addresses $addresses,
-        public ContactInformations $contactInformation,
+        public ContactInformations $contactInformations,
         /** The number of active establishment units. */
         public int $businessUnits,
         public Branches $branches,

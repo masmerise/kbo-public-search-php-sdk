@@ -12,11 +12,11 @@ use KboPublicSearch\Enterprise\SearchByAuthorization\Request\ReadEnterpriseByAut
 use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPersonByCompanyNameExactMatchRequest;
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
-use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
-use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use KboPublicSearch\KboPublicSearch;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\TestCase;

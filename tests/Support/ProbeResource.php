@@ -10,21 +10,21 @@ final readonly class ProbeResource extends KboResource
 {
     public function probeLookup(Request $request): UnwrappedReply
     {
-        return $this->lookup($request, CouldNotProbe::class);
+        return $this->sendLookup($request, CouldNotProbe::class);
     }
 
     public function probeList(Request $request): UnwrappedReply
     {
-        return $this->listFor($request, CouldNotProbe::class);
+        return $this->sendList($request, CouldNotProbe::class);
     }
 
     public function probeMapping(Request $request): never
     {
-        $this->reply(fn () => $this->lookup($request, CouldNotProbe::class)->body->child('Missing'));
+        $this->reply(fn () => $this->sendLookup($request, CouldNotProbe::class)->body->child('Missing'));
     }
 
     public function probeSearch(Request $request): UnwrappedReply
     {
-        return $this->searchFor($request, CouldNotProbe::class);
+        return $this->sendSearch($request, CouldNotProbe::class);
     }
 }

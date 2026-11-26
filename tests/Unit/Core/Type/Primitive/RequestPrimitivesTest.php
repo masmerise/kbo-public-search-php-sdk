@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use KboPublicSearch\Core\Type\Primitive\MunicipalityCode;
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
+use KboPublicSearch\EnterpriseOrEstablishment\Type\Primitive\HouseNumber;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;

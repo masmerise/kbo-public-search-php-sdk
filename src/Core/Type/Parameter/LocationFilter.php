@@ -7,7 +7,7 @@ use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
 use Webmozart\Assert\Assert;
 
-/** Restricts a search to 1-4 municipalities, 1 municipality and its neighbours, or 1-4 zipcodes. */
+/** Restricts a search to 1-4 municipalities, 1 municipality and its neighbors, or 1-4 zipcodes. */
 final readonly class LocationFilter
 {
     /** @param list<string> $codes */
@@ -28,7 +28,7 @@ final readonly class LocationFilter
         );
     }
 
-    public static function neighbouringMunicipality(string $code): self
+    public static function neighboringMunicipality(string $code): self
     {
         return new self('NeighboringMunicipalityLocationFilter', 'MunicipalityCode', [MunicipalityCode::fromString($code)->toString()]);
     }

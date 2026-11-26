@@ -79,7 +79,7 @@ final readonly class EnterpriseMapper
             )),
             denominations: $this->denominationMapper->toDenominations($enterprise),
             addresses: $this->addressMapper->toAddresses($enterprise),
-            contactInformation: $this->contactInformationMapper->toContactInformations($enterprise),
+            contactInformations: $this->contactInformationMapper->toContactInformations($enterprise),
             businessUnits: (int) ($enterprise->optionalText('BusinessUnits') ?? 0),
             branches: Branches::of(array_map($this->toBranch(...), $enterprise->children('Branch'))),
             professionalCompetences: ProfessionalCompetences::of(array_map($this->toProfessionalCompetence(...), $enterprise->children('ProfessionalCompetence'))),

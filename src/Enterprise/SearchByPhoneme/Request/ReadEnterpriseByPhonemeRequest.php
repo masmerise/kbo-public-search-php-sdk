@@ -7,8 +7,8 @@ use KboPublicSearch\Core\Type\Parameter\Phonemes;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Type\TypeOfEnterprise;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
-use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
+use KboPublicSearch\Enterprise\Type\Parameter\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
 
 /** @internal */
 final class ReadEnterpriseByPhonemeRequest extends Request

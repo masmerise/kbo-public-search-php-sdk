@@ -39,7 +39,7 @@ final class EnterpriseMapperTest extends TestCase
         $this->assertSame(6, $enterprise->denominations->count());
         $this->assertSame('Federale Overheidsdienst Economie, KMO, Middenstand en Energie', $enterprise->denominations->primary(Language::Dutch)?->name);
         $this->assertSame('1210', $enterprise->addresses->first()?->zipcode);
-        $this->assertSame(4, $enterprise->contactInformation->count());
+        $this->assertSame(4, $enterprise->contactInformations->count());
         $this->assertSame(17, $enterprise->businessUnits);
         $this->assertSame(0, $enterprise->branches->count());
         $this->assertSame(1, $enterprise->professionalCompetences->count());
@@ -70,7 +70,7 @@ final class EnterpriseMapperTest extends TestCase
         $this->assertSame(EventCode::Rehabilitation, $enterprise->juridicalSituation->event?->code);
         $this->assertSame('2011-07-13', $enterprise->juridicalSituation->event?->eventDate->toString());
         $this->assertSame('1000000000.00', $enterprise->capital?->amount->toString());
-        $this->assertSame(Currency::ECUFormerMonetaryUnitOfTheEC, $enterprise->capital?->currency);
+        $this->assertSame(Currency::XEU, $enterprise->capital?->currency);
         $this->assertSame('1966-05-26', $enterprise->juridicalForm?->validityPeriod?->begin?->toString());
         $this->assertSame(JuridicalFormCode::PrivateLimitedCompany, $enterprise->juridicalForm?->juridicalFormCac?->code);
         $this->assertSame('2020-01-01', $enterprise->juridicalForm?->juridicalFormCac?->cacDate->toString());

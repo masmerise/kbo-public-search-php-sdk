@@ -15,7 +15,7 @@ use SplFileInfo;
 final class BoundariesTest extends TestCase
 {
     /** The operation groups (bounded contexts). */
-    private const array CONTEXTS = ['CodeList', 'Enterprise', 'Entity', 'Establishment', 'Street'];
+    private const array CONTEXTS = ['CodeList', 'Enterprise', 'EnterpriseOrEstablishment', 'Establishment', 'Street'];
 
     #[Test]
     #[DataProvider('contexts')]

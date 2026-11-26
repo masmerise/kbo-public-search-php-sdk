@@ -30,6 +30,8 @@ class Table:
     enum: str  # fully qualified class name below KboPublicSearch\
     summary: str
     code_column: str = "CODE"
+    # Name the cases after the code itself, e.g. Currency::EUR, when the codes are well-known abbreviations.
+    case_from_code: bool = False
 
 
 TABLES = [
@@ -46,7 +48,7 @@ TABLES = [
     Table("KBO-codes-legal.xlsx", "LegalFunction", "Enterprise\\Type\\FunctionCode", "A function"),
     Table("KBO-codes-legal.xlsx", "Profession", "Enterprise\\Type\\ProfessionalCompetenceCode", "A professional competence"),
     Table("KBO-codes-legal.xlsx", "LinkedEnterprise", "Enterprise\\Type\\LinkedEnterpriseCode", "The type of a relation between two enterprises"),
-    Table("KBO-codes-financial.xls", "Currency", "Enterprise\\Type\\Currency", "The currency of a capital"),
+    Table("KBO-codes-financial.xls", "Currency", "Enterprise\\Type\\Currency", "The currency of a capital (ISO 4217)", case_from_code=True),
 ]
 
 
@@ -114,6 +116,58 @@ def end_date(record: dict[str, str]) -> str | None:
     return None
 
 
+# Readable names for codes that share an English description while both are still in use. Every other collision is
+# resolved by case_names(); see README.md.
+OVERRIDES = {
+    # KBO's English description of 010 ("Eenpersoons BVBA") omits "single-member", and its end date reads 1800.
+    ("JuridicalForm", "010"): "SingleMemberPrivateLimitedLiabilityCompany",
+    ("JuridicalForm", "114"): "PublicLimitedCompanyUnderPublicLaw",
+    ("LegalFunction", "10017"): "MemberOfTheManagementBoard",
+    ("LegalFunction", "90002"): "ProvisionalAdministratorDesignatedByCourt",
+}
+
+
+def in_use(record: dict[str, str]) -> bool:
+    """Whether the code is still assigned. The country table has no dates: there, the current entry has an ISO code."""
+    if "ISO" in record:
+        return record["ISO"].strip("- ") != ""
+    return end_date(record) is None
+
+
+def case_names(table: Table, items: list[dict[str, str]]) -> dict[str, str]:
+    """Case name per code. Of codes sharing a description, the one still in use keeps the plain name, retired ones
+    get the year they were retired ("HairdresserUntil2007"), and whatever still collides gets its code as a suffix."""
+    code = lambda record: record[table.code_column]
+    if table.case_from_code:
+        return {code(r): case_name(code(r)) for r in items}
+
+    names = {code(r): OVERRIDES.get((table.sheet, code(r)), case_name(english(r))) for r in items}
+    groups: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for record in items:
+        groups[names[code(record)]].append(record)
+
+    for name, group in groups.items():
+        if len(group) == 1:
+            continue
+        current = [r for r in group if in_use(r)]
+        for record in group:
+            if record in current and len(current) == 1:
+                continue
+            if not in_use(record) and (until := end_date(record)):
+                names[code(record)] = f"{name}Until{until[:4]}"
+            else:
+                names[code(record)] = name + re.sub(r"[^A-Za-z0-9]", "", code(record))
+
+    taken = defaultdict(list)
+    for c, n in names.items():
+        taken[n].append(c)
+    for n, codes in taken.items():
+        if len(codes) > 1:
+            for c in codes:
+                names[c] = n + re.sub(r"[^A-Za-z0-9]", "", c)
+    return names
+
+
 def case_name(text: str) -> str:
     ascii_text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode()
     name = "".join(w[:1].upper() + w[1:] for w in re.findall(r"[A-Za-z0-9]+", ascii_text))
@@ -122,9 +176,7 @@ def case_name(text: str) -> str:
 
 def generate(table: Table) -> pathlib.Path:
     items = records(table)
-    names: dict[str, list[dict[str, str]]] = defaultdict(list)
-    for record in items:
-        names[case_name(english(record))].append(record)
+    names = case_names(table, items)
 
     namespace, _, enum = f"KboPublicSearch\\{table.enum}".rpartition("\\")
     lines = [
@@ -146,9 +198,7 @@ def generate(table: Table) -> pathlib.Path:
         if code in seen:
             sys.exit(f"{table.file} :: {table.sheet}: duplicate code {code}")
         seen.add(code)
-        name = case_name(english(record))
-        if len(names[name]) > 1:
-            name = f"{name}{re.sub(r'[^A-Za-z0-9]', '', code)}"
+        name = names[code]
         doc = english(record)
         if dutch(record) and dutch(record) != doc:
             doc += f" ({dutch(record)})"

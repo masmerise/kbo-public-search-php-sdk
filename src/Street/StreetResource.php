@@ -39,7 +39,7 @@ final readonly class StreetResource extends KboResource
      */
     public function search(Zipcode $zipcode, PartOfStreetName $partOfStreetName): StreetNameReply
     {
-        $unwrapped = $this->searchFor(new ReadStreetNameRequest($zipcode, $partOfStreetName), CouldNotSearchStreets::class);
+        $unwrapped = $this->sendSearch(new ReadStreetNameRequest($zipcode, $partOfStreetName), CouldNotSearchStreets::class);
 
         return $this->reply(fn () => new StreetNameReply($unwrapped->context, $this->streetNameMapper->toStreetNames($unwrapped->body)));
     }

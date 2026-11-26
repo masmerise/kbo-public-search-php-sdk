@@ -11,7 +11,7 @@ use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
-use KboPublicSearch\Entity\Type\Primitive\HouseNumber;
+use KboPublicSearch\EnterpriseOrEstablishment\Type\Primitive\HouseNumber;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
 use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
 use KboPublicSearch\Tests\TestCase;

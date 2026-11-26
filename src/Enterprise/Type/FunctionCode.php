@@ -28,11 +28,11 @@ enum FunctionCode: string
     /** Person in charge of daily management (Persoon belast met dagelijks bestuur). */
     case PersonInChargeOfDailyManagement = '10004';
     /** Member of the management committee (Lid directiecomité). */
-    case MemberOfTheManagementCommittee10005 = '10005';
+    case MemberOfTheManagementCommittee = '10005';
     /** Manager (Zaakvoerder). */
     case Manager = '10006';
     /** Managing Director (Gedelegeerd bestuurder). */
-    case ManagingDirector10007 = '10007';
+    case ManagingDirector = '10007';
     /** Property manager (Syndicus). */
     case PropertyManager = '10008';
     /** Chairman (Voorzitter). */
@@ -42,7 +42,7 @@ enum FunctionCode: string
     /** Treasurer (Penningmeester); no longer assigned since 2004-03-31. */
     case Treasurer = '10012';
     /** Managing Director (Directeur-Generaal); no longer assigned since 2004-03-31. */
-    case ManagingDirector10013 = '10013';
+    case ManagingDirectorUntil2004 = '10013';
     /** Deputy Managing Director (Adjunct Directeur-Generaal); no longer assigned since 2004-03-31. */
     case DeputyManagingDirector = '10014';
     /** Vice President (Ondervoorzitter); no longer assigned since 2004-03-31. */
@@ -50,7 +50,7 @@ enum FunctionCode: string
     /** Member of the supervisory board (Lid van de raad van toezicht). */
     case MemberOfTheSupervisoryBoard = '10016';
     /** Member of the management committee (Lid van de directieraad). */
-    case MemberOfTheManagementCommittee10017 = '10017';
+    case MemberOfTheManagementBoard = '10017';
     /** Legal person representative (Vertegenwoordiger rechtspersoon). */
     case LegalPersonRepresentative = '10018';
     /** Statutory Auditor (Commissaris); no longer assigned since 2004-03-31. */
@@ -86,9 +86,9 @@ enum FunctionCode: string
     /** Curator (designated by court) (Curator (aanstelling door rechtbanken)). */
     case CuratorDesignatedByCourt = '90001';
     /** Deferment auditor (designated by court) (Voorlopige bewindvoerder (aanstelling door rechtbanken)). */
-    case DefermentAuditorDesignatedByCourt90002 = '90002';
+    case ProvisionalAdministratorDesignatedByCourt = '90002';
     /** Deferment auditor (designated by court) (Commissaris opschorting (aanstelling door rechtbanken)). */
-    case DefermentAuditorDesignatedByCourt90003 = '90003';
+    case DefermentAuditorDesignatedByCourt = '90003';
     /** Judicial board (prodigals) (Gerechtelijke raadsman (verkwisters)). */
     case JudicialBoardProdigals = '90004';
     /** Judicial trustee (Gerechtsmandataris). */

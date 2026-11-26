@@ -18,8 +18,8 @@ use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmen
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
 use KboPublicSearch\Establishment\Type\Establishment;
+use KboPublicSearch\Establishment\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
-use KboPublicSearch\Establishment\Type\TypeOfResult;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 

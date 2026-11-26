@@ -3,7 +3,7 @@
 namespace KboPublicSearch\Tests\Unit\Enterprise;
 
 use KboPublicSearch\Core\Type\TypeOfEnterprise;
-use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 

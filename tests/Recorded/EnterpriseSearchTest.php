@@ -12,9 +12,9 @@ use KboPublicSearch\Enterprise\SearchByCompanyName\Request\ReadEnterpriseLegalPe
 use KboPublicSearch\Enterprise\SearchByPhoneme\Request\ReadEnterpriseByPhonemeRequest;
 use KboPublicSearch\Enterprise\SearchByPhysicalPersonName\Request\ReadEnterpriseByPhysicalPersonNameExactMatchRequest;
 use KboPublicSearch\Enterprise\Type\EnterpriseSummary;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
-use KboPublicSearch\Enterprise\Type\TypesOfEnterprise;
 use KboPublicSearch\Tests\RecordedTestCase;
 use PHPUnit\Framework\Attributes\Test;
 

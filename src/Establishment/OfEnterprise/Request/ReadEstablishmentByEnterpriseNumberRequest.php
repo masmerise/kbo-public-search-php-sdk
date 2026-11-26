@@ -5,7 +5,7 @@ namespace KboPublicSearch\Establishment\OfEnterprise\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Establishment\Type\TypeOfResult;
+use KboPublicSearch\Establishment\Type\Parameter\TypeOfResult;
 
 /** @internal */
 final class ReadEstablishmentByEnterpriseNumberRequest extends Request

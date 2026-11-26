@@ -29,7 +29,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function lookup(Request $request, string $onFailure): UnwrappedReply
+    protected function sendLookup(Request $request, string $onFailure): UnwrappedReply
     {
         return $this->send($request, $onFailure, static fn (ReplyStatus $status) => $status->isSuccess());
     }
@@ -45,7 +45,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function listFor(Request $request, string $onFailure): UnwrappedReply
+    protected function sendList(Request $request, string $onFailure): UnwrappedReply
     {
         return $this->send($request, $onFailure, static fn (ReplyStatus $status) => $status->isSuccess() || $status->isNoData());
     }
@@ -82,7 +82,7 @@ abstract readonly class KboResource
      * @throws UnknownException
      * @throws ValidationException
      */
-    protected function searchFor(Request $request, string $onFailure): UnwrappedReply
+    protected function sendSearch(Request $request, string $onFailure): UnwrappedReply
     {
         return $this->send(
             $request,

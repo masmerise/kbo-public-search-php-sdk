@@ -24,10 +24,10 @@ final class LocationFilterTest extends TestCase
     }
 
     #[Test]
-    public function neighbouring_municipality(): void
+    public function neighboring_municipality(): void
     {
         // Act
-        $xml = Writer::write(LocationFilter::neighbouringMunicipality('44021')->toNode(), self::NS);
+        $xml = Writer::write(LocationFilter::neighboringMunicipality('44021')->toNode(), self::NS);
 
         // Assert
         $this->assertStringContainsString('<mes:NeighboringMunicipalityLocationFilter><mes:MunicipalityCode>44021</mes:MunicipalityCode>', $xml);

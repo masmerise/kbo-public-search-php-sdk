@@ -44,7 +44,7 @@ final readonly class EstablishmentMapper
             enterpriseStatus: transform($establishment->optional('EnterpriseStatus'), $this->statusMapper->toStatus(...)),
             primaryDenomination: $this->descriptionMapper->toDescription($establishment, 'PrimaryDenomination'),
             denominations: $this->denominationMapper->toDenominations($establishment),
-            contactInformation: $this->contactInformationMapper->toContactInformations($establishment),
+            contactInformations: $this->contactInformationMapper->toContactInformations($establishment),
             address: transform($establishment->optional('Address'), $this->addressMapper->toAddress(...)),
             activities: $this->activityMapper->toActivities($establishment),
             authorizations: $this->authorizationMapper->toAuthorizations($establishment),

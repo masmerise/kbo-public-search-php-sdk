@@ -240,7 +240,7 @@ enum CountryCode: string
     /** Yemen (Jemen(Rep.)), ISO YE. */
     case Yemen = '270';
     /** Palestine (Palestina), ISO PS. */
-    case Palestine271 = '271';
+    case Palestine = '271';
     /** South Vietnam (Zuid-Vietnam). */
     case SouthVietnam279 = '279';
     /** Hong Kong (Hong Kong(V.K.)). */
@@ -310,7 +310,7 @@ enum CountryCode: string
     /** Somalia (Somalië(Rep.)), ISO SO. */
     case Somalia = '329';
     /** Swaziland (Ngwane (Koninkrijk Swaziland)), ISO SZ. */
-    case Swaziland331 = '331';
+    case Swaziland = '331';
     /** Tanzania, United Republic of (Tanzania /Verenigde Rep./), ISO TZ. */
     case TanzaniaUnitedRepublicOf = '332';
     /** Chad (Tsjaad), ISO TD. */
@@ -328,11 +328,11 @@ enum CountryCode: string
     /** Cabo Verde (Kaapverdische Eilanden), ISO CV. */
     case CaboVerde = '339';
     /** Mozambique, ISO MZ. */
-    case Mozambique340 = '340';
+    case Mozambique = '340';
     /** Angola, ISO AO. */
-    case Angola341 = '341';
+    case Angola = '341';
     /** Seychelles (Seychellen(Eilanden)), ISO SC. */
-    case Seychelles342 = '342';
+    case Seychelles = '342';
     /** Comoros (Archipel van de Comoren), ISO KM. */
     case Comoros = '343';
     /** Zimbabwe, ISO ZW. */
@@ -452,7 +452,7 @@ enum CountryCode: string
     /** Grenada, ISO GD. */
     case Grenada = '426';
     /** Dominica (Dominica (Republiek)), ISO DM. */
-    case Dominica427 = '427';
+    case Dominica = '427';
     /** Saint Lucia (Republiek Sint-Lucia), ISO LC. */
     case SaintLucia = '428';
     /** Saint Vincent and the Grenadines (Saint Vincent), ISO VC. */
@@ -536,7 +536,7 @@ enum CountryCode: string
     /** Marshall Islands (Marshalleilanden (Republiek der)), ISO MH. */
     case MarshallIslands = '603';
     /** Niue, ISO NU. */
-    case Niue604 = '604';
+    case Niue = '604';
     /** Cook, ISO CK. */
     case Cook = '605';
     /** Australia (Australië), ISO AU. */

@@ -5,7 +5,7 @@ namespace KboPublicSearch\Enterprise\SearchByCompanyName\Request;
 use KboPublicSearch\Core\Http\Request;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
 use KboPublicSearch\Core\Xml\Node;
-use KboPublicSearch\Enterprise\Type\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\EnterpriseJuridicalForm;
 use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 
 /** @internal */

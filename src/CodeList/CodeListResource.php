@@ -36,7 +36,7 @@ final readonly class CodeListResource extends KboResource
      */
     public function authorizationSearchCodes(): AuthorizationSearchCodesReply
     {
-        $unwrapped = $this->lookup(new ReadCodeListRequest(CodeListId::AuthorizationSearchCode), CouldNotReadCodeList::class);
+        $unwrapped = $this->sendLookup(new ReadCodeListRequest(CodeListId::AuthorizationSearchCode), CouldNotReadCodeList::class);
 
         return $this->reply(fn () => new AuthorizationSearchCodesReply($unwrapped->context, $this->codeListMapper->toAuthorizationSearchCodes($unwrapped->body)));
     }
@@ -52,7 +52,7 @@ final readonly class CodeListResource extends KboResource
      */
     public function metaCodeList(): MetaCodeListReply
     {
-        $unwrapped = $this->lookup(new ReadCodeListRequest(CodeListId::MetaCodeList), CouldNotReadCodeList::class);
+        $unwrapped = $this->sendLookup(new ReadCodeListRequest(CodeListId::MetaCodeList), CouldNotReadCodeList::class);
 
         return $this->reply(fn () => new MetaCodeListReply($unwrapped->context, $this->codeListMapper->toMetaCodeList($unwrapped->body)));
     }

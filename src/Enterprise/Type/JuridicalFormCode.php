@@ -24,7 +24,7 @@ enum JuridicalFormCode: string
     /** Cooperative society with limited liability (profit share) (Coöperatieve vennootschap met beperkte aansprakelijkheid, bij wijze van deelneming); no longer assigned since 1996-07-01. */
     case CooperativeSocietyWithLimitedLiabilityProfitShare = '009';
     /** Private limited liability company (Eenpersoons BVBA); no longer assigned since 1800-01-01. */
-    case PrivateLimitedLiabilityCompany010 = '010';
+    case SingleMemberPrivateLimitedLiabilityCompany = '010';
     /** General partnership (Vennootschap onder firma). */
     case GeneralPartnership = '011';
     /** Ordinary limited partnership (Gewone commanditaire vennootschap); no longer assigned since 2019-04-30. */
@@ -32,9 +32,9 @@ enum JuridicalFormCode: string
     /** Partnership limited by shares (Commanditaire vennootschap op aandelen); no longer assigned since 2019-04-30. */
     case PartnershipLimitedByShares = '013';
     /** Public limited company (Naamloze vennootschap). */
-    case PublicLimitedCompany014 = '014';
+    case PublicLimitedCompany = '014';
     /** Private limited liability company (Besloten vennootschap met beperkte aansprakelijkheid); no longer assigned since 2019-04-30. */
-    case PrivateLimitedLiabilityCompany015 = '015';
+    case PrivateLimitedLiabilityCompany = '015';
     /** Cooperative society (old regime) (Coöperatieve vennootschap (oud statuut)); no longer assigned since 1993-10-30. */
     case CooperativeSocietyOldRegime = '016';
     /** Non-profit organisation (Vereniging zonder winstoogmerk). */
@@ -84,7 +84,7 @@ enum JuridicalFormCode: string
     /** State, Province, Region, Community (Rijk, Provincie, Gewest, Gemeenschap); no longer assigned since 2003-06-30. */
     case StateProvinceRegionCommunity = '110';
     /** Public limited company (Naamloze vennootschap van publiek recht). */
-    case PublicLimitedCompany114 = '114';
+    case PublicLimitedCompanyUnderPublicLaw = '114';
     /** Cooperative society governed by public law (old regime) (Coöperatieve vennootschap van publiek recht (oud statuut)); no longer assigned since 1993-10-30. */
     case CooperativeSocietyGovernedByPublicLawOldRegime = '116';
     /** Public non-profit association (Vereniging zonder winstoogmerk van publiek recht). */
@@ -240,9 +240,9 @@ enum JuridicalFormCode: string
     /** Foreign ent. with property in Belgium (without legal pers.) (Buitenlandse entiteit met onroerend goed in België (zonder rechtspersoonlijkheid)); no longer assigned since 2003-06-30. */
     case ForeignEntWithPropertyInBelgiumWithoutLegalPers = '454';
     /** Cooperative society with unlimited liability and a social objective (Coöperatieve vennootschap met onbeperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 2019-04-30. */
-    case CooperativeSocietyWithUnlimitedLiabilityAndASocialObjective506 = '506';
+    case CooperativeSocietyWithUnlimitedLiabilityAndASocialObjectiveUntil2019 = '506';
     /** Cooperative society with limited liability and a social objective (Coöperatieve vennootschap met beperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 2019-04-30. */
-    case CooperativeSocietyWithLimitedLiabilityAndASocialObjective508 = '508';
+    case CooperativeSocietyWithLimitedLiabilityAndASocialObjectiveUntil2019 = '508';
     /** Unipersonal private limited liability company with a social objective (Eenpersoons besloten vennootschap met beperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 1800-01-01. */
     case UnipersonalPrivateLimitedLiabilityCompanyWithASocialObjective = '510';
     /** General partnership with a social objective (Vennootschap onder firma met een sociaal oogmerk); no longer assigned since 2019-04-30. */
@@ -252,21 +252,21 @@ enum JuridicalFormCode: string
     /** Partnership limited by shares with a social objective (Commanditaire vennootschap op aandelen met een sociaal oogmerk); no longer assigned since 2019-04-30. */
     case PartnershipLimitedBySharesWithASocialObjective = '513';
     /** Public limited company with a social objective (Naamloze vennootschap met een sociaal oogmerk); no longer assigned since 2019-04-30. */
-    case PublicLimitedCompanyWithASocialObjective514 = '514';
+    case PublicLimitedCompanyWithASocialObjectiveUntil2019 = '514';
     /** Private limited liability company with a social objective (Besloten vennootschap met beperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 2019-04-30. */
     case PrivateLimitedLiabilityCompanyWithASocialObjective = '515';
     /** Economic interest grouping with a social objective (Economisch samenwerkingsverband met een sociaal oogmerk); no longer assigned since 2019-04-30. */
     case EconomicInterestGroupingWithASocialObjective = '560';
     /** Cooperative society with unlimited liability and a social objective (Coöperatieve vennootschap met onbeperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 2004-04-23. */
-    case CooperativeSocietyWithUnlimitedLiabilityAndASocialObjective606 = '606';
+    case CooperativeSocietyWithUnlimitedLiabilityAndASocialObjectiveUntil2004 = '606';
     /** Cooperative society with limited liability and a social objective (Coöperatieve vennootschap met beperkte aansprakelijkheid met een sociaal oogmerk); no longer assigned since 2004-04-23. */
-    case CooperativeSocietyWithLimitedLiabilityAndASocialObjective608 = '608';
+    case CooperativeSocietyWithLimitedLiabilityAndASocialObjectiveUntil2004 = '608';
     /** Private limited company (Besloten Vennootschap). */
     case PrivateLimitedCompany = '610';
     /** Limited partnership (Commanditaire vennootschap). */
     case LimitedPartnership = '612';
     /** Public limited company with a social objective (Naamloze vennootschap met een sociaal oogmerk); no longer assigned since 2004-04-23. */
-    case PublicLimitedCompanyWithASocialObjective614 = '614';
+    case PublicLimitedCompanyWithASocialObjectiveUntil2004 = '614';
     /** Private limited company governed by public law (Besloten Vennootschap van publiek recht). */
     case PrivateLimitedCompanyGovernedByPublicLaw = '616';
     /** Limited partnership governed by public Law (Commanditaire vennootschap van publiek recht). */

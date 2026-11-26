@@ -14,8 +14,8 @@ use KboPublicSearch\Establishment\OfEnterprise\Request\ReadEstablishmentByEnterp
 use KboPublicSearch\Establishment\SearchByAuthorization\Request\ReadEstablishmentByAuthorizationRequest;
 use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameExactMatchRequest;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
+use KboPublicSearch\Establishment\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
-use KboPublicSearch\Establishment\Type\TypeOfResult;
 use KboPublicSearch\Tests\Support\Message;
 use KboPublicSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;

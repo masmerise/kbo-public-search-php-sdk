@@ -30,8 +30,8 @@ use KboPublicSearch\Establishment\SearchByName\Request\ReadEstablishmentByNameEx
 use KboPublicSearch\Establishment\SearchByPhoneme\Failure\CouldNotSearchEstablishmentsByPhoneme;
 use KboPublicSearch\Establishment\SearchByPhoneme\Request\ReadEstablishmentByPhonemeRequest;
 use KboPublicSearch\Establishment\Type\Mapping\EstablishmentMapper;
+use KboPublicSearch\Establishment\Type\Parameter\TypeOfResult;
 use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
-use KboPublicSearch\Establishment\Type\TypeOfResult;
 
 /** @internal */
 final readonly class EstablishmentResource extends KboResource
@@ -57,7 +57,7 @@ final readonly class EstablishmentResource extends KboResource
      */
     public function find(EstablishmentNumber $establishmentNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentReply
     {
-        $unwrapped = $this->lookup(new ReadEstablishmentByEstablishmentNumberRequest($establishmentNumber, $typeOfResult), CouldNotFindEstablishment::class);
+        $unwrapped = $this->sendLookup(new ReadEstablishmentByEstablishmentNumberRequest($establishmentNumber, $typeOfResult), CouldNotFindEstablishment::class);
 
         return $this->reply(fn () => new EstablishmentReply(
             $unwrapped->context,
@@ -82,7 +82,7 @@ final readonly class EstablishmentResource extends KboResource
      */
     public function ofEnterprise(EnterpriseNumber $enterpriseNumber, TypeOfResult $typeOfResult = TypeOfResult::Short): EstablishmentsOfEnterpriseReply
     {
-        $unwrapped = $this->listFor(new ReadEstablishmentByEnterpriseNumberRequest($enterpriseNumber, $typeOfResult), CouldNotGetEstablishmentsOfEnterprise::class);
+        $unwrapped = $this->sendList(new ReadEstablishmentByEnterpriseNumberRequest($enterpriseNumber, $typeOfResult), CouldNotGetEstablishmentsOfEnterprise::class);
 
         return $this->reply(fn () => new EstablishmentsOfEnterpriseReply($unwrapped->context, $this->establishmentMapper->toEstablishments($unwrapped->body)));
     }
@@ -91,7 +91,7 @@ final readonly class EstablishmentResource extends KboResource
      * Search establishment units holding an authorization in a location (SOAP operation ReadEstablishmentByAuthorization).
      *
      * @param AuthorizationSearchCode $authorizationFilter An AUTHORIZATION_SEARCH_CODE, see codeLists->authorizationSearchCodes().
-     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbours, or zipcodes.
+     * @param LocationFilter $locationFilter Municipalities, a municipality and its neighbors, or zipcodes.
      * @param bool $onlyActive Only active establishment units.
      *
      * @throws CouldNotAuthenticate
@@ -153,7 +153,7 @@ final readonly class EstablishmentResource extends KboResource
     /** @param class-string<ValidationException> $onFailure */
     private function searchEstablishments(Request $request, string $onFailure): EstablishmentSearchReply
     {
-        $unwrapped = $this->searchFor($request, $onFailure);
+        $unwrapped = $this->sendSearch($request, $onFailure);
 
         return $this->reply(fn () => new EstablishmentSearchReply($unwrapped->context, $this->establishmentMapper->toEstablishments($unwrapped->body)));
     }
