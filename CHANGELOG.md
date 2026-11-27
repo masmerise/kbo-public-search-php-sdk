@@ -2,7 +2,7 @@
 
 All notable changes to `kbo-public-search-php-sdk` will be documented in this file.
 
-## 1.0.0 - unreleased
+## 1.0.0 - 2026-11-27
 
 Initial release, implementing cookbook R018.08:
 
