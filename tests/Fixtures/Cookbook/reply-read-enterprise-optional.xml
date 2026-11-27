@@ -1,0 +1,107 @@
+<!-- An enterprise assembled from the cookbook §2.1.2 snippets for the sections chapter 3 lacks.
+     The cookbook's unclosed <ns2:ProfessionalSyndic> is closed. -->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+  <ReplyContext xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages">
+    <RequestId>optional</RequestId><ReplyId>r</ReplyId><ReplyStatus><Code>00001</Code><Description>The operation completed successfully</Description></ReplyStatus><AccountBalance>1</AccountBalance>
+  </ReplyContext>
+</soap:Header>
+<soap:Body>
+<ReadEnterpriseReply xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages">
+<ns2:Enterprise>
+  <ns2:Number>314595348</ns2:Number>
+  <ns2:JuridicalSituation>
+    <ns2:Code>052</ns2:Code>
+    <ns2:Description><ns2:Value>Sluiting faillissement met niet-verschoonbaarheid</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+    <ns2:ValidityPeriod><ns2:Begin>2011-03-23</ns2:Begin></ns2:ValidityPeriod>
+    <ns2:Status><ns2:Code>ST</ns2:Code><ns2:Description><ns2:Value>Stopgezet</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description></ns2:Status>
+    <ns2:Event>
+      <ns2:Code>02</ns2:Code>
+      <ns2:Description><ns2:Value>Rehabilitatie</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+      <ns2:EventDate>2011-07-13</ns2:EventDate>
+    </ns2:Event>
+  </ns2:JuridicalSituation>
+  <ns2:Period><ns2:Begin>1968-01-01+01:00</ns2:Begin><ns2:End>2011-03-23</ns2:End></ns2:Period>
+  <ns2:Duration>30</ns2:Duration>
+  <ns2:TypeOfEnterprise>ELP</ns2:TypeOfEnterprise>
+  <ns2:JuridicalForm>
+     <ns2:Code>015</ns2:Code>
+     <ns2:Description><ns2:Value>Société privée à responsabilité limitée</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+     <ns2:ValidityPeriod><ns2:Begin>1966-05-26</ns2:Begin></ns2:ValidityPeriod>
+     <ns2:JuridicalFormCAC>
+        <ns2:Code>610</ns2:Code>
+        <ns2:Description><ns2:Value>Société à responsabilité limitée</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+        <ns2:CACDate>2020-01-01</ns2:CACDate>
+     </ns2:JuridicalFormCAC>
+  </ns2:JuridicalForm>
+  <ns2:Capital><ns2:Amount>1000000000.00</ns2:Amount><ns2:Currency>XEU</ns2:Currency></ns2:Capital>
+  <ns2:Denomination><ns2:Code>001</ns2:Code><ns2:Description><ns2:Value>Verspringt</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-03</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+  <ns2:BusinessUnits>22</ns2:BusinessUnits>
+  <ns2:Branch>
+    <ns2:Id>9001975528</ns2:Id>
+    <ns2:Status><ns2:Code>AC</ns2:Code><ns2:Description><ns2:Value>Actif</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:Status>
+    <ns2:Address>
+      <ns2:Street><ns2:Code>0040</ns2:Code><ns2:Description><ns2:Value>Avenue Adolphe Buyl</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:Street>
+      <ns2:HouseNumber>ZN</ns2:HouseNumber>
+      <ns2:Zipcode>1050</ns2:Zipcode>
+      <ns2:Municipality><ns2:Code>21009</ns2:Code><ns2:Description><ns2:Value>Ixelles</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:Municipality>
+      <ns2:Begin>2002-03-03</ns2:Begin>
+      <ns2:TypeOfAddress><ns2:Code>ABBR</ns2:Code><ns2:Description><ns2:Value>Adresse de la succursale en Belgique</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description></ns2:TypeOfAddress>
+    </ns2:Address>
+    <ns2:Denomination><ns2:Code>002</ns2:Code><ns2:Description><ns2:Value>Verspringt</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2002-03-03</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+    <ns2:ValidityPeriod><ns2:Begin>2002-03-03</ns2:Begin></ns2:ValidityPeriod>
+  </ns2:Branch>
+  <ns2:ProfessionalCompetence>
+    <ns2:Code>20206</ns2:Code>
+    <ns2:Description><ns2:Value>Algemeen schrijnwerk</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+    <ns2:Period><ns2:Begin>2008-11-04+01:00</ns2:Begin></ns2:Period>
+    <ns2:Exemption><ns2:Begin>2008-11-04+01:00</ns2:Begin></ns2:Exemption>
+    <ns2:StrikingOff>2025-08-01</ns2:StrikingOff>
+  </ns2:ProfessionalCompetence>
+  <ns2:Function>
+     <ns2:Code>10008</ns2:Code>
+     <ns2:Description><ns2:Value>Syndic</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+     <ns2:Period><ns2:Begin>2014-09-08+02:00</ns2:Begin></ns2:Period>
+     <ns2:Person><ns2:Surname>Doe</ns2:Surname><ns2:GivenName>John</ns2:GivenName></ns2:Person>
+     <ns2:ProfessionalSyndic><ns2:EnterpriseNumber>788006323</ns2:EnterpriseNumber></ns2:ProfessionalSyndic>
+     <ns2:StrikingOff>2025-08-01</ns2:StrikingOff>
+  </ns2:Function>
+  <ns2:Function>
+     <ns2:Code>10006</ns2:Code>
+     <ns2:Description><ns2:Value>Gérant</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+     <ns2:Period><ns2:Begin>2008-02-07</ns2:Begin></ns2:Period>
+     <ns2:Person><ns2:Surname>Doe</ns2:Surname><ns2:GivenName>Jane</ns2:GivenName></ns2:Person>
+     <ns2:FunctionCAC>
+        <ns2:Code>10002</ns2:Code>
+        <ns2:Description><ns2:Value>Administrateur</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+        <ns2:CACPeriod><ns2:Begin>2020-01-01</ns2:Begin></ns2:CACPeriod>
+     </ns2:FunctionCAC>
+     <ns2:ActiveFlag>true</ns2:ActiveFlag>
+  </ns2:Function>
+  <ns2:Function>
+    <ns2:Code>10003</ns2:Code>
+    <ns2:Description><ns2:Value>Vast vertegenwoordiger rechtspersoon</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+    <ns2:Period><ns2:Begin>2012-05-31+02:00</ns2:Begin></ns2:Period>
+    <ns2:Person><ns2:Surname>Doe</ns2:Surname><ns2:GivenName>John</ns2:GivenName></ns2:Person>
+    <ns2:EnterpriseNumber>447757344</ns2:EnterpriseNumber>
+  </ns2:Function>
+  <ns2:FinancialData>
+    <ns2:AnnualMeetingMonth>9</ns2:AnnualMeetingMonth>
+    <ns2:FiscalYearEndDay>31</ns2:FiscalYearEndDay>
+    <ns2:FiscalYearEndMonth>3</ns2:FiscalYearEndMonth>
+    <ns2:ExceptionalFiscalYear><ns2:Begin>2013-01-01+01:00</ns2:Begin><ns2:End>2014-03-31+02:00</ns2:End></ns2:ExceptionalFiscalYear>
+    <ns2:ValidityPeriod><ns2:Begin>2013-09-24+02:00</ns2:Begin></ns2:ValidityPeriod>
+  </ns2:FinancialData>
+  <ns2:Replacement>
+    <ns2:EnterpriseNumber>406572926</ns2:EnterpriseNumber>
+    <ns2:Period><ns2:Begin>2008-12-23+01:00</ns2:Begin></ns2:Period>
+  </ns2:Replacement>
+  <ns2:ExOfficioStrikingOff>
+    <ns2:Code>001</ns2:Code>
+    <ns2:Description><ns2:Value>niet-neerlegging jaarrekening</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+    <ns2:ValidityPeriod><ns2:Begin>2013-05-15+02:00</ns2:Begin></ns2:ValidityPeriod>
+  </ns2:ExOfficioStrikingOff>
+</ns2:Enterprise>
+</ReadEnterpriseReply>
+</soap:Body>
+</soap:Envelope>

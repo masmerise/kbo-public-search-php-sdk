@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:14:53 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>ddba940f-1b45-45c3-b140-68ba74d1da80<\/RequestId><ReplyId>3e40d5fb-e830-4abd-b14a-6296ecb17fa8<\/ReplyId><ReplyStatus><Code>10001<\/Code><Description>The operation completed successfully<\/Description><\/ReplyStatus><AccountBalance>2978<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadCodeListReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><CodeListItem><Code>AUTHORIZATION_SEARCH_CODE<\/Code><Description><ns2:Value>Codes (en omschrijvingen) van toelatingen die gebruikt worden als input-parameter bij de operaties ReadEnterpriseByAuthorization en ReadEstablishmentByAuthorization.<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/Description><\/CodeListItem><CodeListItem><Code>META_CODE_LIST<\/Code><Description><ns2:Value>Lijst met alle codelijsten die door deze operatie opgevraagd kunnen worden. In Code staat de op te geven Identifier. In Description staat uitleg over de betreffende codelijst.<\/ns2:Value><ns2:Language>nl<\/ns2:Language><\/Description><\/CodeListItem><\/ReadCodeListReply><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}

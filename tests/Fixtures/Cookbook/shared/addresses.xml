@@ -1,0 +1,111 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<!-- Cookbook §2.1.2 Address examples (the "ns2: StrikingOff" typo is fixed). -->
+<ns2:Address>
+  <ns2:Street>
+    <ns2:Code>0086</ns2:Code>
+    <ns2:Description>
+      <ns2:Value>Vooruitgangsstraat</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:Street>
+  <ns2:HouseNumber>50</ns2:HouseNumber>
+  <ns2:Zipcode>1210</ns2:Zipcode>
+  <ns2:Municipality>
+    <ns2:Code>21014</ns2:Code>
+    <ns2:Description>
+       <ns2:Value>Sint-Joost-ten-Node</ns2:Value>
+       <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:Municipality>
+  <ns2:ExtraAddressInfo>City Atrium</ns2:ExtraAddressInfo>
+  <ns2:Email>commu@mineco.fgov.be</ns2:Email>
+  <ns2:TelephoneNumber>02 277 51 11</ns2:TelephoneNumber>
+  <ns2:FaxNumber>02 277 51 07</ns2:FaxNumber>
+  <ns2:Begin>2005-02-01+01:00</ns2:Begin>
+  <ns2:TypeOfAddress>
+     <ns2:Code>REGO</ns2:Code>
+     <ns2:Description>
+       <ns2:Value>Adres van de maatschappelijke zetel</ns2:Value>
+       <ns2:Language>nl</ns2:Language>
+     </ns2:Description>
+  </ns2:TypeOfAddress>
+</ns2:Address>
+<ns2:Address>
+  <ns2:Street>
+    <ns2:Code>1074</ns2:Code>
+    <ns2:Description>
+      <ns2:Value>Tenierslaan</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:Street>
+  <ns2:HouseNumber>3</ns2:HouseNumber>
+  <ns2:Zipcode>8370</ns2:Zipcode>
+  <ns2:Municipality>
+    <ns2:Code>31004</ns2:Code>
+    <ns2:Description>
+      <ns2:Value>Blankenberge</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:Municipality>
+  <ns2:Begin>2001-11-01+01:00</ns2:Begin>
+  <ns2:TypeOfAddress>
+    <ns2:Code>REGO</ns2:Code>
+    <ns2:Description>
+      <ns2:Value>Adres van de maatschappelijke zetel</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:TypeOfAddress>
+  <ns2:StrikingOff>2006-10-04+02:00</ns2:StrikingOff>
+</ns2:Address>
+<ns2:Address>
+  <ns2:Street>
+    <ns2:Code></ns2:Code>
+    <ns2:Description>
+      <ns2:Value>Glenfillas Street</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+  </ns2:Street>
+  <ns2:HouseNumber>3</ns2:HouseNumber>
+  <ns2:Zipcode>EH36AQ</ns2:Zipcode>
+  <ns2:Municipality>
+    <ns2:Code/>
+    <ns2:Description>
+      <ns2:Value>EDINBURG SCOTLAND</ns2:Value>
+      <ns2:Language>nl</ns2:Language>
+    </ns2:Description>
+   </ns2:Municipality>
+   <ns2:Country>
+     <ns2:Code>112</ns2:Code>
+     <ns2:Description>
+       <ns2:Value>Groot-Brittannië</ns2:Value>
+       <ns2:Language>nl</ns2:Language>
+     </ns2:Description>
+   </ns2:Country>
+   <ns2:Begin>2006-08-24+02:00</ns2:Begin>
+   <ns2:TypeOfAddress>
+     <ns2:Code>REGO</ns2:Code>
+     <ns2:Description>
+       <ns2:Value>Adres van de maatschappelijke zetel</ns2:Value>
+       <ns2:Language>nl</ns2:Language>
+     </ns2:Description>
+    </ns2:TypeOfAddress>
+</ns2:Address>
+<!-- Not in the cookbook: a technical creation reason and no TypeOfAddress (both optional in the XSD). -->
+<ns2:Address>
+  <ns2:Street>
+    <ns2:Code>0040</ns2:Code>
+    <ns2:Description><ns2:Value>Avenue Adolphe Buyl</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+  </ns2:Street>
+  <ns2:HouseNumber>ZN</ns2:HouseNumber>
+  <ns2:Box>B</ns2:Box>
+  <ns2:Zipcode>1050</ns2:Zipcode>
+  <ns2:Municipality>
+    <ns2:Code>21009</ns2:Code>
+    <ns2:Description><ns2:Value>Ixelles</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+  </ns2:Municipality>
+  <ns2:TechnicalCreationReason>
+    <ns2:Code>001</ns2:Code>
+    <ns2:Description><ns2:Value>Fusion de communes</ns2:Value><ns2:Language>fr</ns2:Language></ns2:Description>
+  </ns2:TechnicalCreationReason>
+</ns2:Address>
+</ns2:Snippet>

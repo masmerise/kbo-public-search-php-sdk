@@ -1,0 +1,8 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<!-- A contact type this SDK does not know. -->
+<ns2:ContactInformation>
+ <ns2:ContactType>009</ns2:ContactType>
+ <ns2:Value>something new</ns2:Value>
+ <ns2:ForeignBranchOfficeFlag>true</ns2:ForeignBranchOfficeFlag>
+</ns2:ContactInformation>
+</ns2:Snippet>

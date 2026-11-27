@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:11:31 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>77124747-ea01-4c57-99ae-feebf4ccf85d<\/RequestId><ReplyId>37abf84a-de83-4da6-88f3-574dad89f3dc<\/ReplyId><ReplyStatus><Code>00020<\/Code><Description>Establishment stopped<\/Description><\/ReplyStatus><AccountBalance>2982<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadEstablishmentByEstablishmentNumberReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"\/><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}

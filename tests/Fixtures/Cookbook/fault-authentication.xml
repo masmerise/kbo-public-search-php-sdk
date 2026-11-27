@@ -1,0 +1,9 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <soap:Fault>
+         <faultcode>soap:Client</faultcode>
+         <faultstring>The security token could not be authenticated or authorized
+</faultstring>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>

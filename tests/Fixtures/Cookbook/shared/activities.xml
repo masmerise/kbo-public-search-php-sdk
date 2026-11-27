@@ -1,0 +1,27 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<ns2:Activity>
+    <ns2:Code>68321</ns2:Code>
+    <ns2:ActivityGroupAdministration>
+        <ns2:ActivityGroup>006</ns2:ActivityGroup>
+        <ns2:Description>
+            <ns2:Value>Activités ONSS</ns2:Value>
+            <ns2:Language>fr</ns2:Language>
+        </ns2:Description>
+    </ns2:ActivityGroupAdministration>
+    <ns2:Version>2008</ns2:Version>
+    <ns2:Description>
+        <ns2:Value>Administration de biens immobiliers résidentiels pour compte de tiers</ns2:Value>
+        <ns2:Language>fr</ns2:Language>
+    </ns2:Description>
+    <ns2:Period>
+        <ns2:Begin>2008-01-01</ns2:Begin>
+    </ns2:Period>
+    <ns2:ActivityClassification>
+        <ns2:Code>MAIN</ns2:Code>
+        <ns2:Description>
+            <ns2:Value>Activité principale</ns2:Value>
+            <ns2:Language>fr</ns2:Language>
+        </ns2:Description>
+    </ns2:ActivityClassification>
+</ns2:Activity>
+</ns2:Snippet>

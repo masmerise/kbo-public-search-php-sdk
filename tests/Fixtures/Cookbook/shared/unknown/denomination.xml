@@ -1,0 +1,5 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<!-- A denomination code this SDK does not know. -->
+<!-- A denomination code this SDK does not know. -->
+<ns2:Denomination><ns2:Code>009</ns2:Code><ns2:Description><ns2:Value>Something new</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description><ns2:ValidityPeriod><ns2:Begin>2026-05-11</ns2:Begin></ns2:ValidityPeriod></ns2:Denomination>
+</ns2:Snippet>

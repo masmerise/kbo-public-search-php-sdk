@@ -1,0 +1,15 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Header>
+      <ReplyContext xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages">
+         <RequestId>myid</RequestId>
+         <ReplyId>23efbf0d-7d1e-4f67-981e-e1e2a766a5e0</ReplyId>
+         <ReplyStatus>
+            <Code>00014</Code>
+            <Description>Enterprise canceled</Description>
+         </ReplyStatus>
+      </ReplyContext>
+   </soap:Header>
+   <soap:Body>
+      <ReadEnterpriseReply xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel" xmlns="http://economie.fgov.be/kbopub/webservices/v1/messages"/>
+   </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,6 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<ns2:Status>
+  <ns2:Code>AC</ns2:Code>
+  <ns2:Description><ns2:Value>Actief</ns2:Value><ns2:Language>nl</ns2:Language></ns2:Description>
+</ns2:Status>
+</ns2:Snippet>

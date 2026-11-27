@@ -1,0 +1,15 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Date": "Wed, 25 Nov 2026 21:04:55 GMT",
+        "Content-Type": "text\/xml;charset=UTF-8",
+        "Set-Cookie": "REDACTED",
+        "Vary": "Accept-Encoding,User-Agent",
+        "XFF": "REDACTED",
+        "Strict-Transport-Security": "max-age=63072000; includeSubdomains; preload",
+        "Server": "Deathstar :)",
+        "Transfer-Encoding": "chunked"
+    },
+    "data": "<soap:Envelope xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/soap\/envelope\/\"><soap:Header><ReplyContext xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"><RequestId>0386e861-10b6-4c63-923f-3154455635d8<\/RequestId><ReplyId>6d78d659-a11d-4d8c-b7dd-1bd80d087bed<\/ReplyId><ReplyStatus><Code>00010<\/Code><Description>Enterprisenumber does not exist<\/Description><\/ReplyStatus><AccountBalance>2996<\/AccountBalance><SnapshotDate>2026-11-24<\/SnapshotDate><\/ReplyContext><\/soap:Header><soap:Body><ReadEnterpriseReply xmlns:ns2=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/datamodel\" xmlns=\"http:\/\/economie.fgov.be\/kbopub\/webservices\/v1\/messages\"\/><\/soap:Body><\/soap:Envelope>",
+    "context": []
+}

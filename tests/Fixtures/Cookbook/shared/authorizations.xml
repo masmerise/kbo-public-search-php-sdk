@@ -1,0 +1,12 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<ns2:Authorization>
+   <ns2:Code>00504</ns2:Code>
+   <ns2:Description>
+     <ns2:Value>Erkend door de Orde der Dierenartsen (Franstaligen)</ns2:Value>
+     <ns2:Language>nl</ns2:Language>
+   </ns2:Description>
+   <ns2:Period>
+     <ns2:Begin>1992-09-01+02:00</ns2:Begin>
+   </ns2:Period>
+</ns2:Authorization>
+</ns2:Snippet>

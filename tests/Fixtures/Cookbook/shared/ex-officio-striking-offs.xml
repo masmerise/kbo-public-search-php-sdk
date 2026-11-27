@@ -1,0 +1,12 @@
+<ns2:Snippet xmlns:ns2="http://economie.fgov.be/kbopub/webservices/v1/datamodel">
+<ns2:ExOfficioStrikingOff>
+  <ns2:Code>001</ns2:Code>
+  <ns2:Description>
+    <ns2:Value>niet-neerlegging jaarrekening</ns2:Value>
+    <ns2:Language>nl</ns2:Language>
+  </ns2:Description>
+  <ns2:ValidityPeriod>
+    <ns2:Begin>2013-05-15+02:00</ns2:Begin>
+  </ns2:ValidityPeriod>
+</ns2:ExOfficioStrikingOff>
+</ns2:Snippet>

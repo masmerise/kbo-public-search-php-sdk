@@ -1,4 +1,9 @@
 <p align="center">
+<img src="https://economie.fgov.be/sites/default/files/inline-images/Entreprises/LOGO-KBO-baseline-NL-250.jpg" alt="KBO Public Search PHP SDK" height="60">
+<img src="https://www.php.net/images/logos/php-logo.svg" alt="PHP" height="40">
+</p>
+
+<p align="center">
 <a href="https://github.com/masmerise/kbo-public-search-php-sdk/actions"><img src="https://github.com/masmerise/kbo-public-search-php-sdk/actions/workflows/test.yml/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/masmerise/kbo-public-search-php-sdk"><img src="https://img.shields.io/packagist/dt/masmerise/kbo-public-search-php-sdk" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/masmerise/kbo-public-search-php-sdk"><img src="https://img.shields.io/packagist/v/masmerise/kbo-public-search-php-sdk" alt="Latest Stable Version"></a>
@@ -7,11 +12,11 @@
 
 ## KBO Public Search PHP SDK
 
-This SDK provides convenient, fully-typed access to the [KBO/BCE Public Search web service](/docs/Cookbook-KBO-Public-Search-Webservice.pdf)
+This SDK provides convenient, fully-typed access to the [KBO Public Search web service](/docs/Cookbook-KBO-Public-Search-Webservice.pdf)
 of the Crossroads Bank for Enterprises (Kruispuntbank van Ondernemingen).
 
-You call methods with value objects and get immutable replies or typed exceptions back.
-SOAP, WS-Security, XML namespaces and status codes stay inside the SDK.
+You pass value objects and get immutable replies or typed exceptions back. SOAP, WS-Security and status codes stay
+inside the SDK. It implements cookbook release R018.08 (`KboPublicSearch::VERSION`).
 
 ## Installation
 
@@ -23,12 +28,12 @@ composer require masmerise/kbo-public-search-php-sdk
 
 ## Getting started
 
-You can always refer to the [cookbook](/docs/Cookbook-KBO-Public-Search-Webservice.pdf) to examine the operations that are available.
-Every method's docblock names the SOAP operation it calls.
+You can always refer to the [cookbook](/docs/Cookbook-KBO-Public-Search-Webservice.pdf) to examine the operations
+and every element of their replies. Each section below names the SOAP operation and the cookbook chapter it maps to.
 
 ### Setup
 
-Register for the web service on the [KBO Open Data portal](https://kbopub.economie.fgov.be/kbo-open-data/login) to receive your credentials.
+Register on the [KBO Open Data portal](https://kbopub.economie.fgov.be/kbo-open-data/login) to receive your credentials.
 
 ```php
 use KboPublicSearch\Authentication\Credentials;
@@ -39,188 +44,248 @@ $kbo = KboPublicSearch::authenticate(
 );
 ```
 
-### Environments
+## Enterprises
 
-The SDK targets the production environment by default. You can switch to the test (acceptance) environment when needed:
+### Read an enterprise
 
-```php
-$kbo->useTest();        // https://kbopub-acc.economie.fgov.be
-$kbo->useProduction();  // https://kbopub.economie.fgov.be
-```
-
-Both switches are fluent and affect every subsequent request. Each environment has its own credentials.
-
-### Languages
-
-Descriptions (statuses, juridical forms, activities, ...) are returned in Dutch by default:
+`ReadEnterprise`, cookbook §2.1. A closed number answers with the enterprise that replaced it.
 
 ```php
-$kbo->useDutch();
-$kbo->useFrench();
-$kbo->useDutchAndFrench();
-```
-
-Names (denominations) always come in every language KBO holds, German included.
-
-```php
+use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Localization\Language;
 
-$name = $enterprise->denominations->primary(Language::French)?->name;
-$status = $enterprise->juridicalSituation->status->description->in(Language::Dutch);
+$enterprise = $kbo->enterprises->find(EnterpriseNumber::fromString('0314.595.348'))->enterprise;
+
+$enterprise->denominations->primary(Language::Dutch)?->name; // "Federale Overheidsdienst Economie, ..."
+$enterprise->juridicalSituation->status->code;                // StatusCode::Active
+$enterprise->addresses->first()?->municipality->description;  // "Sint-Joost-ten-Node"
+$enterprise->activities->main();                              // the activities classified MAIN
 ```
 
-### Enterprises
+### Search enterprises phonetically
+
+`ReadEnterpriseByPhoneme`, cookbook §2.2.
 
 ```php
-use KboPublicSearch\Core\Type\Parameter\LocationFilter;
 use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Enterprise\Type\Parameter\EnterpriseJuridicalForm;
+use KboPublicSearch\Enterprise\Type\Parameter\TypesOfEnterprise;
+
+$reply = $kbo->enterprises->searchByPhoneme(
+    phonemes: Phonemes::of('economie', 'energie'),
+    typesOfEnterprise: TypesOfEnterprise::legalPersons(),
+    enterpriseJuridicalForm: EnterpriseJuridicalForm::Other, // only allowed when searching legal persons
+);
+
+foreach ($reply->enterprises as $enterprise) {
+    echo $enterprise->number, ' ', $enterprise->primaryDenomination, PHP_EOL;
+}
+```
+
+### Search physical persons by name
+
+`ReadEnterpriseByPhysicalPersonNameExactMatch`, cookbook §2.3.
+
+```php
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Enterprise\Type\EnterpriseTypes;
-use KboPublicSearch\Enterprise\Type\JuridicalFormFilter;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
-use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
 use KboPublicSearch\Enterprise\Type\Primitive\FirstName;
 use KboPublicSearch\Enterprise\Type\Primitive\LastName;
 
-$enterprise = $kbo->enterprises->find(
-    EnterpriseNumber::fromString('0314.595.348'), // also "BE0314595348", "314595348"
-)->enterprise;
-
-$enterprise->number->toString();               // "0314595348"
-$enterprise->denominations->primary()?->name;  // the first name, in any language
-$enterprise->juridicalSituation->status->kind; // StatusKind::Active
-$enterprise->addresses->first()?->street->name->first();
-$enterprise->functions;                        // Functions
-$enterprise->activities->main();               // activities classified MAIN
-
-// At most 200 summaries; $reply->isTruncated() when KBO found more.
-$reply = $kbo->enterprises->searchByPhoneme(
-    phonemes: Phonemes::of('economie', 'energie'),
-    types: EnterpriseTypes::legalPersons(),    // ::naturalPersons(), ::all() (default)
-    zipcode: Zipcode::fromString('1210'),
-    juridicalForm: JuridicalFormFilter::Other, // only together with legalPersons()
-    onlyActive: true,
-);
-
-$reply = $kbo->enterprises->searchByPersonName(LastName::fromString('Doe'), firstName: FirstName::fromString('John'));
-$reply = $kbo->enterprises->searchByCompanyName(CompanyName::fromString('Federale Overheidsdienst Economie, K.M.O., Middenstand en Energie'));
-$reply = $kbo->enterprises->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::zipcodes('9300'));
-
-foreach ($reply->enterprises as $summary) {
-    echo $summary->number, ' ', $summary->name, PHP_EOL;
-}
+$enterprises = $kbo->enterprises->searchByPhysicalPersonName(
+    lastName: LastName::fromString('Doe'),
+    firstName: FirstName::fromString('John'),
+    zipcode: Zipcode::fromString('3940'),
+)->enterprises;
 ```
 
-A location filter is 1 to 4 municipality (NIS) codes, 1 municipality and its neighbours, or 1 to 4 zipcodes:
+### Search legal persons by name
+
+`ReadEnterpriseLegalPersonByCompanyNameExactMatch`, cookbook §2.4.
+
+```php
+use KboPublicSearch\Enterprise\Type\Primitive\CompanyName;
+
+$enterprises = $kbo->enterprises->searchByCompanyName(
+    companyName: CompanyName::fromString('Belgisch Interventie- en Restitutiebureau'),
+    onlyActive: false,
+)->enterprises;
+```
+
+### Search enterprises by authorization
+
+`ReadEnterpriseByAuthorization`, cookbook §2.12. The codes come from the [code list](#code-lists).
 
 ```php
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
 
-LocationFilter::municipalities('44021', '44020');
-LocationFilter::neighbouringMunicipality('44021');
-LocationFilter::zipcodes('9000', '9050');
+$enterprises = $kbo->enterprises->searchByAuthorization(
+    authorizationFilter: AuthorizationSearchCode::fromString('T004'),
+    locationFilter: LocationFilter::zipcodes('9300'), // or ::municipalities() or ::neighboringMunicipality()
+)->enterprises;
 ```
 
-### Establishments
+## Establishment units
+
+Establishment replies come in two levels of detail (`TypeOfResult`, cookbook §2.5.1). `Short` returns the essentials and
+the name; `Long` adds every denomination, the activities and the authorizations, but takes longer.
+
+### Read an establishment unit
+
+`ReadEstablishmentByEstablishmentNumber`, cookbook §2.6.
 
 ```php
-use KboPublicSearch\Core\Type\Parameter\Detail;
-use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Parameter\Phonemes;
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Core\Type\Primitive\EstablishmentNumber;
-use KboPublicSearch\Enterprise\Type\Primitive\AuthorizationCode;
-use KboPublicSearch\Establishment\Type\EstablishmentName;
+use KboPublicSearch\Establishment\Type\Parameter\TypeOfResult;
 
-$establishment = $kbo->establishments->find(EstablishmentNumber::fromString('2.147.241.191'), Detail::Long)->establishment;
+$establishment = $kbo->establishments->find(
+    EstablishmentNumber::fromString('2.147.241.191'),
+    TypeOfResult::Long,
+)->establishment;
 
-$kbo->establishments->ofEnterprise(EnterpriseNumber::fromString('0314595348'), Detail::Short);
-$kbo->establishments->searchByName(EstablishmentName::fromString('Zuiderpoort Office Park'));
-$kbo->establishments->searchByPhoneme(Phonemes::of('City', 'Atrium'));
-$kbo->establishments->searchByAuthorization(AuthorizationCode::fromString('T004'), LocationFilter::municipalities('44021'));
+$establishment->enterpriseNumber; // the enterprise it belongs to
+$establishment->activities;
 ```
 
-`Detail::Short` returns the name in the requested languages (`$establishment->name`). `Detail::Long` returns every
-denomination, the activities, the authorizations and the enterprise's ex officio striking offs instead. Whatever a level
-does not return is an empty collection. Long replies are slow for enterprises with many establishments, so prefer
-`ofEnterprise(..., Detail::Short)` followed by `find(..., Detail::Long)` for the ones you need.
+### List the establishment units of an enterprise
 
-### Enterprises and establishments together
+`ReadEstablishmentByEnterpriseNumber`, cookbook §2.5. The list is complete, so prefer `Short` for large enterprises and
+read the units you need with `find()`.
+
+```php
+use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+
+$establishments = $kbo->establishments->ofEnterprise(EnterpriseNumber::fromString('0314.595.348'))->establishments;
+```
+
+### Search establishment units by name
+
+`ReadEstablishmentByNameExactMatch`, cookbook §2.7.
+
+```php
+use KboPublicSearch\Core\Type\Primitive\Zipcode;
+use KboPublicSearch\Establishment\Type\Primitive\EstablishmentName;
+
+$establishments = $kbo->establishments->searchByName(
+    establishmentName: EstablishmentName::fromString('Zuiderpoort Office Park'),
+    zipcode: Zipcode::fromString('9050'),
+)->establishments;
+```
+
+### Search establishment units phonetically
+
+`ReadEstablishmentByPhoneme`, cookbook §2.8.
+
+```php
+use KboPublicSearch\Core\Type\Parameter\Phonemes;
+
+$establishments = $kbo->establishments->searchByPhoneme(Phonemes::of('City', 'Atrium'))->establishments;
+```
+
+### Search establishment units by authorization
+
+`ReadEstablishmentByAuthorization`, cookbook §2.13.
 
 ```php
 use KboPublicSearch\Core\Type\Parameter\LocationFilter;
-use KboPublicSearch\Core\Type\Primitive\HouseNumber;
+use KboPublicSearch\Core\Type\Primitive\AuthorizationSearchCode;
+
+$establishments = $kbo->establishments->searchByAuthorization(
+    authorizationFilter: AuthorizationSearchCode::fromString('T074'),
+    locationFilter: LocationFilter::municipalities('44021'),
+)->establishments;
+```
+
+## Enterprises and establishment units together
+
+These searches return both, in reply order. Each comes with its own `Enterprise` and `Establishment` types, which hold
+the elements cookbook §2.9.2 lists.
+
+### Search by address
+
+`ReadEnterpriseOrEstablishmentByAddress`, cookbook §2.9. The street name must be spelled exactly; [look it up](#street-names) first.
+
+```php
 use KboPublicSearch\Core\Type\Primitive\StreetName;
 use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Entity\Type\ActivityCodes;
-use KboPublicSearch\Entity\Type\EntityKinds;
+use KboPublicSearch\EnterpriseOrEstablishment\Type\Primitive\HouseNumber;
 
-$entities = $kbo->entities->searchByAddress(
+$results = $kbo->enterprisesOrEstablishments->searchByAddress(
     zipcode: Zipcode::fromString('1210'),
-    street: StreetName::fromString('Vooruitgangstraat'),
+    streetName: StreetName::fromString('Vooruitgangsstraat'),
     houseNumber: HouseNumber::fromString('50'),
-)->entities;
+)->enterprisesOrEstablishments;
 
-$entities->enterprises();     // EnterpriseSummaries
-$entities->establishments();  // Establishments
-
-$kbo->entities->searchByActivity(
-    activities: ActivityCodes::of('10711'),  // NACEBEL 2025 codes or prefixes (3-7 digits)
-    location: LocationFilter::zipcodes('9300'),
-    kinds: EntityKinds::legalPersons()->with(EntityKinds::establishments()), // ::all() (default), ::naturalPersons()
-);
+$results->enterprises();
+$results->establishments();
 ```
 
-### Street names and code lists
+### Search by activity
+
+`ReadEnterpriseOrEstablishmentByActivity`, cookbook §2.11. Activity codes are NACEBEL 2025 codes or prefixes of 3 to 7 digits.
 
 ```php
-use KboPublicSearch\CodeList\Type\CodeListId;
-use KboPublicSearch\Core\Type\Primitive\Zipcode;
-use KboPublicSearch\Street\Type\PartOfStreetName;
+use KboPublicSearch\Core\Type\Parameter\LocationFilter;
+use KboPublicSearch\EnterpriseOrEstablishment\Type\Parameter\ActivityFilter;
+use KboPublicSearch\EnterpriseOrEstablishment\Type\Parameter\EnterpriseOrEstablishmentFilter;
 
-$streets = $kbo->streets->search(Zipcode::fromString('9000'), PartOfStreetName::fromString('veld'))->streetNames;
-
-$codes = $kbo->codeLists->read(CodeListId::AuthorizationSearchCode)->codeList;
-$lists = $kbo->codeLists->read(CodeListId::MetaCodeList)->codeList; // which lists exist
-
-foreach ($codes as $item) {
-    echo $item->code, ' ', $item->description, ' ', $item->value('EntityKind'), PHP_EOL;
-}
+$results = $kbo->enterprisesOrEstablishments->searchByActivity(
+    activityFilter: ActivityFilter::of('10711'),
+    locationFilter: LocationFilter::zipcodes('9300'),
+    // all three by default
+    enterpriseOrEstablishmentFilter: EnterpriseOrEstablishmentFilter::legalPersons()->with(EnterpriseOrEstablishmentFilter::establishments()),
+)->enterprisesOrEstablishments;
 ```
 
-Reading a code list is free: it does not count towards your quota.
+## Street names
+
+`ReadStreetName`, cookbook §2.10. Each result can be passed straight to an address search.
+
+```php
+use KboPublicSearch\Core\Type\Primitive\Zipcode;
+use KboPublicSearch\Street\Type\Primitive\PartOfStreetName;
+
+$streetNames = $kbo->streets->search(
+    zipcode: Zipcode::fromString('9000'),
+    partOfStreetName: PartOfStreetName::fromString('veld'),
+)->streetNames; // "BASSEVELDESTRAAT", "VELDSTRAAT", ...
+```
+
+## Code lists
+
+`ReadCodeList`, cookbook §2.14. Reading a code list is free: it does not count towards your quota.
+
+```php
+use KboPublicSearch\CodeList\Type\EntityKind;
+
+$codes = $kbo->codeLists->authorizationSearchCodes()->authorizationSearchCodes;
+
+foreach ($codes->ofKind(EntityKind::Enterprise) as $item) {
+    echo $item->code, ' ', $item->description, PHP_EOL; // "T004 Metser ( ... )"
+}
+
+$lists = $kbo->codeLists->metaCodeList()->metaCodeList; // the code lists KBO serves
+```
 
 ## Replies
 
-Every operation returns a reply: the payload under a name that fits the operation, plus the reply's header.
+Every method returns a reply: the payload under a name that fits the operation, plus KBO's reply header (cookbook §1.4).
 
 ```php
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
+use KboPublicSearch\Core\Type\Parameter\Phonemes;
 
-$reply = $kbo->enterprises->find(EnterpriseNumber::fromString('0314.595.348'));
+$reply = $kbo->enterprises->searchByPhoneme(Phonemes::of('economie'));
 
-$reply->enterprise;                 // Enterprise
-$reply->context->requestId;         // the UUID the SDK sent
-$reply->context->replyId;           // the UUID KBO generated
-$reply->context->status;            // ReplyStatus::Success
-$reply->context->accountBalance;    // ?int, requests left today
-$reply->context->snapshotDate;      // ?Date, the day the data reflects; null while KBO refreshes (~00:30-02:00)
-$reply->context->charged();         // false for free replies (10001/10003)
+$reply->context->accountBalance; // requests left today
+$reply->context->snapshotDate;   // the day the data reflects; null while KBO refreshes (~00:30-02:00)
+$reply->isTruncated();           // true when KBO found more than 200 results
 ```
 
-| Method                                            | Reply                      | Payload                                  |
-|---------------------------------------------------|----------------------------|------------------------------------------|
-| `enterprises->find()`                             | `EnterpriseReply`          | `enterprise: Enterprise`                 |
-| `enterprises->searchBy*()`                        | `EnterpriseSearchReply`    | `enterprises: EnterpriseSummaries`       |
-| `establishments->find()`                          | `EstablishmentReply`       | `establishment: Establishment`           |
-| `establishments->ofEnterprise()` / `searchBy*()`  | `EstablishmentSearchReply` | `establishments: Establishments`         |
-| `entities->searchBy*()`                           | `EntitySearchReply`        | `entities: Entities`                     |
-| `streets->search()`                               | `StreetNameReply`          | `streetNames: StreetNames`               |
-| `codeLists->read()`                               | `CodeListReply`            | `codeList: CodeList`                     |
+A search without results returns an empty collection.
 
-Searches return at most 200 results. When KBO found more, `$reply->isTruncated()` is `true`.
-A search without matches returns an empty collection rather than throwing.
+Codes in replies are enums or value objects, never plain strings, e.g. `JuridicalFormCode::FederalPublicService`.
+Most enums are generated from [KBO's code tables](https://economie.fgov.be/nl/themas/ondernemingen/kruispuntbank-van/diensten-voor-administraties/codetabellen).
+A code the SDK does not know yet fails the reply with an `UnknownException`: please open an issue, so it can be added.
 
 ## Failures (exception handling)
 
@@ -228,125 +293,69 @@ The SDK uses exceptions as its medium to communicate failures.
 
 ```
 KboPublicSearchException
-├── CouldNotAuthenticate (wrong credentials)
+├── CouldNotAuthenticate
+│   ├── InvalidCredentials (wrong username or password, or a skewed clock)
 │   └── MustAcceptTermsOfService (exposes ->url)
 ├── RequestLimitReached (daily quota used up)
-├── CouldNotCompleteRequest (any other SOAP fault, exposes ->faultCode and ->faultString)
-├── UnknownException (connection errors, replies that are not KBO replies)
-└── ValidationException (KBO answered with a status this operation does not accept)
+├── CouldNotCompleteRequest (any other SOAP fault)
+├── UnknownException (connection errors, unknown codes)
+└── ValidationException (KBO did not accept the request)
     ├── CouldNotFindEnterprise
     ├── CouldNotSearchEnterprisesByPhoneme
-    ├── CouldNotSearchEnterprisesByPersonName
-    ├── CouldNotSearchEnterprisesByCompanyName
-    ├── CouldNotSearchEnterprisesByAuthorization
     ├── CouldNotFindEstablishment
     ├── CouldNotGetEstablishmentsOfEnterprise
-    ├── CouldNotSearchEstablishmentsByName
-    ├── CouldNotSearchEstablishmentsByPhoneme
-    ├── CouldNotSearchEstablishmentsByAuthorization
-    ├── CouldNotSearchEntitiesByAddress
-    ├── CouldNotSearchEntitiesByActivity
-    ├── CouldNotSearchStreets
-    └── CouldNotReadCodeList
+    └── ...
 ```
 
-A `ValidationException` carries the reply's status and context. Unknown, canceled and not-yet-active numbers throw:
-
 ```php
-use KboPublicSearch\Core\Reply\ReplyStatus;
 use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
 use KboPublicSearch\Enterprise\Find\Failure\CouldNotFindEnterprise;
 
 try {
-    $enterprise = $kbo->enterprises->find(EnterpriseNumber::fromString('0206231995'))->enterprise;
+    $enterprise = $kbo->enterprises->find(EnterpriseNumber::fromString('0206.231.995'))->enterprise;
 } catch (CouldNotFindEnterprise $ex) {
-    $ex->status;              // ReplyStatus::EnterpriseCanceled
-    $ex->getMessage();        // "Enterprise canceled"
-    $ex->context->statusCode; // "00014", also kept for codes the SDK does not know (ReplyStatus::Unknown)
+    $ex->status;       // ReplyStatus::EnterpriseCanceled
+    $ex->getMessage(); // "Enterprise canceled"
 }
 ```
 
-Invalid input never costs a request: value objects validate what the schema enforces (mod-97 checks, lengths,
-counts) and throw an `InvalidArgumentException` as soon as they are built.
+Invalid input never costs a request: value objects validate what the web service enforces, such as the modulo 97
+check of a number, and throw an `InvalidArgumentException` as soon as they are built.
+
+## Localization
+
+Descriptions come in Dutch by default. Names always come in every language KBO holds.
 
 ```php
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-
-EnterpriseNumber::fromString('0314.595.349'); // InvalidArgumentException: does not pass the modulo 97 check
+$kbo->useDutch();
+$kbo->useFrench();
+$kbo->useDutchAndFrench();
 ```
 
-## Quota
+## Environment
 
-Production allows 3000 requests a day, reset daily. Replies tell you how many are left:
+### Production (default)
 
 ```php
-use KboPublicSearch\Core\Failure\RequestLimitReached;
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-
-try {
-    $reply = $kbo->enterprises->find(EnterpriseNumber::fromString('0314595348'));
-    $left = $reply->context->accountBalance;
-} catch (RequestLimitReached $ex) {
-    $ex->getMessage(); // "Quota Exceeded!" or "Your balance is empty!"
-}
+$kbo->useProduction();
 ```
 
-The test environment allows far fewer requests (100 a week at the time of writing).
-
-## Clock sync
-
-Every request carries a WS-Security timestamp, which KBO checks against its own clock.
-Keep the clock of the machine running the SDK synchronised with a time server.
-
-## Terms of service
-
-KBO may ask you to accept new terms of service before it answers again:
+### Test
 
 ```php
-use KboPublicSearch\Authentication\Failure\MustAcceptTermsOfService;
-use KboPublicSearch\Core\Type\Primitive\EnterpriseNumber;
-
-try {
-    $kbo->enterprises->find(EnterpriseNumber::fromString('0314595348'));
-} catch (MustAcceptTermsOfService $ex) {
-    $ex->url; // "https://kbopub.economie.fgov.be/kbo-open-data/login"
-}
+$kbo->useTest();
 ```
+
+Each environment has its own credentials. The test environment allows far fewer requests than production's 3000 a day.
+
+## Clock
+
+Every request carries a WS-Security timestamp, which KBO checks against its own clock (cookbook §1.2). Keep the clock of
+the machine running the SDK in sync: KBO rejects a skewed timestamp as if the credentials were wrong.
 
 ## Timeouts
 
-The SDK defaults to a 30 second timeout and does not retry: SOAP faults are deterministic and retries would spend quota.
-
-## Version
-
-The SDK implements cookbook release R018.08:
-
-```php
-use KboPublicSearch\KboPublicSearch;
-
-KboPublicSearch::VERSION; // "R018.08"
-```
-
-## Implementation progress
-
-| SOAP operation                                   | Method                                   |   |
-|--------------------------------------------------|------------------------------------------|---|
-| ReadEnterprise                                   | `enterprises->find()`                    | ✓ |
-| ReadEnterpriseByPhoneme                          | `enterprises->searchByPhoneme()`         | ✓ |
-| ReadEnterpriseByPhysicalPersonNameExactMatch     | `enterprises->searchByPersonName()`      | ✓ |
-| ReadEnterpriseLegalPersonByCompanyNameExactMatch | `enterprises->searchByCompanyName()`     | ✓ |
-| ReadEnterpriseByAuthorization                    | `enterprises->searchByAuthorization()`   | ✓ |
-| ReadEstablishmentByEstablishmentNumber           | `establishments->find()`                 | ✓ |
-| ReadEstablishmentByEnterpriseNumber              | `establishments->ofEnterprise()`         | ✓ |
-| ReadEstablishmentByNameExactMatch                | `establishments->searchByName()`         | ✓ |
-| ReadEstablishmentByPhoneme                       | `establishments->searchByPhoneme()`      | ✓ |
-| ReadEstablishmentByAuthorization                 | `establishments->searchByAuthorization()` | ✓ |
-| ReadEnterpriseOrEstablishmentByAddress           | `entities->searchByAddress()`            | ✓ |
-| ReadEnterpriseOrEstablishmentByActivity          | `entities->searchByActivity()`           | ✓ |
-| ReadStreetName                                   | `streets->search()`                      | ✓ |
-| ReadCodeList                                     | `codeLists->read()`                      | ✓ |
-
-This is an unofficial SDK. Feel free to submit a feature or pull request!
+The SDK defaults to a 30 second timeout. It does not retry: a retry would fail the same way and cost another request.
 
 ## Testing
 
@@ -354,12 +363,7 @@ This is an unofficial SDK. Feel free to submit a feature or pull request!
 composer test
 ```
 
-The tests replay real KBO replies recorded with [Saloon's fixtures](https://docs.saloon.dev/the-basics/testing#fixtures)
-under `tests/Fixtures/Saloon`, so they run offline without credentials. Natural persons' names are redacted.
-
-To record a new or changed operation, copy `tests/.env.example` to `tests/.env`, fill in your credentials and the
-environment (`test` or `production`), delete the fixture and run the tests again. CI sets `CI=true`, which makes a
-missing fixture fail the build instead of recording it.
+The tests replay real KBO replies, so they run offline. See `tests/.env.example` to record new ones.
 
 ## Changelog
 
